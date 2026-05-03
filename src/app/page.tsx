@@ -7,6 +7,7 @@ export default function Home() {
   const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function Home() {
         .monster { animation: monsterPulse 2s infinite, float 3s ease-in-out infinite; }
         .hero-bg { background: radial-gradient(ellipse at center, rgba(255,64,0,0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
         @media (max-width: 768px) {
-          .hero-buttons { flex-direction: column !important; align-items: center !important; gap: 15px !important; }
+          .hero-buttons { flex-direction: column !important; align-items: center !important; gap: 20px !important; }
           .nav-buttons { flex-direction: column !important; gap: 10px !important; }
           .feature-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
           .pricing-grid { grid-template-columns: 1fr !important; gap: 20px !important; max-width: 100% !important; }
@@ -62,11 +63,11 @@ export default function Home() {
           .hero-title { font-size: 2.5rem !important; }
           .hero-subtitle { font-size: 0.9rem !important; }
           .nav { padding: 15px !important; }
-          .monster { font-size: 1.5rem !important; }
+          .monster { font-size: 2rem !important; }
         }
       ` }} />
       <nav style={{ padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div className="monster" style={{ fontSize: '2rem', cursor: 'pointer' }}>
+        <div className="monster" style={{ fontSize: '3rem', cursor: 'pointer' }}>
           🦑
         </div>
         <div className="nav-buttons" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
@@ -105,8 +106,14 @@ export default function Home() {
           <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '16px 32px', borderRadius: '8px', fontSize: '1.1rem', fontWeight: 'bold', marginRight: '15px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
             Start Creating Ads
           </button>
-          <button style={{ background: 'none', border: '2px solid #ff4000', color: '#ff4000', padding: '16px 32px', borderRadius: '8px', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowCampaign(true)} onMouseOver={(e) => { (e.target as HTMLElement).style.background = '#ff4000'; (e.target as HTMLElement).style.color = '#000'; }} onMouseOut={(e) => { (e.target as HTMLElement).style.background = 'none'; (e.target as HTMLElement).style.color = '#ff4000'; }}>
-            View Demo Campaign
+          <button style={{ background: 'none', border: '2px solid #ff4000', color: '#ff4000', padding: '16px 32px', borderRadius: '8px', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={async () => {
+            setIsGenerating(true);
+            setTimeout(() => {
+              setIsGenerating(false);
+              setShowCampaign(true);
+            }, 3000);
+          }} onMouseOver={(e) => { (e.target as HTMLElement).style.background = '#ff4000'; (e.target as HTMLElement).style.color = '#000'; }} onMouseOut={(e) => { (e.target as HTMLElement).style.background = 'none'; (e.target as HTMLElement).style.color = '#ff4000'; }}>
+            Run the Beast
           </button>
         </div>
       </section>
@@ -117,14 +124,14 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Powerful Features</h2>
           <div className="feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
             <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 0.6s both' }} onClick={() => setExpandedFeature(expandedFeature === 'scout' ? null : 'scout')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔍</div>
+              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🪖</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'scout' ? '#ff4000' : '#fff' }}>Smart Subreddit Scouting</h3>
-              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Analyzes subreddits for promo rules, fit score, and best posting times.</p>
+              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Like a ninja finding the best hideouts, we scout Reddit for promo-friendly subs. Avoids bans like a pro — no more getting shadowbanned for bad vibes!</p>
               <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
               {expandedFeature === 'scout' && (
                 <div style={{ marginTop: '20px', padding: '20px', background: 'rgba(255,64,0,0.1)', borderRadius: '8px', border: '1px solid #ff4000' }}>
                   <p style={{ color: '#fff', fontSize: '1rem' }}>
-                    Benefits: Increases posting success by 300%, avoids bans, targets ideal audiences, saves hours of research.
+                    Technical: Analyzes subreddit cultures using AI to assess self-promotion policies, fit scores, and optimal posting times. Increases success by 300%, avoids bans, targets ideal audiences, saves hours of research.
                   </p>
                 </div>
               )}
@@ -132,12 +139,12 @@ export default function Home() {
             <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 0.8s both' }} onClick={() => setExpandedFeature(expandedFeature === 'optimize' ? null : 'optimize')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🎯</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'optimize' ? '#ff4000' : '#fff' }}>Platform Optimization</h3>
-              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Tailored copy using PAS, AIDA, HSO, and BAB frameworks for each platform.</p>
+              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Turns your ad into a chameleon — blends perfectly on Twitter threads, LinkedIn posts, or Reddit. Speaks the local lingo like a native!</p>
               <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
               {expandedFeature === 'optimize' && (
                 <div style={{ marginTop: '20px', padding: '20px', background: 'rgba(255,64,0,0.1)', borderRadius: '8px', border: '1px solid #ff4000' }}>
                   <p style={{ color: '#fff', fontSize: '1rem' }}>
-                    Benefits: 5x higher engagement, platform-specific tone, proven copywriting frameworks, automated optimization.
+                    Technical: Tailored copy using PAS (Problem-Agitate-Solve), AIDA (Attention-Interest-Desire-Action), HSO (Hook-Story-Offer), and BAB (Before-After-Bridge) frameworks for each platform. Benefits: 5x higher engagement, platform-specific tone, proven copywriting frameworks, automated optimization.
                   </p>
                 </div>
               )}
@@ -145,12 +152,12 @@ export default function Home() {
             <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 1s both' }} onClick={() => setExpandedFeature(expandedFeature === 'auto' ? null : 'auto')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🤖</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'auto' ? '#ff4000' : '#fff' }}>Auto-Posting</h3>
-              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>One-click or fully autonomous posting to Reddit, Twitter, LinkedIn, and more.</p>
+              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Hit send once, and watch your ads deploy like a swarm of bees to every platform. Sleep soundly while the beast does the heavy lifting!</p>
               <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
               {expandedFeature === 'auto' && (
                 <div style={{ marginTop: '20px', padding: '20px', background: 'rgba(255,64,0,0.1)', borderRadius: '8px', border: '1px solid #ff4000' }}>
                   <p style={{ color: '#fff', fontSize: '1rem' }}>
-                    Benefits: Saves 10+ hours/week, 24/7 posting, API integrations, zero manual work.
+                    Technical: One-click or fully autonomous posting via APIs to Reddit, Twitter, LinkedIn, Facebook, Instagram, TikTok, and email. Benefits: Saves 10+ hours/week, 24/7 posting, API integrations, zero manual work.
                   </p>
                 </div>
               )}
@@ -253,6 +260,11 @@ export default function Home() {
               const name = formData.get('name') as string;
               const email = formData.get('email') as string;
               const password = formData.get('password') as string;
+              const confirmPassword = formData.get('confirmPassword') as string;
+              if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+              }
               const res = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -268,7 +280,8 @@ export default function Home() {
             }}>
               <input name="name" type="text" placeholder="Name" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
               <input name="email" type="email" placeholder="Email" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
-              <input name="password" type="password" placeholder="Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '20px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
+              <input name="password" type="password" placeholder="Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
+              <input name="confirmPassword" type="password" placeholder="Confirm Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '20px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
               <button type="submit" style={{ width: '100%', padding: '10px', background: '#ff4000', border: 'none', borderRadius: '4px', color: '#000', cursor: 'pointer' }}>Sign Up</button>
             </form>
             <button style={{ background: 'none', border: 'none', color: '#fff', marginTop: '10px', cursor: 'pointer' }} onClick={() => setShowSignup(false)}>Close</button>
@@ -276,22 +289,51 @@ export default function Home() {
         </div>
       )}
 
-      {/* Demo Campaign Modal */}
-      {showCampaign && (
+      {/* Generating Modal */}
+      {isGenerating && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div style={{ background: '#111', padding: '60px', borderRadius: '12px', textAlign: 'center', boxShadow: '0 0 50px rgba(255,64,0,0.5)' }}>
+            <div style={{ fontSize: '4rem', marginBottom: '20px', animation: 'spin 2s linear infinite' }}>🦑</div>
+            <h2 style={{ marginBottom: '20px', color: '#ff4000' }}>Unleashing the Beast...</h2>
+            <p style={{ color: '#ccc' }}>Generating your multi-platform ad campaign...</p>
+            <div style={{ marginTop: '20px', width: '200px', height: '4px', background: '#333', borderRadius: '2px', overflow: 'hidden' }}>
+              <div style={{ width: '100%', height: '100%', background: 'linear-gradient(90deg, #ff4000, #ff7733)', animation: 'pulse 1.5s ease-in-out infinite' }}></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Campaign Report Modal */}
+      {showCampaign && !isGenerating && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '600px', maxHeight: '80vh', overflowY: 'auto' }}>
-            <h2 style={{ marginBottom: '20px' }}>Demo Campaign: Promote AD BEAST</h2>
-            <p style={{ color: '#ccc', marginBottom: '20px' }}>Here&apos;s a sample campaign generated for promoting AD BEAST itself.</p>
-            <div style={{ background: '#000', padding: '20px', borderRadius: '4px', marginBottom: '20px' }}>
-              <h3>Reddit Post</h3>
-              <p><strong>Title:</strong> I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
-              <p>Real talk from a fellow builder... [content]</p>
+          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '700px', maxHeight: '80vh', overflowY: 'auto', boxShadow: '0 0 50px rgba(255,64,0,0.3)' }}>
+            <h2 style={{ marginBottom: '20px', color: '#ff4000' }}>🔥 Campaign Report Generated</h2>
+            <p style={{ color: '#ccc', marginBottom: '30px' }}>The Beast has analyzed your product and generated optimized ads for multiple platforms.</p>
+            <div style={{ background: '#000', padding: '20px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #ff4000' }}>
+              <h3 style={{ color: '#ff4000', marginBottom: '15px' }}>📍 Reddit — r/indiehackers</h3>
+              <p style={{ fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>Title: I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
+              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
+                Real talk from a fellow builder: I could ship products but marketing was painful. Different tone for every platform, subreddit rules I kept violating, and zero consistency.<br />
+                So I built AD BEAST — an autonomous ad engine. Paste your product → Scout finds the best subreddits (with promo rules checked) → Generates tailored copy across Reddit, X threads, LinkedIn, cold emails, TikTok scripts — all at once. One-click to post.<br />
+                Free tier gives you real campaigns to test. Pro is $19/mo.<br />
+                Still early. Brutal feedback welcome — what's missing?<br />
+                Link: https://add-beast.vercel.app/
+              </p>
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <a href="#" style={{ color: '#ff4000', textDecoration: 'none' }}>📄 View Full Report</a>
+            <div style={{ background: '#000', padding: '20px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #4a9eff' }}>
+              <h3 style={{ color: '#4a9eff', marginBottom: '15px' }}>🧵 Twitter Thread</h3>
+              <ol style={{ color: '#ccc', lineHeight: '1.6' }}>
+                <li>1/ Most indie makers build in public. Very few market in public consistently. I fixed that problem in ~30 seconds. Thread 🧵</li>
+                <li>2/ Writing ads used to kill my momentum. Different formats, tones, and rules for every platform. I'd do one or two and call it a day.</li>
+                <li>3/ AD BEAST changes the game: One product description → Smart scouting of subreddits → Perfectly tailored copy for every major platform simultaneously.</li>
+                <li>4/ One-click posting. Or go autonomous. Free tier available. Pro $19/mo. 10% of revenue goes to GiveDirectly (extreme poverty relief). Try it → https://add-beast.vercel.app/</li>
+              </ol>
             </div>
-            <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '10px 20px', borderRadius: '4px' }} onClick={() => setShowCampaign(false)}>
-              Close
+            <div style={{ marginBottom: '30px' }}>
+              <a href="#" style={{ color: '#ff4000', textDecoration: 'none', fontWeight: 'bold' }}>📄 View Full Report (PDF Download)</a>
+            </div>
+            <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '12px 24px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => setShowCampaign(false)}>
+              Close Report
             </button>
           </div>
         </div>
