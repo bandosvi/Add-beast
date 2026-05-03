@@ -311,11 +311,11 @@ export default function Home() {
           🐺
         </div>
         <div className="hdr-mid">
-          <div className="tier-pill tp-free">FREE TIER</div>
+          <div className="tier-pill tp-free">EVERYTHING FREE</div>
         </div>
         <div className="hdr-right">
           <div className="live">CLAUDE ONLINE</div>
-          <button className="hbtn" onClick={openPricing}>⚡ Upgrade</button>
+          <button className="hbtn" onClick={openPricing}>💚 Donate</button>
           <button className="hbtn" onClick={openAdmin}>ADMIN</button>
         </div>
       </header>
@@ -333,9 +333,9 @@ export default function Home() {
       <div className="usage-wrap" id="usage-wrap">
         <div className="usage-inner">
           <span className="ul">Monthly Campaigns</span>
-          <div className="ut"><div className="uf"></div></div>
-          <span className="uc">0 / 2</span>
-          <button className="uu">UPGRADE</button>
+          <div className="ut"><div className="uf full"></div></div>
+          <span className="uc">UNLIMITED</span>
+          <button className="uu">DONATE</button>
         </div>
       </div>
 
@@ -382,21 +382,25 @@ export default function Home() {
             <span className="pt-mode pm-click">⚡ 1-CLICK</span>
             <span className="ck">✔</span>
           </button>
-          <button className="pt locked">
+          <button className="pt on">
             📘 Facebook
             <span className="pt-mode pm-click">⚡ 1-CLICK</span>
+            <span className="ck">✔</span>
           </button>
-          <button className="pt locked">
+          <button className="pt on">
             📸 Instagram
             <span className="pt-mode pm-copy">📋 COPY</span>
+            <span className="ck">✔</span>
           </button>
-          <button className="pt locked">
+          <button className="pt on">
             💼 LinkedIn
             <span className="pt-mode pm-click">⚡ 1-CLICK</span>
+            <span className="ck">✔</span>
           </button>
-          <button className="pt locked">
+          <button className="pt on">
             🎵 TikTok Script
             <span className="pt-mode pm-copy">📋 COPY</span>
+            <span className="ck">✔</span>
           </button>
           <button className="pt on">
             📧 Cold Email
@@ -411,10 +415,7 @@ export default function Home() {
             {isGenerating ? 'GENERATING...' : '🔥 UNLEASH THE BEAST'}
           </button>
         </div>
-        <div className="gate">
-          <div className="gate-txt">⚡ You&apos;ve hit your free campaign limit this month.<br />Upgrade to Pro for unlimited campaigns + Scout Mode.</div>
-          <button className="gate-btn">UPGRADE — $19/mo</button>
-        </div>
+
         <div className="prog"><div className="prog-log"></div></div>
       </div>
 
@@ -463,57 +464,32 @@ export default function Home() {
       <div className={`overlay ${showPricing ? 'on' : ''}`}>
         <div className="modal" style={{maxWidth: '540px'}}>
           <div className="mh">
-            <div className="mtitle">CHOOSE YOUR TIER</div>
-            <div className="msub">All plans use Claude AI. Higher tiers unlock Scout Mode targeting, one-click posting, and full autonomy.</div>
+            <div className="mtitle">EVERYTHING IS FREE</div>
+            <div className="msub">AD BEAST is completely free and unlimited. Consider donating to support our charity partnership.</div>
             <button className="mc" onClick={closePricing}>✕</button>
           </div>
           <div className="mb">
             <div className="price-grid">
-              <div className="pc">
-                <div className="pc-name">Free</div>
+              <div className="pc star" style={{gridColumn: '1/-1'}}>
+                <div className="pc-badge">EVERYTHING FREE</div>
+                <div className="pc-name">AD BEAST</div>
                 <div className="pc-price">$0</div>
                 <div className="pc-per">forever</div>
-                <ul>
-                  <li className="y">3 platforms</li>
-                  <li className="y">2 campaigns/month</li>
-                  <li className="y">Copy to clipboard</li>
-                  <li className="y">Reddit Scout (3 subs)</li>
-                  <li>One-click posting</li>
-                  <li>Unlimited campaigns</li>
-                </ul>
-                <button className="pcbtn btn-free">CURRENT PLAN</button>
-              </div>
-              <div className="pc star">
-                <div className="pc-badge">MOST POPULAR</div>
-                <div className="pc-name">Pro</div>
-                <div className="pc-price">$19</div>
-                <div className="pc-per">per month</div>
-                <ul>
+                <ul style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px'}}>
                   <li className="y">All 8 platforms</li>
                   <li className="y">Unlimited campaigns</li>
                   <li className="y">⚡ One-click posting</li>
-                  <li className="y">Scout Mode — 10 subs</li>
-                  <li className="y">Per-sub tailored posts</li>
-                  <li>🤖 API auto-posting</li>
-                </ul>
-                <button className="pcbtn btn-pro" onClick={() => handlePurchase('pro')}>GET PRO — $19/mo</button>
-              </div>
-              <div className="pc" style={{gridColumn: '1/-1'}}>
-                <div className="pc-name" style={{fontSize: '1.1rem'}}>🔥 Beast Mode</div>
-                <div className="pc-price" style={{fontSize: '2.2rem'}}>$49</div>
-                <div className="pc-per">per month</div>
-                <ul style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px'}}>
-                  <li className="y">Everything in Pro</li>
-                  <li className="y">🤖 Reddit API auto-post</li>
                   <li className="y">Scout Mode — unlimited subs</li>
-                  <li className="y">Auto-target all approved subs</li>
+                  <li className="y">Per-sub tailored posts</li>
+                  <li className="y">🤖 Reddit API auto-post</li>
                   <li className="y">Rule analysis per subreddit</li>
                   <li className="y">Priority AI generation</li>
+                  <li className="y">Powered by Claude</li>
                 </ul>
-                <button className="pcbtn btn-beast" style={{marginTop: '14px'}} onClick={() => handlePurchase('beast')}>BEAST MODE — $49/mo</button>
+                <button className="pcbtn btn-free" style={{marginTop: '14px'}}>START USING NOW</button>
               </div>
             </div>
-            <div className="price-note">Cancel anytime · <b>10% of revenue → GiveDirectly.org</b><br />Admin or promo code? <a href="#" onClick={() => { closePricing(); openAdmin(); }}>Enter here →</a></div>
+            <div className="price-note"><b>100% Free Forever</b> · <b>Support our charity: 10% of donations → GiveDirectly.org</b><br />Want to donate? <a href="#" onClick={() => { closePricing(); openAdmin(); }}>Enter here →</a></div>
           </div>
         </div>
       </div>
@@ -521,21 +497,21 @@ export default function Home() {
       <div className={`overlay ${showAdmin ? 'on' : ''}`}>
         <div className="modal" style={{maxWidth: '460px'}}>
           <div className="mh">
-            <div className="mtitle">ADMIN ACCESS</div>
-            <div className="msub">Enter your admin password for free unlimited access.</div>
+            <div className="mtitle">DONATE TO SUPPORT</div>
+            <div className="msub">Help us keep AD BEAST free forever. 10% of donations go to GiveDirectly.org.</div>
             <button className="mc" onClick={closeAdmin}>✕</button>
           </div>
           <div className="mb">
             <div id="admin-login-form">
-              <div className="af"><label>Admin Password</label><input className="ainput" type="password" placeholder="Password" /></div>
-              <button className="abtn">🔥 ACCESS ADMIN</button>
-              <div className="aerr">Wrong password. Try again.</div>
+              <div className="af"><label>Donation Amount</label><input className="ainput" type="number" placeholder="$10" /></div>
+              <button className="abtn">💚 MAKE DONATION</button>
+              <div className="aerr">Thank you for supporting AD BEAST!</div>
             </div>
             <div className="admin-dash">
               <div className="astats">
                 <div className="ast"><div className="ast-n">0</div><div className="ast-l">Campaigns Fired</div></div>
                 <div className="ast"><div className="ast-n">∞</div><div className="ast-l">Your Limit</div></div>
-                <div className="ast"><div className="ast-n">ADM</div><div className="ast-l">Tier Status</div></div>
+                <div className="ast"><div className="ast-n">FREE</div><div className="ast-l">Tier Status</div></div>
               </div>
               <div className="asec">REDDIT API — Auto-Post</div>
               <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.63rem', color: '#44444f', lineHeight: '1.7'}}>
@@ -552,7 +528,7 @@ export default function Home() {
                 🤖 <span style={{color: '#b8ff00'}}>Reddit auto-post</span> requires Script App credentials above.<br />
                 ⚡ All other platforms use one-click intent URLs — no API key needed.
               </div>
-              <button className="alogout">LOG OUT OF ADMIN</button>
+              <button className="alogout">CLOSE</button>
             </div>
           </div>
         </div>

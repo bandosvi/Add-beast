@@ -26,7 +26,7 @@ export default function Landing() {
             <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => window.location.href = '/'}>
               Try AD BEAST
             </button>
-            <small style={{ color: '#ffffff', display: 'block', marginTop: '5px' }}>Free Tier Available • Powered by Claude • Pro $19/mo</small>
+            <small style={{ color: '#ffffff', display: 'block', marginTop: '5px' }}>Everything Free • Unlimited Campaigns • Powered by Claude</small>
           </div>
           <div>
             <button style={{ background: 'none', border: '2px solid #ff4000', color: '#ff4000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowCampaign(true)}>
@@ -91,26 +91,22 @@ export default function Landing() {
 
       <section style={{ padding: '80px 20px', background: '#000', borderTop: '2px solid #ff4000' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Pricing</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Everything is FREE!</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ border: '2px solid #333', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', backdropFilter: 'blur(10px)' }}>
-              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#ffffff' }}>Free Tier</h3>
-              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '30px', color: '#ffffff' }}>$0</p>
+            <div style={{ border: '2px solid #ff4000', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,64,0,0.1) 0%, rgba(255,64,0,0.05) 100%)', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', background: '#ff4000', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 'bold' }}>UNLIMITED & FREE</div>
+              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#ffffff' }}>AD BEAST</h3>
+              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '30px', color: '#ffffff' }}>FREE</p>
               <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ffffff', fontSize: '1rem', lineHeight: '2' }}>
-                <li>• Login required</li>
-                <li>• 2 campaigns/month (great for testing)</li>
+                <li>• No login required</li>
+                <li>• Unlimited campaigns</li>
+                <li>• All platforms unlocked</li>
+                <li>• Advanced Scout Mode</li>
+                <li>• Auto-posting & one-click</li>
                 <li>• Powered by Claude</li>
               </ul>
-              <button style={{ background: 'linear-gradient(45deg, #333, #555)', border: 'none', color: '#ffffff', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
-                Get Started Free
-              </button>
-            </div>
-            <div style={{ border: '2px solid #ff4000', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,64,0,0.1) 0%, rgba(255,64,0,0.05) 100%)', position: 'relative' }}>
-              <div style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', background: '#ff4000', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 'bold' }}>MOST POPULAR</div>
-              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#ffffff' }}>Pro — $19/month</h3>
-              <p style={{ fontSize: '1rem', color: '#ffffff', marginBottom: '30px' }}>Unlimited campaigns, advanced Scout, auto-post, priority features</p>
               <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
-                [Big Button: Upgrade to Pro & Go Unlimited]
+                Start Using AD BEAST
               </button>
             </div>
           </div>
