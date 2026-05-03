@@ -319,9 +319,8 @@ export default function Home() {
           <div className={`tier-pill tp-admin ${currentTier === 'admin' ? 'active' : ''}`} onClick={() => setCurrentTier('admin')}>ADMIN</div>
         </div>
         <div className="hdr-right">
-          <div className="live">CLAUDE ONLINE</div>
           <button className="hbtn" onClick={openPricing}>💚 Donate</button>
-           <button className="hbtn" onClick={openAdmin}>SUPPORT</button>
+            <button className="hbtn" onClick={openAdmin}>SUPPORT</button>
         </div>
       </header>
 
