@@ -24,16 +24,25 @@
             cursor: pointer;
             margin: 10px;
         }
+        .free-badge {
+            background: #00ff00;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>🐺 AD BEAST</h1>
-    <p>Autonomous Ad Engine</p>
-    <button onclick="testClaude()">Test Claude API</button>
+    <p>Autonomous Ad Engine <span class="free-badge">FREE FOREVER</span></p>
+    <p>Powered by Google Gemini • No credit card required</p>
+    <button onclick="testGemini()">Test Gemini API</button>
     <div id="result"></div>
 
     <script>
-        async function testClaude() {
+        async function testGemini() {
             try {
                 const response = await fetch('/api/claude', {
                     method: 'POST',
@@ -41,7 +50,7 @@
                     body: JSON.stringify({
                         model: 'claude-3-haiku-20240307',
                         max_tokens: 100,
-                        messages: [{ role: 'user', content: 'Hello Claude!' }]
+                        messages: [{ role: 'user', content: 'Hello Gemini!' }]
                     })
                 });
                 const data = await response.json();

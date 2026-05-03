@@ -1,27 +1,97 @@
+// AD BEAST — Gemini Proxy
+// Accepts Anthropic-style requests from the frontend,
+// translates to Gemini format, returns Anthropic-style response.
+// Frontend needs zero changes.
+//
+// FREE tier: gemini-1.5-flash
+//   - 15 requests/minute
+//   - 1,500 requests/day
+//   - No credit card required
+//
+// Set GEMINI_API_KEY in Vercel → Settings → Environment Variables
+// Get your free key at: aistudio.google.com
+
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  // CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({
+      error: 'GEMINI_API_KEY not set. Go to Vercel → Settings → Environment Variables and add it. Get a free key at aistudio.google.com'
+    });
   }
 
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify(req.body),
+    // ── Translate Anthropic request → Gemini format ──────────────────────────
+    // Incoming body looks like:
+    // { model: "...", max_tokens: 1000, messages: [{ role: "user", content: "..." }] }
+    const { messages, max_tokens } = req.body;
+
+    // Flatten messages into a single Gemini "contents" array
+    const contents = (messages || []).map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: typeof m.content === 'string' ? m.content : JSON.stringify(m.content) }]
+    }));
+
+    const geminiBody = {
+      contents,
+      generationConfig: {
+        maxOutputTokens: max_tokens || 1000,
+        temperature: 0.85
+      }
     });
 
-    if (!r.ok) {
-      throw new Error(`Anthropic API error: ${r.status}`);
+    // ── Call Gemini ──────────────────────────────────────────────────────────
+    const model = 'gemini-1.5-flash'; // Free, fast, capable
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+    const geminiRes = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(geminiBody)
+    });
+
+    const geminiData = await geminiRes.json();
+
+    if (!geminiRes.ok) {
+      console.error('Gemini error:', geminiData);
+      return res.status(geminiRes.status).json({
+        error: geminiData?.error?.message || 'Gemini API error',
+        details: geminiData
+      });
     }
 
-    const data = await r.json();
-    res.status(200).json(data);
-  } catch (error) {
-    console.error('Error calling Claude API:', error);
-    res.status(500).json({ error: 'Failed to call Claude API' });
+    // ── Translate Gemini response → Anthropic format ─────────────────────────
+    // Gemini returns:
+    // { candidates: [{ content: { parts: [{ text: "..." }] } }] }
+    //
+    // Frontend expects:
+    // { content: [{ type: "text", text: "..." }] }
+
+    const text = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    const anthropicStyleResponse = {
+      id: 'gemini-' + Date.now(),
+      type: 'message',
+      role: 'assistant',
+      content: [{ type: 'text', text }],
+      model: model,
+      stop_reason: 'end_turn',
+      usage: {
+        input_tokens: geminiData?.usageMetadata?.promptTokenCount || 0,
+        output_tokens: geminiData?.usageMetadata?.candidatesTokenCount || 0
+      }
+    };
+
+    return res.status(200).json(anthropicStyleResponse);
+
+  } catch (err) {
+    console.error('Proxy error:', err);
+    return res.status(500).json({ error: err.message });
   }
 }

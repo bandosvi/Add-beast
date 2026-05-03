@@ -27,6 +27,7 @@ Full AD BEAST implementation is functional. All typecheck and lint checks pass.
 - [x] Made hero description bold and white
 - [x] Created /api/claude proxy endpoint and replaced Anthropic SDK with fetch calls
 - [x] Added Vercel static deployment files: index.html, api/claude.js, vercel.json
+- [x] Replaced Anthropic API with Google Gemini proxy for free unlimited usage
 
 ## Current Focus
 
@@ -81,3 +82,4 @@ For Claude integration, Reddit posting, etc.
 | 2026-05-03 | Made hero description bold and white |
 | 2026-05-03 | Created /api/claude proxy endpoint and replaced Anthropic SDK with fetch calls |
 | 2026-05-03 | Added Vercel static deployment files: index.html, api/claude.js, vercel.json |
+| 2026-05-03 | Replaced Anthropic API with Google Gemini proxy for free unlimited usage |
