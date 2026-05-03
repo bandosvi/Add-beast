@@ -23,6 +23,7 @@ Full AD BEAST implementation is functional. All typecheck and lint checks pass.
 - [x] Landing page at /landing with hero, features, pricing, social proof, footer
 - [x] Font color fixes for white text on dark backgrounds
 - [x] Claude AI API route for ad generation (/api/unleash-beast)
+- [x] Made everything free: removed pricing tiers, unlocked all platforms, updated UI to reflect unlimited free access
 
 ## Current Focus
 
@@ -73,3 +74,4 @@ For Claude integration, Reddit posting, etc.
 | 2026-05-03 | Started AD BEAST implementation - landing page, legal pages |
 | 2026-05-03 | Completed main AD BEAST UI with modals, platform selection, output section |
 | 2026-05-03 | Fixed font colors (white on dark backgrounds), added Claude AI integration |
+| 2026-05-03 | Made everything free: removed pricing tiers, unlocked all platforms, updated UI to reflect unlimited free access |
