@@ -25,36 +25,36 @@ export default function Home() {
   `;
 
   return (
-    <div style={{ fontFamily: 'Barlow, sans-serif', background: '#07070a', color: '#c4c4d4', minHeight: '100vh', padding: '20px' }}>
-      <header style={{ textAlign: 'center', marginBottom: 'clamp(20px, 5vw, 40px)' }}>
-        <h1 style={{ fontSize: 'clamp(2rem, 7.5vw, 5rem)', fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>
+      <div style={{ fontFamily: 'Barlow, sans-serif', background: '#07070a', color: '#c4c4d4', minHeight: '100vh' }}>
+      <header style={{ textAlign: 'center', marginBottom: '40px', padding: '20px' }}>
+        <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>
           AD <span style={{ color: '#ff4000' }}>BEAST</span> — Autonomous Ad Engine
         </h1>
-        <p style={{ fontSize: 'clamp(1rem, 4vw, 1.2rem)', color: '#c4c4d4', maxWidth: '600px', margin: '0 auto' }}>
+        <p style={{ fontSize: '1.2rem', color: '#c4c4d4', maxWidth: '600px', margin: '0 auto' }}>
           Stop wasting hours writing ads. Start getting eyes on your product.
         </p>
-        <p style={{ fontSize: 'clamp(0.9rem, 3vw, 1rem)', color: '#888', marginTop: '10px' }}>
+        <p style={{ fontSize: '1rem', color: '#888', marginTop: '10px' }}>
           AI that turns one product description into a full multi-platform campaign — in seconds.
         </p>
       </header>
 
-      <section style={{ maxWidth: '800px', margin: '0 auto clamp(20px, 5vw, 40px)', textAlign: 'center' }}>
-        <ul style={{ listStyle: 'none', padding: 0, fontSize: 'clamp(0.9rem, 3vw, 1rem)', lineHeight: '1.8' }}>
+      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
+        <ul style={{ listStyle: 'none', padding: 0, fontSize: '1rem', lineHeight: '1.8' }}>
           <li>• Smart subreddit scouting (checks promo rules + fit score + best day)</li>
           <li>• Platform-optimized copy using proven frameworks (PAS, AIDA, HSO, BAB)</li>
           <li>• One-click or auto-post to Reddit, X/Twitter, LinkedIn, Facebook, Instagram, TikTok & cold email</li>
           <li>• Powered by Claude</li>
         </ul>
-        <p style={{ marginTop: '20px', fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', color: '#888' }}>
+        <p style={{ marginTop: '20px', fontSize: '0.9rem', color: '#888' }}>
           Free tier available • Pro: $19/mo (unlimited campaigns + advanced scouting)
         </p>
-        <p style={{ marginTop: '20px', fontSize: 'clamp(0.9rem, 3vw, 1rem)', color: '#22c55e' }}>
+        <p style={{ marginTop: '20px', fontSize: '1rem', color: '#22c55e' }}>
           💚 10% of every revenue dollar goes to GiveDirectly.org — direct cash to people in extreme poverty (GiveWell #1 charity).
         </p>
       </section>
 
-      <section style={{ maxWidth: '800px', margin: '0 auto clamp(20px, 5vw, 40px)', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
+      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
           UNLEASH THE BEAST!
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '30px' }}>
@@ -82,42 +82,42 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ maxWidth: '800px', margin: '0 auto clamp(20px, 5vw, 40px)', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
+      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
           🔥 Ready Campaigns
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-          <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: 'clamp(10px, 3vw, 12px) clamp(20px, 5vw, 24px)', borderRadius: '4px', fontSize: 'clamp(0.9rem, 3vw, 1rem)', cursor: 'pointer', width: '100%', maxWidth: '250px' }} onClick={() => setShowCampaign(true)}>
+          <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', width: '100%', maxWidth: '250px' }} onClick={() => setShowCampaign(true)}>
             Load "Promote AD BEAST" Campaign
           </button>
-          <button style={{ background: '#4a9eff', color: '#000', border: 'none', padding: 'clamp(10px, 3vw, 12px) clamp(20px, 5vw, 24px)', borderRadius: '4px', fontSize: 'clamp(0.9rem, 3vw, 1rem)', cursor: 'pointer', width: '100%', maxWidth: '250px' }}>
+          <button style={{ background: '#4a9eff', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', width: '100%', maxWidth: '250px' }}>
             Create New Campaign
           </button>
         </div>
       </section>
 
-      <section style={{ maxWidth: '800px', margin: '0 auto clamp(20px, 5vw, 40px)', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
+      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
           Pricing
         </h2>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #1c1c24', width: 'clamp(150px, 40vw, 200px)', minWidth: '150px' }}>
-            <h3 style={{ color: '#fff', marginBottom: '10px', fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>Free</h3>
-            <p style={{ color: '#c4c4d4', fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)' }}>2 campaigns/month + basic platforms</p>
+          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #1c1c24', width: '200px', minWidth: '150px' }}>
+            <h3 style={{ color: '#fff', marginBottom: '10px', fontSize: '1.2rem' }}>Free</h3>
+            <p style={{ color: '#c4c4d4', fontSize: '0.9rem' }}>2 campaigns/month + basic platforms</p>
           </div>
-          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #f5c518', width: 'clamp(150px, 40vw, 200px)', minWidth: '150px' }}>
-            <h3 style={{ color: '#f5c518', marginBottom: '10px', fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>Pro — $19/month</h3>
-            <p style={{ color: '#c4c4d4', fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)' }}>Unlimited campaigns, full auto-post, advanced Scout Mode, priority support</p>
+          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #f5c518', width: '200px', minWidth: '150px' }}>
+            <h3 style={{ color: '#f5c518', marginBottom: '10px', fontSize: '1.2rem' }}>Pro — $19/month</h3>
+            <p style={{ color: '#c4c4d4', fontSize: '0.9rem' }}>Unlimited campaigns, full auto-post, advanced Scout Mode, priority support</p>
           </div>
         </div>
-        <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: 'clamp(10px, 3vw, 14px) clamp(20px, 5vw, 28px)', borderRadius: '4px', fontSize: 'clamp(1rem, 3vw, 1.2rem)', cursor: 'pointer', marginTop: '20px', width: '100%', maxWidth: '200px' }}>
+        <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: '14px 28px', borderRadius: '4px', fontSize: '1.2rem', cursor: 'pointer', marginTop: '20px', width: '100%', maxWidth: '200px' }}>
           Upgrade
         </button>
       </section>
 
       {showCampaign && (
-        <section style={{ maxWidth: 'clamp(300px, 90vw, 1000px)', margin: '0 auto clamp(20px, 5vw, 40px)', padding: 'clamp(10px, 3vw, 20px)', background: '#0f0f13', borderRadius: '8px', border: '1px solid #1c1c24' }}>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: 'bold', color: '#fff', marginBottom: '20px', textAlign: 'center' }}>
+        <section style={{ maxWidth: '1000px', margin: '0 auto 40px', padding: '20px', background: '#0f0f13', borderRadius: '8px', border: '1px solid #1c1c24' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px', textAlign: 'center' }}>
             🔥 PROMOTE AD BEAST CAMPAIGN (Upgraded)
           </h2>
 
@@ -172,16 +172,16 @@ export default function Home() {
         </section>
       )}
 
-      <section style={{ maxWidth: '800px', margin: '0 auto clamp(20px, 5vw, 40px)', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
+      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
           Social Proof Section (add later)
         </h2>
-        <blockquote style={{ color: '#c4c4d4', fontStyle: 'italic', fontSize: 'clamp(0.9rem, 3vw, 1rem)' }}>
+        <blockquote style={{ color: '#c4c4d4', fontStyle: 'italic', fontSize: '1rem' }}>
           "Finally consistent marketing without the burnout" — Early User
         </blockquote>
       </section>
 
-      <footer style={{ textAlign: 'center', marginTop: 'clamp(20px, 5vw, 40px)', color: '#888', fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)' }}>
+      <footer style={{ textAlign: 'center', marginTop: '40px', padding: '0 20px', color: '#888', fontSize: '0.9rem' }}>
         <p>Built with ❤️ for indie hackers, solopreneurs & side hustlers.</p>
         <p>10% → GiveDirectly.org</p>
       </footer>
