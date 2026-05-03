@@ -22,8 +22,14 @@ export default function Home() {
   const openPricing = () => setShowPricing(true);
   const closePricing = () => setShowPricing(false);
 
-  const openAdmin = () => setShowAdmin(true);
-  const closeAdmin = () => setShowAdmin(false);
+  const openAdmin = () => {
+    console.log('Opening admin modal');
+    setShowAdmin(true);
+  };
+  const closeAdmin = () => {
+    console.log('Closing admin modal');
+    setShowAdmin(false);
+  };
 
   const openScout = () => setShowScout(true);
   const closeScout = () => setShowScout(false);
@@ -100,6 +106,44 @@ export default function Home() {
     } catch (error) {
       alert('Purchase failed');
     }
+  };
+
+  const handlePromoteBeast = () => {
+    // Load pre-built AD BEAST promotion campaign
+    const promoteData = {
+      productName: 'AD BEAST - Autonomous Ad Engine',
+      price: 'FREE to try',
+      description: 'AI-powered ad generation for 8+ platforms. Scout subreddits intelligently. Post automatically or one-click. Powered by Google Gemini.',
+      audience: 'marketers, entrepreneurs, content creators',
+      painPoint: 'wasting hours creating ads that don\'t convert',
+      socialProof: '500+ users, saves 2+ hours per campaign',
+      website: 'https://adbeast.ai',
+      subreddits: 'marketing, entrepreneur, smallbusiness, digitalmarketing',
+      platforms: [
+        { name: 'Reddit', mode: 'copy', selected: true },
+        { name: 'Twitter/X', mode: 'click', selected: true },
+        { name: 'X Thread', mode: 'click', selected: true },
+        { name: 'Facebook', mode: 'click', selected: true },
+        { name: 'Instagram', mode: 'copy', selected: true },
+        { name: 'LinkedIn', mode: 'click', selected: true },
+        { name: 'TikTok Script', mode: 'copy', selected: true },
+        { name: 'Cold Email', mode: 'copy', selected: true },
+      ].filter(p => p.selected),
+      frameworks: ['PAS = Problem→Agitate→Solve', 'AIDA = Attention→Interest→Desire→Action', 'HSO = Hook→Story→Offer', 'BAB = Before→After→Bridge']
+    };
+
+    // Update form fields
+    if (productNameRef.current) productNameRef.current.value = promoteData.productName;
+    if (priceRef.current) priceRef.current.value = promoteData.price;
+    if (descriptionRef.current) descriptionRef.current.value = promoteData.description;
+    if (audienceRef.current) audienceRef.current.value = promoteData.audience;
+    if (painPointRef.current) painPointRef.current.value = promoteData.painPoint;
+    if (socialProofRef.current) socialProofRef.current.value = promoteData.socialProof;
+    if (websiteRef.current) websiteRef.current.value = promoteData.website;
+    if (subredditsRef.current) subredditsRef.current.value = promoteData.subreddits;
+
+    // Scroll to top of setup section
+    document.querySelector('.setup')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -320,7 +364,7 @@ export default function Home() {
         </div>
         <div className="hdr-right">
           <button className="hbtn" onClick={openPricing}>💚 Donate</button>
-            <button className="hbtn" onClick={openAdmin}>SUPPORT</button>
+            <button className="hbtn" onClick={openAdmin}>SETTINGS</button>
         </div>
       </header>
 
@@ -348,7 +392,7 @@ export default function Home() {
 
         <div className="sp-bar">
           <div className="sp-txt">Want to promote <b>AD BEAST</b> itself? Load the pre-built campaign and fire it.</div>
-          <button className="sp-btn">🔥 PROMOTE AD BEAST</button>
+          <button className="sp-btn" onClick={handlePromoteBeast}>🔥 PROMOTE AD BEAST</button>
         </div>
 
         <div className="g2">
