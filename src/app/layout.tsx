@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Barlow, Barlow_Condensed, IBM_Plex_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Barlow, Barlow_Condensed, IBM_Plex_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,6 +33,12 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "AD BEAST — Autonomous Ad Engine",
   description: "AI-powered autonomous advertising engine",
@@ -46,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${barlow.variable} ${barlowCondensed.variable} ${ibmPlexMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${barlow.variable} ${barlowCondensed.variable} ${ibmPlexMono.variable} ${inter.variable} antialiased`}
       >
         {children}
       </body>

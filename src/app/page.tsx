@@ -5,186 +5,122 @@ import { useState } from "react";
 export default function Home() {
   const [showCampaign, setShowCampaign] = useState(false);
 
-  const mobileStyles = `
-    @media (max-width: 768px) {
-      .hero h1 { font-size: clamp(2rem, 10vw, 4rem) !important; }
-      .section-grid { grid-template-columns: 1fr !important; gap: 15px !important; }
-      .pricing-cards { flex-direction: column !important; align-items: center !important; }
-      .pricing-card { width: 100% !important; max-width: 300px !important; }
-      .campaign-buttons { flex-direction: column !important; gap: 10px !important; }
-      .campaign-buttons button { width: 100% !important; max-width: 250px !important; }
-    }
-    @media (max-width: 480px) {
-      body { padding: 10px !important; }
-      .hero h1 { font-size: clamp(1.8rem, 12vw, 3rem) !important; }
-      .hero p { font-size: 1rem !important; }
-      .section h2 { font-size: 1.8rem !important; }
-      .pricing-card { padding: 15px !important; }
-      .upgrade-btn { padding: 12px 20px !important; font-size: 1rem !important; }
-    }
-  `;
-
   return (
-      <div style={{ fontFamily: 'Barlow, sans-serif', background: '#07070a', color: '#c4c4d4', minHeight: '100vh' }}>
-      <header style={{ textAlign: 'center', marginBottom: '40px', padding: '20px 20px 0', width: '100%', boxSizing: 'border-box', background: '#07070a' }}>
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>
-          AD <span style={{ color: '#ff4000', fontWeight: 'bold' }}>BEAST</span> - Autonomous Ad Engine
+    <div style={{ fontFamily: 'Inter, sans-serif', background: '#000', color: '#fff', minHeight: '100vh' }}>
+      {/* Navigation */}
+      <nav style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+          AD <span style={{ color: '#ff4000' }}>BEAST</span>
+        </div>
+        <div>
+          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', marginRight: '10px' }}>
+            Login
+          </button>
+          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px' }}>
+            Get Started
+          </button>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section style={{ textAlign: 'center', padding: '100px 20px' }}>
+        <h1 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '20px' }}>
+          Autonomous Ad Engine
         </h1>
-        <p style={{ fontSize: '1.2rem', color: '#c4c4d4', maxWidth: '600px', margin: '0 auto' }}>
-          Stop wasting hours writing ads. Start getting eyes on your product.
+        <p style={{ fontSize: '1.2rem', color: '#ccc', maxWidth: '600px', margin: '0 auto 40px' }}>
+          Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.
         </p>
-        <p style={{ fontSize: '1rem', color: '#888', marginTop: '10px' }}>
-          AI that turns one product description into a full multi-platform campaign — in seconds.
-        </p>
-      </header>
-
-      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
-        <ul style={{ listStyle: 'none', padding: 0, fontSize: '1rem', lineHeight: '1.8' }}>
-          <li>• Smart subreddit scouting (checks promo rules + fit score + best day)</li>
-          <li>• Platform-optimized copy using proven frameworks (PAS, AIDA, HSO, BAB)</li>
-          <li>• One-click or auto-post to Reddit, X/Twitter, LinkedIn, Facebook, Instagram, TikTok & cold email</li>
-          <li>• Powered by Claude</li>
-        </ul>
-        <p style={{ marginTop: '20px', fontSize: '0.9rem', color: '#888' }}>
-          Free tier available • Pro: $19/mo (unlimited campaigns + advanced scouting)
-        </p>
-        <p style={{ marginTop: '20px', fontSize: '1rem', color: '#22c55e' }}>
-          💚 10% of every revenue dollar goes to GiveDirectly.org — direct cash to people in extreme poverty (GiveWell #1 charity).
-        </p>
-      </section>
-
-      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
-          UNLEASH THE BEAST!
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #1c1c24' }}>
-            <h3 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '10px' }}>The Problem</h3>
-            <p style={{ color: '#c4c4d4', lineHeight: '1.6' }}>
-              You built something great.<br />
-              Now the hard part: telling people it exists.<br />
-              Writing ads feels like a second job. Different rules per platform. Subreddits ban you for bad promo. Inconsistent effort = zero traction.
-            </p>
-          </div>
-          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #1c1c24' }}>
-            <h3 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '10px' }}>The Solution</h3>
-            <p style={{ color: '#c4c4d4', lineHeight: '1.6' }}>
-              Describe your product once.<br />
-              AD BEAST handles the rest:
-              <br />• Finds communities that actually allow promotion
-              <br />• Generates tailored, high-converting copy for every platform
-              <br />• Lets you post with one click or go fully autonomous
-            </p>
-            <p style={{ fontSize: '0.9rem', color: '#888', marginTop: '10px' }}>
-              Built by a founder who was tired of the same pain.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
-          🔥 Ready Campaigns
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-          <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', width: '100%', maxWidth: '250px' }} onClick={() => setShowCampaign(true)}>
-            Load "Promote AD BEAST" Campaign
+        <div>
+          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '4px', fontSize: '1rem', marginRight: '10px' }}>
+            Start Creating Ads
           </button>
-          <button style={{ background: '#4a9eff', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', width: '100%', maxWidth: '250px' }}>
-            Create New Campaign
+          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '15px 30px', borderRadius: '4px', fontSize: '1rem' }} onClick={() => setShowCampaign(true)}>
+            View Demo Campaign
           </button>
         </div>
       </section>
 
-      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
-          Pricing
-        </h2>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #1c1c24', width: '200px', minWidth: '150px' }}>
-            <h3 style={{ color: '#fff', marginBottom: '10px', fontSize: '1.2rem' }}>Free</h3>
-            <p style={{ color: '#c4c4d4', fontSize: '0.9rem' }}>2 campaigns/month + basic platforms</p>
-          </div>
-          <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #f5c518', width: '200px', minWidth: '150px' }}>
-            <h3 style={{ color: '#f5c518', marginBottom: '10px', fontSize: '1.2rem' }}>Pro — $19/month</h3>
-            <p style={{ color: '#c4c4d4', fontSize: '0.9rem' }}>Unlimited campaigns, full auto-post, advanced Scout Mode, priority support</p>
+      {/* Features */}
+      <section style={{ padding: '80px 20px', background: '#111' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '40px' }}>Features</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔍</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Smart Subreddit Scouting</h3>
+              <p style={{ color: '#ccc' }}>Analyzes subreddits for promo rules, fit score, and best posting times.</p>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🎯</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Platform Optimization</h3>
+              <p style={{ color: '#ccc' }}>Tailored copy using PAS, AIDA, HSO, and BAB frameworks for each platform.</p>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🤖</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Auto-Posting</h3>
+              <p style={{ color: '#ccc' }}>One-click or fully autonomous posting to Reddit, Twitter, LinkedIn, and more.</p>
+            </div>
           </div>
         </div>
-        <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: '14px 28px', borderRadius: '4px', fontSize: '1.2rem', cursor: 'pointer', marginTop: '20px', width: '100%', maxWidth: '200px' }}>
-          Upgrade
-        </button>
       </section>
 
-      {showCampaign && (
-        <section style={{ maxWidth: '1000px', margin: '0 auto 40px', padding: '20px', background: '#0f0f13', borderRadius: '8px', border: '1px solid #1c1c24' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px', textAlign: 'center' }}>
-            🔥 PROMOTE AD BEAST CAMPAIGN (Upgraded)
-          </h2>
-
-          <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ fontSize: '1.5rem', color: '#ff4000', marginBottom: '10px' }}>🔴 REDDIT — r/indiehackers (Top Target)</h3>
-            <p style={{ fontWeight: 'bold', color: '#fff' }}>Title: I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
-            <p style={{ color: '#c4c4d4', lineHeight: '1.6', marginTop: '10px' }}>
-              Real talk from a fellow builder:<br />
-              I could ship products but marketing was painful. Different tone for every platform, subreddit rules I kept violating, and zero consistency.<br />
-              So I built AD BEAST — an autonomous ad engine.<br />
-              Paste your product → Scout finds the best subreddits (with promo rules checked) → Generates tailored copy across Reddit, X threads, LinkedIn, cold emails, TikTok scripts — all at once. One-click to post.<br />
-              Free tier gives you real campaigns to test. Pro is $19/mo.<br />
-              Still early. Brutal feedback welcome — what's missing?<br />
-              Link: https://add-beast.vercel.app/
-            </p>
+      {/* Pricing */}
+      <section style={{ padding: '80px 20px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Pricing</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px', maxWidth: '800px', margin: '0 auto' }}>
+            <div style={{ border: '1px solid #333', borderRadius: '8px', padding: '40px 20px' }}>
+              <h3 style={{ fontSize: '2rem', marginBottom: '10px' }}>Free</h3>
+              <p style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '20px' }}>$0</p>
+              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc' }}>
+                <li>✓ 2 campaigns/month</li>
+                <li>✓ Basic platforms</li>
+                <li>✓ Copy to clipboard</li>
+                <li>✓ Reddit Scout (3 subs)</li>
+              </ul>
+              <button style={{ background: '#333', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '4px', marginTop: '20px', width: '100%' }}>
+                Get Started
+              </button>
+            </div>
+            <div style={{ border: '1px solid #ff4000', borderRadius: '8px', padding: '40px 20px', background: '#ff400005' }}>
+              <h3 style={{ fontSize: '2rem', marginBottom: '10px' }}>Pro</h3>
+              <p style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '20px' }}>$19<span style={{ fontSize: '1rem' }}>/mo</span></p>
+              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc' }}>
+                <li>✓ Unlimited campaigns</li>
+                <li>✓ All 8 platforms</li>
+                <li>✓ One-click posting</li>
+                <li>✓ Advanced Scout Mode</li>
+              </ul>
+              <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '10px 20px', borderRadius: '4px', marginTop: '20px', width: '100%' }}>
+                Upgrade to Pro
+              </button>
+            </div>
           </div>
-
-          <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ fontSize: '1.5rem', color: '#4a9eff', marginBottom: '10px' }}>🧵 X/TWITTER THREAD (HSO)</h3>
-            <ol style={{ color: '#c4c4d4', lineHeight: '1.6' }}>
-              <li>1/ Most indie makers build in public.<br />Very few market in public consistently.<br />I fixed that problem in ~30 seconds. Thread 🧵</li>
-              <li>2/ Writing ads used to kill my momentum. Different formats, tones, and rules for every platform. I'd do one or two and call it a day.</li>
-              <li>3/ AD BEAST changes the game: One product description → Smart scouting of subreddits → Perfectly tailored copy for every major platform simultaneously.</li>
-              <li>4/ One-click posting. Or go autonomous.<br />Free tier available. Pro $19/mo.<br />10% of revenue goes to GiveDirectly (extreme poverty relief).<br />Try it → https://add-beast.vercel.app/</li>
-            </ol>
-          </div>
-
-          <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ fontSize: '1.5rem', color: '#0077b5', marginBottom: '10px' }}>💼 LINKEDIN</h3>
-            <p style={{ color: '#c4c4d4', lineHeight: '1.6' }}>
-              Six months ago I was manually rewriting the same offer for Reddit, Twitter, LinkedIn, and email every single week. Burnout was real. Traction was minimal.<br />
-              Today I run full campaigns in under a minute.<br />
-              AD BEAST lets you input your product once and outputs high-quality, platform-specific marketing assets across every channel — with intelligent subreddit targeting that respects community rules.<br />
-              Built for founders who want to spend more time building, less time marketing.<br />
-              10% of revenue donated to GiveDirectly.org.<br />
-              What's your biggest marketing bottleneck right now?
-            </p>
-          </div>
-
-          <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ fontSize: '1.5rem', color: '#888', marginBottom: '10px' }}>📧 COLD EMAIL</h3>
-            <p style={{ fontWeight: 'bold', color: '#fff' }}>Subject: Stop doing marketing the hard way</p>
-            <p style={{ color: '#c4c4d4', lineHeight: '1.6', marginTop: '10px' }}>
-              Most founders spend months building and minutes "marketing."<br />
-              AD BEAST fixes the imbalance.<br />
-              One description → full campaign across Reddit, X, LinkedIn, email & TikTok. Smart scouting included.<br />
-              Free to try. $19/mo for unlimited.<br />
-              https://add-beast.vercel.app/<br />
-              10% → GiveDirectly.org
-            </p>
-          </div>
-        </section>
-      )}
-
-      <section style={{ maxWidth: '800px', margin: '0 auto 40px', padding: '0 20px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
-          Social Proof Section (add later)
-        </h2>
-        <blockquote style={{ color: '#c4c4d4', fontStyle: 'italic', fontSize: '1rem' }}>
-          "Finally consistent marketing without the burnout" — Early User
-        </blockquote>
+        </div>
       </section>
 
-      <footer style={{ textAlign: 'center', marginTop: '40px', padding: '0 20px', color: '#888', fontSize: '0.9rem' }}>
-        <p>Built with ❤️ for indie hackers, solopreneurs & side hustlers.</p>
-        <p>10% → GiveDirectly.org</p>
+      {/* Footer */}
+      <footer style={{ padding: '40px 20px', textAlign: 'center', background: '#111', color: '#ccc' }}>
+        <p>Built with ❤️ for indie hackers. 10% of revenue goes to GiveDirectly.org.</p>
       </footer>
+
+      {/* Demo Campaign Modal */}
+      {showCampaign && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '600px', maxHeight: '80vh', overflowY: 'auto' }}>
+            <h2 style={{ marginBottom: '20px' }}>Demo Campaign: Promote AD BEAST</h2>
+            <p style={{ color: '#ccc', marginBottom: '20px' }}>Here's a sample campaign generated for promoting AD BEAST itself.</p>
+            <div style={{ background: '#000', padding: '20px', borderRadius: '4px', marginBottom: '20px' }}>
+              <h3>Reddit Post</h3>
+              <p><strong>Title:</strong> I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
+              <p>Real talk from a fellow builder... [content]</p>
+            </div>
+            <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '10px 20px', borderRadius: '4px' }} onClick={() => setShowCampaign(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
