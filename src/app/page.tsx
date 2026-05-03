@@ -1,411 +1,593 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 
 export default function Home() {
-  const [showCampaign, setShowCampaign] = useState(false);
-  const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [showScout, setShowScout] = useState(false);
+  const [campaignAds, setCampaignAds] = useState<any[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    // Check if user is logged in
-    const checkUser = async () => {
-      try {
-        const res = await fetch('/api/auth/me', { credentials: 'include' });
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-        }
-      } catch (error) {
-        // Not logged in
+  const productNameRef = useRef<HTMLInputElement>(null);
+  const priceRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const audienceRef = useRef<HTMLInputElement>(null);
+  const painPointRef = useRef<HTMLInputElement>(null);
+  const socialProofRef = useRef<HTMLInputElement>(null);
+  const websiteRef = useRef<HTMLInputElement>(null);
+  const subredditsRef = useRef<HTMLInputElement>(null);
+
+  const openPricing = () => setShowPricing(true);
+  const closePricing = () => setShowPricing(false);
+
+  const openAdmin = () => setShowAdmin(true);
+  const closeAdmin = () => setShowAdmin(false);
+
+  const openScout = () => setShowScout(true);
+  const closeScout = () => setShowScout(false);
+
+  const handleUnleash = async () => {
+    setIsGenerating(true);
+    const productName = productNameRef.current?.value || '';
+    const price = priceRef.current?.value || '';
+    const description = descriptionRef.current?.value || '';
+    const audience = audienceRef.current?.value || '';
+    const painPoint = painPointRef.current?.value || '';
+    const socialProof = socialProofRef.current?.value || '';
+    const website = websiteRef.current?.value || '';
+    const subreddits = subredditsRef.current?.value || '';
+
+    const platforms = [
+      { name: 'Reddit', mode: 'copy', selected: true },
+      { name: 'Twitter/X', mode: 'click', selected: true },
+      { name: 'X Thread', mode: 'click', selected: true },
+      { name: 'Facebook', mode: 'click', selected: false },
+      { name: 'Instagram', mode: 'copy', selected: false },
+      { name: 'LinkedIn', mode: 'click', selected: false },
+      { name: 'TikTok Script', mode: 'copy', selected: false },
+      { name: 'Cold Email', mode: 'copy', selected: true },
+    ].filter(p => p.selected);
+
+    const frameworks = ['PAS = Problem→Agitate→Solve', 'AIDA = Attention→Interest→Desire→Action', 'HSO = Hook→Story→Offer', 'BAB = Before→After→Bridge'];
+
+    try {
+      const res = await fetch('/api/unleash-beast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productName,
+          price,
+          description,
+          audience,
+          painPoint,
+          socialProof,
+          website,
+          subreddits,
+          platforms,
+          frameworks,
+        }),
+      });
+      const data = await res.json();
+      if (data.ads) {
+        setCampaignAds(data.ads);
+        // Scroll to output
+        document.querySelector('.output')?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert('Error: ' + data.error);
       }
-    };
-    checkUser();
-  }, []);
-
-  const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
-    setUser(null);
-    window.location.reload();
+    } catch (error) {
+      alert('Failed to unleash the beast');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
-  const animations = `
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+  const handlePurchase = async (tier: string) => {
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Error: ' + data.error);
+      }
+    } catch (error) {
+      alert('Purchase failed');
     }
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes iconBounce {
-          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-          40% { transform: translateY(-10px); }
-          60% { transform: translateY(-5px); }
-        }
-        .feature-icon { animation: iconBounce 2s infinite; }
-  `;
+  };
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', background: 'linear-gradient(135deg, #000 0%, #111 100%)', color: '#fff', minHeight: '100vh', overflowX: 'hidden' }}>
-      <style dangerouslySetInnerHTML={{ __html: animations + `
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:'Barlow',sans-serif;background:#07070a;color:#c4c4d4;min-height:100vh;overflow-x:hidden}
+        body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,64,0,.011) 3px,rgba(255,64,0,.011) 4px);pointer-events:none;z-index:9999}
+
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+        @keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(255,64,0,.4)}50%{box-shadow:0 0 0 12px rgba(255,64,0,0)}}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+        @keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
         @keyframes monsterPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+
+        header{height:56px;border-bottom:1px solid #1c1c24;padding:0 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;background:rgba(7,7,10,.97);backdrop-filter:blur(14px)}
         .monster { animation: monsterPulse 2s infinite, float 3s ease-in-out infinite; }
-        .hero-bg { background: radial-gradient(ellipse at center, rgba(255,64,0,0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
-        @media (max-width: 768px) {
-          .hero-buttons { flex-direction: column !important; align-items: center !important; gap: 30px !important; }
-          .nav-buttons { flex-direction: column !important; gap: 10px !important; }
-          .feature-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
-          .pricing-grid { grid-template-columns: 1fr !important; gap: 20px !important; max-width: 100% !important; }
-          .hero-title { font-size: 3rem !important; }
-          .hero-subtitle { font-size: 1rem !important; }
-          .section-padding { padding: 40px 15px !important; }
-        }
-        @media (max-width: 480px) {
-          .hero-title { font-size: 2.5rem !important; }
-          .hero-subtitle { font-size: 0.9rem !important; }
-          .nav { padding: 10px 15px !important; }
-          .monster { font-size: 2rem !important; }
+        .logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.45rem;letter-spacing:.1em;color:#eeeef8}
+        .logo b{color:#ff4000}
+        .hdr-mid{display:flex;align-items:center;gap:8px}
+        .tier-pill{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid;cursor:pointer;transition:all .15s}
+        .tp-free{border-color:#242430;color:#44444f}.tp-free:hover{border-color:#ff4000;color:#c4c4d4}
+        .tp-pro{border-color:rgba(245,197,24,.4);color:#f5c518;background:rgba(245,197,24,.06)}
+        .tp-beast{border-color:rgba(255,64,0,.45);color:#ff4000;background:rgba(255,64,0,.09)}
+        .tp-admin{border-color:rgba(184,255,0,.35);color:#b8ff00;background:rgba(184,255,0,.05)}
+        .hdr-right{display:flex;align-items:center;gap:8px}
+        .hbtn{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:2px;border:1px solid #242430;background:none;color:#44444f;cursor:pointer;transition:all .13s}
+        .hbtn:hover{border-color:#ff4000;color:#ff4000}
+        .hbtn.hl{border-color:rgba(184,255,0,.35);color:#b8ff00}
+        .live{display:flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#44444f}
+        .live::before{content:'';width:6px;height:6px;border-radius:50%;background:#b8ff00;box-shadow:0 0 7px #b8ff00;animation:blink 1.5s ease-in-out infinite}
+
+        .overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:400;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
+        .overlay.on{display:flex}
+        .modal{background:#13131a;border:1px solid #242430;border-radius:6px;width:100%;position:relative;animation:popIn .22s cubic-bezier(.34,1.56,.64,1) both;max-height:90vh;overflow-y:auto}
+        .mh{padding:26px 26px 0}
+        .mc{position:absolute;top:14px;right:16px;background:none;border:none;color:#44444f;font-size:1.1rem;cursor:pointer;padding:4px 6px}
+        .mc:hover{color:#eeeef8}
+        .mtitle{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;letter-spacing:.07em;color:#eeeef8;margin-bottom:4px}
+        .msub{font-size:.78rem;color:#44444f;line-height:1.6;margin-bottom:20px}
+        .mb{padding:0 26px 26px}
+
+        .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+        .pc{background:#0f0f13;border:1px solid #1c1c24;border-radius:5px;padding:18px 16px;text-align:center;position:relative}
+        .pc.star{border-color:rgba(245,197,24,.35);background:rgba(245,197,24,.025)}
+        .pc-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#f5c518;color:#000;font-family:'IBM Plex Mono',monospace;font-size:.5rem;font-weight:600;letter-spacing:.1em;padding:2px 8px;border-radius:2px;white-space:nowrap}
+        .pc-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;color:#eeeef8;margin-bottom:5px}
+        .pc-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;line-height:1;margin-bottom:2px}
+        .pc-per{font-size:.7rem;color:#44444f;margin-bottom:12px}
+        .pc ul{list-style:none;text-align:left;margin-bottom:14px}
+        .pc ul li{font-size:.71rem;color:#44444f;padding:2px 0;display:flex;gap:6px;line-height:1.5}
+        .pc ul li.y{color:#c4c4d4}
+        .pc ul li::before{content:'—';color:#44444f;flex-shrink:0}
+        .pc ul li.y::before{content:'✓';color:#b8ff00}
+        .pcbtn{width:100%;padding:10px;border:none;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .13s}
+        .btn-free{background:#242430;color:#44444f}
+        .btn-pro{background:#f5c518;color:#000}.btn-pro:hover{background:#f7d060}
+        .btn-beast{background:#ff4000;color:#000}.btn-beast:hover{background:#ff5511}
+        .price-note{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:#44444f;text-align:center;line-height:1.7}
+        .price-note a{color:#ff4000;text-decoration:none}
+
+        .hero{max-width:900px;margin:0 auto;padding:68px 28px 44px;text-align:center;position:relative}
+        .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:580px;height:280px;background:radial-gradient(ellipse,rgba(255,64,0,.1) 0%,transparent 70%);pointer-events:none}
+        .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:#ff4000;margin-bottom:16px}
+        .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3rem,7.5vw,5.8rem);line-height:.93;color:#eeeef8;margin-bottom:18px}
+        .blaze{color:transparent;background:linear-gradient(135deg,#ff4000 0%,#ff7700 55%,#ffcc00 100%);-webkit-background-clip:text;background-clip:text;display:block}
+        .hero p{color:#44444f;font-size:.96rem;font-weight:300;max-width:480px;margin:0 auto;line-height:1.75}
+
+        .charity{max-width:900px;margin:14px auto 0;padding:0 28px}
+        .c-strip{background:rgba(184,255,0,.03);border:1px solid rgba(184,255,0,.13);border-radius:4px;padding:10px 16px;display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:rgba(184,255,0,.55);line-height:1.55}
+        .c-strip b{color:#b8ff00}
+
+        .usage-wrap{max-width:900px;margin:12px auto 0;padding:0 28px;display:none}
+        .usage-wrap.on{display:block}
+        .usage-inner{background:#0f0f13;border:1px solid #1c1c24;border-radius:4px;padding:10px 14px;display:flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:.64rem}
+        .ul{color:#44444f;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+        .ut{flex:1;height:4px;background:#1c1c24;border-radius:999px;overflow:hidden}
+        .uf{height:100%;background:linear-gradient(90deg,#ff4000,#ff7700);border-radius:999px;transition:width .4s}
+        .uf.full{background:#ff2828}
+        .uc{color:#eeeef8;white-space:nowrap}
+        .uu{background:#ff4000;border:none;border-radius:2px;color:#000;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;cursor:pointer}
+        .uu:hover{background:#ff5511}
+
+        .setup{max-width:900px;margin:0 auto;padding:28px 28px 0}
+        .sec{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#44444f;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+        .sec::after{content:'';flex:1;height:1px;background:#1c1c24}
+        .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+        .f{display:flex;flex-direction:column;gap:5px}
+        .s2{grid-column:1/-1}
+        .f label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#44444f}
+        input[type=text],textarea{background:#0f0f13;border:1px solid #1c1c24;border-radius:3px;padding:10px 12px;font-family:'Barlow',sans-serif;font-size:.87rem;color:#eeeef8;transition:border-color .15s,box-shadow .15s;resize:vertical;width:100%}
+        input[type=text]:focus,textarea:focus{outline:none;border-color:#ff4000;box-shadow:0 0 0 2px rgba(255,64,0,.1)}
+        textarea{min-height:80px;line-height:1.6}
+        input::placeholder,textarea::placeholder{color:#44444f}
+
+        .sp-bar{background:rgba(255,64,0,.05);border:1px solid rgba(255,64,0,.18);border-radius:4px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+        .sp-txt{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:#44444f;line-height:1.5}
+        .sp-txt b{color:#ff4000}
+        .sp-btn{background:#ff4000;border:none;border-radius:3px;color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;cursor:pointer;transition:all .13s;white-space:nowrap}
+        .sp-btn:hover{background:#ff5511}
+
+        .scout-row{display:flex;gap:8px;align-items:flex-end}
+        .scout-row .f{flex:1}
+        .scout-btn{padding:10px 14px;background:rgba(74,158,255,.1);border:1px solid rgba(74,158,255,.3);border-radius:3px;color:#4a9eff;font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px;align-self:flex-end}
+        .scout-btn:hover{background:rgba(74,158,255,.18);border-color:rgba(74,158,255,.5)}
+        .scout-btn:disabled{opacity:.4;cursor:not-allowed}
+        .scout-count{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#44444f;margin-top:5px}
+        .scout-count b{color:#b8ff00}
+
+        .plat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:7px;margin-bottom:4px}
+        .pt{padding:10px 12px;border:1px solid #1c1c24;border-radius:3px;background:#0f0f13;color:#44444f;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.05em;cursor:pointer;transition:all .13s;display:flex;align-items:center;gap:7px;user-select:none;position:relative}
+        .pt:hover{border-color:rgba(255,64,0,.4);color:#c4c4d4}
+        .pt.on{border-color:#ff4000;background:rgba(255,64,0,.07);color:#ff4000}
+        .pt .ck{margin-left:auto;font-size:.7rem;opacity:0}
+        .pt.on .ck{opacity:1}
+        .pt.locked{opacity:.32;cursor:not-allowed}
+        .pt.locked:hover{border-color:#1c1c24;color:#44444f}
+        .pt-mode{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.06em;text-transform:uppercase;padding:1px 4px;border-radius:1px;margin-left:auto}
+        .pm-auto{background:rgba(184,255,0,.12);color:#b8ff00;border:1px solid rgba(184,255,0,.2)}
+        .pm-click{background:rgba(255,119,0,.1);color:#ff7700;border:1px solid rgba(255,119,0,.2)}
+        .pm-copy{background:rgba(255,255,255,.04);color:#44444f;border:1px solid #1c1c24}
+
+        .unleash-wrap{margin:18px 0 0}
+        .u-btn{width:100%;padding:22px;background:#ff4000;border:none;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;letter-spacing:.16em;text-transform:uppercase;color:#000;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden}
+        .u-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.12),transparent);transform:translateX(-100%);transition:transform .5s}
+        .u-btn:hover{background:#ff5511;transform:translateY(-2px);box-shadow:0 10px 40px rgba(255,64,0,.4)}
+        .u-btn:hover::after{transform:translateX(100%)}
+        .u-btn:active{transform:translateY(0)}
+        .u-btn:disabled{background:#1a1a1f;color:#3a3a46;cursor:not-allowed;transform:none;box-shadow:none}
+        .u-btn.firing{background:#0d0d10;color:#ff4000;border:1px solid #ff4000;animation:pulseRed 1.2s ease-in-out infinite}
+        .gate{margin-top:12px;background:rgba(245,197,24,.04);border:1px solid rgba(245,197,24,.18);border-radius:4px;padding:13px 16px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+        .gate.on{display:flex}
+        .gate-txt{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:#f5c518;line-height:1.5}
+        .gate-btn{background:#f5c518;border:none;border-radius:3px;color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;padding:9px 16px;cursor:pointer}
+        .gate-btn:hover{background:#f7d060}
+        .prog{display:none;margin-top:14px}
+        .prog.on{display:block}
+        .prog-log{background:#0f0f13;border:1px solid #1c1c24;border-radius:3px;padding:13px 17px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;line-height:2;max-height:120px;overflow-y:auto}
+        .ll{animation:fadeUp .2s ease both}
+        .ll.d{color:#44444f}.ll.a{color:#ff4000}.ll.ok{color:#b8ff00}.ll.info{color:#4a9eff}
+
+        .output{max-width:900px;margin:0 auto;padding:0 28px 80px;display:none}
+        .output.on{display:block;animation:fadeUp .4s ease both}
+        .o-head{display:flex;align-items:center;justify-content:space-between;margin:34px 0 14px;flex-wrap:wrap;gap:12px}
+        .o-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.45rem;letter-spacing:.08em;color:#eeeef8}
+        .o-title b{color:#ff4000}
+        .refire{padding:9px 18px;background:none;border:1px solid #ff4000;border-radius:3px;color:#ff4000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .13s}
+        .refire:hover{background:rgba(255,64,0,.1)}
+        .fw-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+        .fw-chip{font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.07em;text-transform:uppercase;color:#44444f;background:#0f0f13;border:1px solid #1c1c24;padding:3px 8px;border-radius:2px}
+        .mode-leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+        .ml{display:flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#44444f}
+        .mld{width:6px;height:6px;border-radius:50%}
+        .mld-a{background:#b8ff00;box-shadow:0 0 4px #b8ff00}
+        .mld-c{background:#ff7700}.mld-m{background:#44444f}
+        .cards{display:grid;gap:10px}
+
+        .card{background:#0f0f13;border:1px solid #1c1c24;border-radius:4px;overflow:hidden;animation:fadeUp .3s ease both;transition:border-color .2s}
+        .card:hover{border-color:rgba(255,64,0,.22)}
+        .card-group-header{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#ff4000;padding:10px 14px 0;display:flex;align-items:center;gap:8px}
+        .card-group-header::after{content:'';flex:1;height:1px;background:rgba(255,64,0,.15)}
+        .card-head{padding:10px 14px;background:rgba(255,255,255,.016);border-bottom:1px solid #1c1c24;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+        .p-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.07em;text-transform:uppercase;color:#eeeef8}
+        .fw-tag{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:#ff4000;background:rgba(255,64,0,.09);border:1px solid rgba(255,64,0,.18);padding:2px 6px;border-radius:2px}
+        .mode-tag{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:2px}
+        .mt-auto{background:rgba(184,255,0,.09);color:#b8ff00;border:1px solid rgba(184,255,0,.2)}
+        .mt-click{background:rgba(255,119,0,.09);color:#ff7700;border:1px solid rgba(255,119,0,.18)}
+        .mt-copy{background:rgba(255,255,255,.03);color:#44444f;border:1px solid #1c1c24}
+        .cc{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#44444f}
+        .cc.warn{color:#ffaa00}.cc.over{color:#ff2828}
+        .card-body{padding:16px 14px;display:flex;gap:10px;align-items:flex-start}
+        .ad-txt{flex:1;font-size:.86rem;line-height:1.78;color:#c4c4d4;white-space:pre-wrap;font-family:'Barlow',sans-serif}
+        .ad-txt.loading{color:#44444f;font-style:italic;display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.7rem}
+        .sp2{width:13px;height:13px;border:2px solid #1c1c24;border-top-color:#ff4000;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+        .card-acts{display:flex;flex-direction:column;gap:5px;flex-shrink:0;align-items:center}
+        .ib{width:30px;height:30px;background:rgba(255,255,255,.03);border:1px solid #1c1c24;border-radius:3px;color:#44444f;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .12s;padding:0}
+        .ib:hover{background:rgba(255,64,0,.09);border-color:#ff4000;color:#ff4000}
+        .post-btn{padding:6px 10px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .13s;display:flex;align-items:center;gap:4px;white-space:nowrap;text-decoration:none}
+        .pb-auto{background:rgba(184,255,0,.1);border:1px solid rgba(184,255,0,.22);color:#b8ff00}
+        .pb-auto:hover{background:rgba(184,255,0,.18)}
+        .pb-click{background:rgba(255,119,0,.09);border:1px solid rgba(255,119,0,.2);color:#ff7700}
+        .pb-click:hover{background:rgba(255,119,0,.16)}
+        .pb-copy{background:rgba(255,255,255,.04);border:1px solid #1c1c24;color:#44444f}
+        .pb-copy:hover{border-color:#ff4000;color:#c4c4d4}
+        .card-tip{padding:8px 14px;border-top:1px solid #1c1c24;background:rgba(184,255,0,.018);font-size:.68rem;color:#44444f;display:flex;align-items:flex-start;gap:5px;font-family:'IBM Plex Mono',monospace;line-height:1.55}
+        .tip-ic{color:#b8ff00;flex-shrink:0}
+
+        .toast{position:fixed;bottom:22px;right:22px;background:#b8ff00;color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:10px 16px;border-radius:3px;transform:translateY(60px);opacity:0;transition:all .25s cubic-bezier(.34,1.56,.64,1);z-index:9998}
+        .toast.on{transform:translateY(0);opacity:1}
+
+        @media(max-width:620px){
+          .g2,.price-grid,.plat-grid{grid-template-columns:1fr}
+          .hero{padding:52px 18px 36px}
+          .setup,.output,.charity,.usage-wrap{padding-left:16px;padding-right:16px}
+          header{padding:0 16px}
+          .scout-row{flex-direction:column}
+          .scout-btn{width:100%;justify-content:center}
         }
       ` }} />
-      <nav className="nav" style={{ padding: '20px 40px', display: 'flex', justifyContent: 'center', alignItems: 'center', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🦑</div>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))', transform: 'scale(1.2)' }}>🐺</div>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🐯</div>
-        </div>
-      </nav>
 
-      {/* Hero */}
-      <section className="hero-bg" style={{ textAlign: 'center', padding: '20px 20px 60px', position: 'relative', animation: 'fadeIn 1s ease-in 0.2s both' }}>
-        <p style={{ fontFamily: 'var(--font-dancing-script)', fontSize: '1.5rem', color: '#ff4000', marginBottom: '10px', animation: 'fadeInUp 1s ease-in 0.5s both' }}>
-          Leon-Link presents
-        </p>
-        <h1 className="hero-title" style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)', fontWeight: '900', marginBottom: '20px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'fadeInUp 1s ease-in 0.7s both' }}>
-          AD BEAST
-        </h1>
-        <p className="hero-subtitle" style={{ fontSize: '1.1rem', color: '#ccc', maxWidth: '600px', margin: '0 auto 30px', lineHeight: '1.6', animation: 'fadeInUp 1s ease-in 0.9s both' }}>
-          Autonomous Ad Engine — Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.
-        </p>
-        <div className="hero-buttons" style={{ animation: 'fadeInUp 1s ease-in 1.1s both' }}>
-          <div style={{ marginBottom: '10px' }}>
-            <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => alert('App coming soon! Try the demo below.')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              Try AD BEAST
-            </button>
-            <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>Access the full ad creation tool</small>
-          </div>
-          <div>
-            <button style={{ background: 'none', border: '2px solid #ff4000', color: '#ff4000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={async () => {
-              setIsGenerating(true);
-              setTimeout(() => {
-                setIsGenerating(false);
-                setShowCampaign(true);
-              }, 3000);
-            }} onMouseOver={(e) => { (e.target as HTMLElement).style.background = '#ff4000'; (e.target as HTMLElement).style.color = '#000'; }} onMouseOut={(e) => { (e.target as HTMLElement).style.background = 'none'; (e.target as HTMLElement).style.color = '#ff4000'; }}>
-              Generate Demo Ads
-            </button>
-            <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>See sample ads for your product</small>
+      <header>
+        <div className="monster" style={{ fontSize: '3rem' }}>
+          🐺
+        </div>
+        <div className="hdr-mid">
+          <div className="tier-pill tp-free">FREE TIER</div>
+        </div>
+        <div className="hdr-right">
+          <div className="live">CLAUDE ONLINE</div>
+          <button className="hbtn" onClick={openPricing}>⚡ Upgrade</button>
+          <button className="hbtn" onClick={openAdmin}>ADMIN</button>
+        </div>
+      </header>
+
+      <div className="hero">
+        <div className="eyebrow">AI ADVERTISING ENGINE — AUTONOMOUS</div>
+        <h1>UNLEASH <span className="blaze">THE BEAST</span></h1>
+        <p>Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.</p>
+      </div>
+
+      <div className="charity">
+        <div className="c-strip">💚 10% of revenue goes to <b>GiveDirectly.org</b> — direct cash to people in extreme poverty. Rated #1 by GiveWell.</div>
+      </div>
+
+      <div className="usage-wrap" id="usage-wrap">
+        <div className="usage-inner">
+          <span className="ul">Monthly Campaigns</span>
+          <div className="ut"><div className="uf"></div></div>
+          <span className="uc">0 / 2</span>
+          <button className="uu">UPGRADE</button>
+        </div>
+      </div>
+
+      <div className="setup">
+        <div className="sec">TARGET SETUP</div>
+
+        <div className="sp-bar">
+          <div className="sp-txt">Want to promote <b>AD BEAST</b> itself? Load the pre-built campaign and fire it.</div>
+          <button className="sp-btn">🔥 PROMOTE AD BEAST</button>
+        </div>
+
+        <div className="g2">
+          <div className="f"><label>Product / Service Name</label><input ref={productNameRef} type="text" placeholder="e.g. CareerCraft AI" /></div>
+          <div className="f"><label>Price / Offer</label><input ref={priceRef} type="text" placeholder="e.g. $19/mo · free to try" /></div>
+          <div className="f s2"><label>What It Does — Be Specific</label><textarea ref={descriptionRef} placeholder="e.g. Paste a job description + your background, get a tailored cover letter in 10 seconds using AI."></textarea></div>
+          <div className="f"><label>Who It&apos;s For</label><input ref={audienceRef} type="text" placeholder="e.g. job seekers, side hustlers, freelancers" /></div>
+          <div className="f"><label>Biggest Pain Point Solved</label><input ref={painPointRef} type="text" placeholder="e.g. getting ghosted after applying" /></div>
+          <div className="f s2"><label>Social Proof / Results (Optional)</label><input ref={socialProofRef} type="text" placeholder="e.g. 3x more callbacks · 500+ users · saves 2 hrs" /></div>
+          <div className="f"><label>Website / Landing Page URL</label><input ref={websiteRef} type="text" placeholder="e.g. https://yourproduct.com" /></div>
+          <div className="f">
+            <label>Target Subreddits — or use Scout ↓</label>
+            <div className="scout-row">
+              <div className="f"><input ref={subredditsRef} type="text" placeholder="sidehustle, entrepreneur, smallbusiness…" /></div>
+              <button className="scout-btn" onClick={openScout}>🔍 SCOUT REDDIT</button>
+            </div>
+            <div className="scout-count"><span>Scout found <b>0</b> subreddits — <b>0</b> selected as targets</span></div>
           </div>
         </div>
-      </section>
 
-      {/* Who is this for? */}
-      <section style={{ padding: '60px 20px', background: '#000', animation: 'fadeIn 1s ease-in 0.3s both' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '40px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Who is this for?</h2>
-          <div style={{ marginBottom: '40px' }}>
-            <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.2rem', color: '#fff', lineHeight: '2', textAlign: 'left', maxWidth: '800px', margin: '0 auto' }}>
-              <li><strong>Freelancers</strong> (we know you don't have time for this marketing BS)</li>
-              <li><strong>Mechanics</strong> (backyard mechanics invited! No fancy garage required)</li>
-              <li><strong>Entrepreneurs</strong> (from local mom-and-pop shops to Grandma Sally slanging homemade cookie dough empires)</li>
-              <li><strong>Coaches or anyone selling classes online</strong> (OnlyFans models, we see you lurking!)</li>
-            </ul>
-          </div>
-          <p style={{ fontSize: '1.1rem', color: '#ccc', maxWidth: '900px', margin: '0 auto 20px', lineHeight: '1.7' }}>
-            And anyone else tired of Reddit's ban hammer swinging their way. AD BEAST takes the pain out of finding the right subreddits AND significantly lowers your chances of getting banned by generating community-appropriate ads that actually fit the vibe.
-          </p>
-          <p style={{ fontSize: '1rem', color: '#888', fontStyle: 'italic' }}>
-            Basically, if you're hustling online and hate marketing, this is your secret weapon.
-          </p>
+        <div className="sec">SELECT FIRE ZONES</div>
+        <div className="plat-grid">
+          <button className="pt on">
+            🔴 Reddit
+            <span className="pt-mode pm-copy">📋 COPY</span>
+            <span className="ck">✔</span>
+          </button>
+          <button className="pt on">
+            𝕏 Twitter/X
+            <span className="pt-mode pm-click">⚡ 1-CLICK</span>
+            <span className="ck">✔</span>
+          </button>
+          <button className="pt on">
+            🧵 X Thread
+            <span className="pt-mode pm-click">⚡ 1-CLICK</span>
+            <span className="ck">✔</span>
+          </button>
+          <button className="pt locked">
+            📘 Facebook
+            <span className="pt-mode pm-click">⚡ 1-CLICK</span>
+          </button>
+          <button className="pt locked">
+            📸 Instagram
+            <span className="pt-mode pm-copy">📋 COPY</span>
+          </button>
+          <button className="pt locked">
+            💼 LinkedIn
+            <span className="pt-mode pm-click">⚡ 1-CLICK</span>
+          </button>
+          <button className="pt locked">
+            🎵 TikTok Script
+            <span className="pt-mode pm-copy">📋 COPY</span>
+          </button>
+          <button className="pt on">
+            📧 Cold Email
+            <span className="pt-mode pm-copy">📋 COPY</span>
+            <span className="ck">✔</span>
+          </button>
         </div>
-      </section>
 
-      {/* Features */}
-      <section className="section-padding" style={{ padding: '80px 20px', background: 'linear-gradient(135deg, #111 0%, #222 100%)', borderTop: '2px solid #ff4000', borderBottom: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.4s both' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Powerful Features</h2>
-          <div className="feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
-            <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 0.6s both' }} onClick={() => setExpandedFeature(expandedFeature === 'scout' ? null : 'scout')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              <div className="feature-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🪖</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'scout' ? '#ff4000' : '#fff' }}>Smart Subreddit Scouting</h3>
-              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Like a ninja finding the best hideouts, we scout Reddit for promo-friendly subs. Avoids bans like a pro — no more getting shadowbanned for bad vibes!</p>
-              <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
-              {expandedFeature === 'scout' && (
-                <div style={{ marginTop: '20px', padding: '20px', background: 'rgba(255,64,0,0.1)', borderRadius: '8px', border: '1px solid #ff4000' }}>
-                  <p style={{ color: '#fff', fontSize: '1rem' }}>
-                    Technical: Analyzes subreddit cultures using AI to assess self-promotion policies, fit scores, and optimal posting times. Increases success by 300%, avoids bans, targets ideal audiences, saves hours of research.
-                  </p>
+        <div className="sec">PULL THE TRIGGER</div>
+        <div className="unleash-wrap">
+          <button className="u-btn" onClick={handleUnleash} disabled={isGenerating}>
+            {isGenerating ? 'GENERATING...' : '🔥 UNLEASH THE BEAST'}
+          </button>
+        </div>
+        <div className="gate">
+          <div className="gate-txt">⚡ You&apos;ve hit your free campaign limit this month.<br />Upgrade to Pro for unlimited campaigns + Scout Mode.</div>
+          <button className="gate-btn">UPGRADE — $19/mo</button>
+        </div>
+        <div className="prog"><div className="prog-log"></div></div>
+      </div>
+
+      <div className={`output ${campaignAds.length > 0 ? 'on' : ''}`}>
+        <div className="o-head">
+          <div className="o-title">CAMPAIGN <b>LIVE</b></div>
+          <button className="refire">↻ RE-FIRE</button>
+        </div>
+        <div className="fw-row">
+          {[...new Set(campaignAds.map(ad => ad.framework))].map(fw => (
+            <div key={fw} className="fw-chip">{fw}</div>
+          ))}
+        </div>
+        <div className="mode-leg">
+          <div className="ml"><div className="mld mld-a"></div>AUTO-POST</div>
+          <div className="ml"><div className="mld mld-c"></div>ONE-CLICK</div>
+          <div className="ml"><div className="mld mld-m"></div>COPY</div>
+        </div>
+        <div className="cards">
+          {campaignAds.map((ad, index) => (
+            <div key={index} className="card">
+              <div className="card-head">
+                <div className="p-name">{ad.platform}</div>
+                <div className="fw-tag">{ad.framework.split(' = ')[0]}</div>
+                <div className={`mode-tag mt-${ad.mode}`}>{ad.mode.toUpperCase()}</div>
+                <div className="cc">{ad.charCount}</div>
+              </div>
+              <div className="card-body">
+                <div className="ad-txt">{ad.text}</div>
+                <div className="card-acts">
+                  <button className={`ib post-btn pb-${ad.mode}`}>
+                    {ad.mode === 'auto' ? '🚀 POST' : ad.mode === 'click' ? '⚡ POST' : '📋 COPY'}
+                  </button>
                 </div>
-              )}
+              </div>
+              <div className="card-tip">
+                <span className="tip-ic">💡</span> This ad is optimized for {ad.platform} using the {ad.framework} framework.
+              </div>
             </div>
-            <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 0.8s both' }} onClick={() => setExpandedFeature(expandedFeature === 'optimize' ? null : 'optimize')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              <div className="feature-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🎯</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'optimize' ? '#ff4000' : '#fff' }}>Platform Optimization</h3>
-              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Turns your ad into a chameleon — blends perfectly on Twitter threads, LinkedIn posts, or Reddit. Speaks the local lingo like a native!</p>
-              <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
-              {expandedFeature === 'optimize' && (
-                <div style={{ marginTop: '20px', padding: '20px', background: 'rgba(255,64,0,0.1)', borderRadius: '8px', border: '1px solid #ff4000' }}>
-                  <p style={{ color: '#fff', fontSize: '1rem' }}>
-                    Technical: Tailored copy using PAS (Problem-Agitate-Solve), AIDA (Attention-Interest-Desire-Action), HSO (Hook-Story-Offer), and BAB (Before-After-Bridge) frameworks for each platform. Benefits: 5x higher engagement, platform-specific tone, proven copywriting frameworks, automated optimization.
-                  </p>
-                </div>
-              )}
+          ))}
+        </div>
+      </div>
+
+      <div className="toast">✓ COPIED</div>
+
+      <div className={`overlay ${showPricing ? 'on' : ''}`}>
+        <div className="modal" style={{maxWidth: '540px'}}>
+          <div className="mh">
+            <div className="mtitle">CHOOSE YOUR TIER</div>
+            <div className="msub">All plans use Claude AI. Higher tiers unlock Scout Mode targeting, one-click posting, and full autonomy.</div>
+            <button className="mc" onClick={closePricing}>✕</button>
+          </div>
+          <div className="mb">
+            <div className="price-grid">
+              <div className="pc">
+                <div className="pc-name">Free</div>
+                <div className="pc-price">$0</div>
+                <div className="pc-per">forever</div>
+                <ul>
+                  <li className="y">3 platforms</li>
+                  <li className="y">2 campaigns/month</li>
+                  <li className="y">Copy to clipboard</li>
+                  <li className="y">Reddit Scout (3 subs)</li>
+                  <li>One-click posting</li>
+                  <li>Unlimited campaigns</li>
+                </ul>
+                <button className="pcbtn btn-free">CURRENT PLAN</button>
+              </div>
+              <div className="pc star">
+                <div className="pc-badge">MOST POPULAR</div>
+                <div className="pc-name">Pro</div>
+                <div className="pc-price">$19</div>
+                <div className="pc-per">per month</div>
+                <ul>
+                  <li className="y">All 8 platforms</li>
+                  <li className="y">Unlimited campaigns</li>
+                  <li className="y">⚡ One-click posting</li>
+                  <li className="y">Scout Mode — 10 subs</li>
+                  <li className="y">Per-sub tailored posts</li>
+                  <li>🤖 API auto-posting</li>
+                </ul>
+                <button className="pcbtn btn-pro" onClick={() => handlePurchase('pro')}>GET PRO — $19/mo</button>
+              </div>
+              <div className="pc" style={{gridColumn: '1/-1'}}>
+                <div className="pc-name" style={{fontSize: '1.1rem'}}>🔥 Beast Mode</div>
+                <div className="pc-price" style={{fontSize: '2.2rem'}}>$49</div>
+                <div className="pc-per">per month</div>
+                <ul style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px'}}>
+                  <li className="y">Everything in Pro</li>
+                  <li className="y">🤖 Reddit API auto-post</li>
+                  <li className="y">Scout Mode — unlimited subs</li>
+                  <li className="y">Auto-target all approved subs</li>
+                  <li className="y">Rule analysis per subreddit</li>
+                  <li className="y">Priority AI generation</li>
+                </ul>
+                <button className="pcbtn btn-beast" style={{marginTop: '14px'}} onClick={() => handlePurchase('beast')}>BEAST MODE — $49/mo</button>
+              </div>
             </div>
-            <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 1s both' }} onClick={() => setExpandedFeature(expandedFeature === 'auto' ? null : 'auto')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              <div className="feature-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🤖</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'auto' ? '#ff4000' : '#fff' }}>Auto-Posting</h3>
-              <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Hit send once, and watch your ads deploy like a swarm of bees to every platform. Sleep soundly while the beast does the heavy lifting!</p>
-              <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
-              {expandedFeature === 'auto' && (
-                <div style={{ marginTop: '20px', padding: '20px', background: 'rgba(255,64,0,0.1)', borderRadius: '8px', border: '1px solid #ff4000' }}>
-                  <p style={{ color: '#fff', fontSize: '1rem' }}>
-                    Technical: One-click or fully autonomous posting via APIs to Reddit, Twitter, LinkedIn, Facebook, Instagram, TikTok, and email. Benefits: Saves 10+ hours/week, 24/7 posting, API integrations, zero manual work.
-                  </p>
-                </div>
-              )}
+            <div className="price-note">Cancel anytime · <b>10% of revenue → GiveDirectly.org</b><br />Admin or promo code? <a href="#" onClick={() => { closePricing(); openAdmin(); }}>Enter here →</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div className={`overlay ${showAdmin ? 'on' : ''}`}>
+        <div className="modal" style={{maxWidth: '460px'}}>
+          <div className="mh">
+            <div className="mtitle">ADMIN ACCESS</div>
+            <div className="msub">Enter your admin password for free unlimited access.</div>
+            <button className="mc" onClick={closeAdmin}>✕</button>
+          </div>
+          <div className="mb">
+            <div id="admin-login-form">
+              <div className="af"><label>Admin Password</label><input className="ainput" type="password" placeholder="Password" /></div>
+              <button className="abtn">🔥 ACCESS ADMIN</button>
+              <div className="aerr">Wrong password. Try again.</div>
+            </div>
+            <div className="admin-dash">
+              <div className="astats">
+                <div className="ast"><div className="ast-n">0</div><div className="ast-l">Campaigns Fired</div></div>
+                <div className="ast"><div className="ast-n">∞</div><div className="ast-l">Your Limit</div></div>
+                <div className="ast"><div className="ast-n">ADM</div><div className="ast-l">Tier Status</div></div>
+              </div>
+              <div className="asec">REDDIT API — Auto-Post</div>
+              <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.63rem', color: '#44444f', lineHeight: '1.7'}}>
+                Create a &quot;script&quot; app at <span style={{color: '#ff4000'}}>reddit.com/prefs/apps</span> then paste credentials below. Stored locally in your browser only.
+              </div>
+              <div className="api-label"><span className="cdot"></span>Reddit Client ID</div>
+              <div className="api-row"><input placeholder="Client ID" /><button className="api-save">SAVE</button></div>
+              <div className="api-row" style={{margin: '4px 0'}}><input placeholder="Client Secret" type="password" /></div>
+              <div className="api-row" style={{marginBottom: '4px'}}><input placeholder="Reddit Username" /></div>
+              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Reddit Password" type="password" /></div>
+              <div className="api-label"><span className="cdot"></span>Twitter/X Bearer Token</div>
+              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Bearer Token (developer.twitter.com)" type="password" /><button className="api-save">SAVE</button></div>
+              <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.62rem', color: '#44444f', background: '#0f0f13', border: '1px solid #1c1c24', borderRadius: '3px', padding: '10px', lineHeight: '1.7'}}>
+                🤖 <span style={{color: '#b8ff00'}}>Reddit auto-post</span> requires Script App credentials above.<br />
+                ⚡ All other platforms use one-click intent URLs — no API key needed.
+              </div>
+              <button className="alogout">LOG OUT OF ADMIN</button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Pricing */}
-      <section className="section-padding" style={{ padding: '80px 20px', background: '#000', borderTop: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.2s both' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Choose Your Plan</h2>
-          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ border: '2px solid #333', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', backdropFilter: 'blur(10px)', animation: 'fadeInUp 1s ease-in 0.4s both' }}>
-              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Free</h3>
-              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '30px', color: '#fff' }}>$0</p>
-              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '1rem', lineHeight: '2' }}>
-                <li>✓ 2 campaigns/month</li>
-                <li>✓ Basic platforms</li>
-                <li>✓ Copy to clipboard</li>
-                <li>✓ Reddit Scout (3 subs)</li>
-              </ul>
-              <button style={{ background: 'linear-gradient(45deg, #333, #555)', border: 'none', color: '#fff', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-                Get Started Free
-              </button>
-            </div>
-            <div style={{ border: '2px solid #ff4000', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,64,0,0.1) 0%, rgba(255,64,0,0.05) 100%)', position: 'relative', animation: 'fadeInUp 1s ease-in 0.6s both' }}>
-              <div style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', background: '#ff4000', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 'bold' }}>MOST POPULAR</div>
-              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Pro Monthly</h3>
-              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>$19<span style={{ fontSize: '1.5rem', color: '#ccc' }}>/mo</span></p>
-              <p style={{ fontSize: '1rem', color: '#888', marginBottom: '20px' }}>or $180/year (save $48)</p>
-              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '1rem', lineHeight: '2' }}>
-                <li>✓ Unlimited campaigns</li>
-                <li>✓ All 8 platforms</li>
-                <li>✓ One-click posting</li>
-                <li>✓ Advanced Scout Mode</li>
-                <li>✓ Priority support</li>
-              </ul>
-              <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-                Upgrade to Pro
-              </button>
-            </div>
-            <div style={{ border: '2px solid #4a9eff', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(74,158,255,0.1) 0%, rgba(74,158,255,0.05) 100%)', animation: 'fadeInUp 1s ease-in 0.8s both' }}>
-              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Elite Plan</h3>
-              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>$165<span style={{ fontSize: '1.5rem', color: '#ccc' }}>/year</span></p>
-              <p style={{ fontSize: '1rem', color: '#4a9eff', marginBottom: '20px', fontWeight: 'bold' }}>Best value - save big!</p>
-              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '1rem', lineHeight: '2' }}>
-                <li>✓ Everything in Pro Monthly</li>
-                <li>✓ 2 months free annually</li>
-                <li>✓ Priority support</li>
-                <li>✓ VIP features</li>
-              </ul>
-              <button style={{ background: 'linear-gradient(45deg, #4a9eff, #6bb6ff)', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(74,158,255,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-                Get Elite Plan
-              </button>
-            </div>
+      <div className={`overlay ${showScout ? 'on' : ''}`}>
+        <div className="modal" style={{maxWidth: '680px'}}>
+          <div className="mh">
+            <div className="mtitle">🔍 REDDIT SCOUT</div>
+            <div className="msub">Analyzing your product to find the best subreddits to target…</div>
+            <button className="mc" onClick={closeScout}>✕</button>
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer style={{ padding: '60px 20px', textAlign: 'center', background: 'linear-gradient(135deg, #111 0%, #000 100%)', color: '#ccc', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <p style={{ fontSize: '1.2rem', marginBottom: '20px' }}>Built with ❤️ for indie hackers, solopreneurs & side hustlers.</p>
-          <p style={{ color: '#ff4000', fontSize: '1rem' }}>10% of revenue goes to GiveDirectly.org — direct cash to people in extreme poverty.</p>
-          <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-            <a href="/privacy" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Privacy</a>
-            <a href="/terms" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Terms</a>
-            <a href="/support" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Support</a>
-          </div>
-        </div>
-      </footer>
-
-      {/* Login Modal */}
-      {showLogin && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '400px', width: '90%' }}>
-            <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Login</h2>
-            <form onSubmit={async (e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target as HTMLFormElement);
-              const email = formData.get('email') as string;
-              const password = formData.get('password') as string;
-              const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-              });
-              const data = await res.json();
-              if (res.ok) {
-                alert('Login successful');
-                setShowLogin(false);
-                // Redirect or update state
-              } else {
-                alert(data.error);
-              }
-            }}>
-              <input name="email" type="email" placeholder="Email" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
-              <input name="password" type="password" placeholder="Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '20px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
-              <button type="submit" style={{ width: '100%', padding: '10px', background: '#ff4000', border: 'none', borderRadius: '4px', color: '#000', cursor: 'pointer' }}>Login</button>
-            </form>
-            <button style={{ background: 'none', border: 'none', color: '#fff', marginTop: '10px', cursor: 'pointer' }} onClick={() => setShowLogin(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {/* Signup Modal */}
-      {showSignup && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '400px', width: '90%' }}>
-            <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Sign Up</h2>
-            <form onSubmit={async (e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target as HTMLFormElement);
-              const name = formData.get('name') as string;
-              const email = formData.get('email') as string;
-              const password = formData.get('password') as string;
-              const confirmPassword = formData.get('confirmPassword') as string;
-              if (password !== confirmPassword) {
-                alert('Passwords do not match');
-                return;
-              }
-              const res = await fetch('/api/auth/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password }),
-              });
-              const data = await res.json();
-              if (res.ok) {
-                alert('Signup successful, please login');
-                setShowSignup(false);
-              } else {
-                alert(data.error);
-              }
-            }}>
-              <input name="name" type="text" placeholder="Name" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
-              <input name="email" type="email" placeholder="Email" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
-              <input name="password" type="password" placeholder="Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
-              <input name="confirmPassword" type="password" placeholder="Confirm Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '20px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
-              <button type="submit" style={{ width: '100%', padding: '10px', background: '#ff4000', border: 'none', borderRadius: '4px', color: '#000', cursor: 'pointer' }}>Sign Up</button>
-            </form>
-            <button style={{ background: 'none', border: 'none', color: '#fff', marginTop: '10px', cursor: 'pointer' }} onClick={() => setShowSignup(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {/* Generating Modal */}
-      {isGenerating && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#111', padding: '60px', borderRadius: '12px', textAlign: 'center', boxShadow: '0 0 50px rgba(255,64,0,0.5)' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '20px', animation: 'spin 2s linear infinite' }}>🦑</div>
-            <h2 style={{ marginBottom: '20px', color: '#ff4000' }}>Unleashing the Beast...</h2>
-            <p style={{ color: '#ccc' }}>Generating your multi-platform ad campaign...</p>
-            <div style={{ marginTop: '20px', width: '200px', height: '4px', background: '#333', borderRadius: '2px', overflow: 'hidden' }}>
-              <div style={{ width: '100%', height: '100%', background: 'linear-gradient(90deg, #ff4000, #ff7733)', animation: 'pulse 1.5s ease-in-out infinite' }}></div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Campaign Report Modal */}
-      {showCampaign && !isGenerating && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '700px', maxHeight: '80vh', overflowY: 'auto', boxShadow: '0 0 50px rgba(255,64,0,0.3)' }}>
-            <h2 style={{ marginBottom: '20px', color: '#ff4000' }}>🔥 Campaign Report Generated</h2>
-            <p style={{ color: '#ccc', marginBottom: '30px' }}>The Beast has analyzed your product and generated optimized ads for multiple platforms.</p>
-            <div style={{ background: '#000', padding: '20px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #ff4000' }}>
-              <h3 style={{ color: '#ff4000', marginBottom: '15px' }}>📍 Reddit — r/indiehackers</h3>
-              <p style={{ fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>Title: I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
-              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
-                Real talk from a fellow builder: I could ship products but marketing was painful. Different tone for every platform, subreddit rules I kept violating, and zero consistency.<br />
-                So I built AD BEAST — an autonomous ad engine. Paste your product → Scout finds the best subreddits (with promo rules checked) → Generates tailored copy across Reddit, X threads, LinkedIn, cold emails, TikTok scripts — all at once. One-click to post.<br />
-                Free tier gives you real campaigns to test. Pro is $19/mo.<br />
-                Still early. Brutal feedback welcome — what's missing?<br />
-                Link: https://add-beast.vercel.app/
+          <div className="mb">
+            <div className="scout-loading">
+              <div className="big-spin"></div>
+              <p>
+                <span className="phase">Analyzing product category…</span><br />
+                Scanning subreddit cultures, rules, and self-promo policies<br />
+                Scoring each sub for audience fit and posting risk
               </p>
             </div>
-            <div style={{ background: '#000', padding: '20px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #4a9eff' }}>
-              <h3 style={{ color: '#4a9eff', marginBottom: '15px' }}>🧵 Twitter Thread</h3>
-              <ol style={{ color: '#ccc', lineHeight: '1.6' }}>
-                <li>1/ Most indie makers build in public. Very few market in public consistently. I fixed that problem in ~30 seconds. Thread 🧵</li>
-                <li>2/ Writing ads used to kill my momentum. Different formats, tones, and rules for every platform. I'd do one or two and call it a day.</li>
-                <li>3/ AD BEAST changes the game: One product description → Smart scouting of subreddits → Perfectly tailored copy for every major platform simultaneously.</li>
-                <li>4/ One-click posting. Or go autonomous. Free tier available. Pro $19/mo. 10% of revenue goes to GiveDirectly (extreme poverty relief). Try it → https://add-beast.vercel.app/</li>
-              </ol>
+            <div className="scout-results">
+              <div className="scout-summary"></div>
+              <div className="scout-select-row">
+                <span className="scout-select-label">SELECT TARGETS</span>
+                <div className="scout-sel-btns">
+                  <button className="ss-btn">SELECT ALL</button>
+                  <button className="ss-btn">CLEAR</button>
+                  <button className="ss-btn">✓ SAFE ONLY</button>
+                </div>
+              </div>
+              <div className="sub-cards"></div>
+              <button className="scout-fire-btn">🔥 FIRE AT SELECTED SUBREDDITS</button>
             </div>
-            <div style={{ marginBottom: '30px' }}>
-              <a href={`data:text/plain;charset=utf-8,${encodeURIComponent(`AD BEAST Campaign Report
-
-Reddit Post:
-Title: I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST
-
-Real talk from a fellow builder: I could ship products but marketing was painful. Different tone for every platform, subreddit rules I kept violating, and zero consistency.
-
-So I built AD BEAST — an autonomous ad engine. Paste your product → Scout finds the best subreddits (with promo rules checked) → Generates tailored copy across Reddit, X threads, LinkedIn, cold emails, TikTok scripts — all at once. One-click to post.
-
-Free tier gives you real campaigns to test. Pro is $19/mo.
-Still early. Brutal feedback welcome — what's missing?
-
-Link: https://add-beast.vercel.app/
-
-Twitter Thread:
-1/ Most indie makers build in public. Very few market in public consistently. I fixed that problem in ~30 seconds. Thread 🧵
-2/ Writing ads used to kill my momentum. Different formats, tones, and rules for every platform. I'd do one or two and call it a day.
-3/ AD BEAST changes the game: One product description → Smart scouting of subreddits → Perfectly tailored copy for every major platform simultaneously.
-4/ One-click posting. Or go autonomous. Free tier available. Pro $19/mo. 10% of revenue goes to GiveDirectly (extreme poverty relief). Try it → https://add-beast.vercel.app/
-
-LinkedIn Post:
-Six months ago I was manually rewriting the same offer for Reddit, Twitter, LinkedIn, and email every single week. Burnout was real. Traction was minimal.
-Today I run full campaigns in under a minute.
-AD BEAST lets you input your product once and outputs high-quality, platform-specific marketing assets across every channel — with intelligent subreddit targeting that respects community rules.
-Built for founders who want to spend more time building, less time marketing.
-10% of revenue donated to GiveDirectly.org.
-What's your biggest marketing bottleneck right now?
-
-Cold Email:
-Subject: Stop doing marketing the hard way
-Most founders spend months building and minutes "marketing."
-AD BEAST fixes the imbalance.
-One description → full campaign across Reddit, X, LinkedIn, email & TikTok. Smart scouting included.
-Free to try. $19/mo for unlimited.
-https://add-beast.vercel.app/
-10% → GiveDirectly.org
-
-Generated by AD BEAST AI Engine`)}`} download="ad-beast-campaign-report.txt" style={{ color: '#ff4000', textDecoration: 'none', fontWeight: 'bold' }}>📄 Download Full Report</a>
-            </div>
-            <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '12px 24px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => setShowCampaign(false)}>
-              Close Report
-            </button>
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }

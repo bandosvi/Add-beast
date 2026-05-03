@@ -4,7 +4,7 @@ export default function Support() {
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Support</h1>
         <p style={{ fontSize: '1rem', lineHeight: '1.6', marginBottom: '20px' }}>
-          Need help? We're here to assist you with any questions or issues you may have with AD BEAST.
+          Need help? We&apos;re here to assist you with any questions or issues you may have with AD BEAST.
         </p>
         <h2 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Contact Us</h2>
         <p style={{ fontSize: '1rem', lineHeight: '1.6', marginBottom: '10px' }}>

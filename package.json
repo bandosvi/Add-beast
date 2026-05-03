@@ -12,6 +12,7 @@
     "db:migrate": "bun run src/db/migrate.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.92.0",
     "@kilocode/app-builder-db": "github:Kilo-Org/app-builder-db#main",
     "bcrypt": "^6.0.0",
     "drizzle-orm": "^0.45.2",
