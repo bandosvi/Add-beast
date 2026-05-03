@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [showCampaign, setShowCampaign] = useState(false);
   return (
     <div style={{ fontFamily: 'Barlow, sans-serif', background: '#07070a', color: '#c4c4d4', minHeight: '100vh', padding: '20px' }}>
       <header style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -61,7 +66,7 @@ export default function Home() {
         <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
           🔥 Ready Campaigns
         </h2>
-        <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', margin: '0 10px' }}>
+        <button style={{ background: '#ff4000', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', margin: '0 10px' }} onClick={() => setShowCampaign(true)}>
           Load "Promote AD BEAST" Campaign
         </button>
         <button style={{ background: '#4a9eff', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer', margin: '0 10px' }}>
@@ -87,6 +92,63 @@ export default function Home() {
           Upgrade
         </button>
       </section>
+
+      {showCampaign && (
+        <section style={{ maxWidth: '1000px', margin: '0 auto 40px', padding: '20px', background: '#0f0f13', borderRadius: '8px', border: '1px solid #1c1c24' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px', textAlign: 'center' }}>
+            🔥 PROMOTE AD BEAST CAMPAIGN (Upgraded)
+          </h2>
+
+          <div style={{ marginBottom: '30px' }}>
+            <h3 style={{ fontSize: '1.5rem', color: '#ff4000', marginBottom: '10px' }}>🔴 REDDIT — r/indiehackers (Top Target)</h3>
+            <p style={{ fontWeight: 'bold', color: '#fff' }}>Title: I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
+            <p style={{ color: '#c4c4d4', lineHeight: '1.6', marginTop: '10px' }}>
+              Real talk from a fellow builder:<br />
+              I could ship products but marketing was painful. Different tone for every platform, subreddit rules I kept violating, and zero consistency.<br />
+              So I built AD BEAST — an autonomous ad engine.<br />
+              Paste your product → Scout finds the best subreddits (with promo rules checked) → Generates tailored copy across Reddit, X threads, LinkedIn, cold emails, TikTok scripts — all at once. One-click to post.<br />
+              Free tier gives you real campaigns to test. Pro is $19/mo.<br />
+              Still early. Brutal feedback welcome — what's missing?<br />
+              Link: https://add-beast.vercel.app/
+            </p>
+          </div>
+
+          <div style={{ marginBottom: '30px' }}>
+            <h3 style={{ fontSize: '1.5rem', color: '#4a9eff', marginBottom: '10px' }}>🧵 X/TWITTER THREAD (HSO)</h3>
+            <ol style={{ color: '#c4c4d4', lineHeight: '1.6' }}>
+              <li>1/ Most indie makers build in public.<br />Very few market in public consistently.<br />I fixed that problem in ~30 seconds. Thread 🧵</li>
+              <li>2/ Writing ads used to kill my momentum. Different formats, tones, and rules for every platform. I'd do one or two and call it a day.</li>
+              <li>3/ AD BEAST changes the game: One product description → Smart scouting of subreddits → Perfectly tailored copy for every major platform simultaneously.</li>
+              <li>4/ One-click posting. Or go autonomous.<br />Free tier available. Pro $19/mo.<br />10% of revenue goes to GiveDirectly (extreme poverty relief).<br />Try it → https://add-beast.vercel.app/</li>
+            </ol>
+          </div>
+
+          <div style={{ marginBottom: '30px' }}>
+            <h3 style={{ fontSize: '1.5rem', color: '#0077b5', marginBottom: '10px' }}>💼 LINKEDIN</h3>
+            <p style={{ color: '#c4c4d4', lineHeight: '1.6' }}>
+              Six months ago I was manually rewriting the same offer for Reddit, Twitter, LinkedIn, and email every single week. Burnout was real. Traction was minimal.<br />
+              Today I run full campaigns in under a minute.<br />
+              AD BEAST lets you input your product once and outputs high-quality, platform-specific marketing assets across every channel — with intelligent subreddit targeting that respects community rules.<br />
+              Built for founders who want to spend more time building, less time marketing.<br />
+              10% of revenue donated to GiveDirectly.org.<br />
+              What's your biggest marketing bottleneck right now?
+            </p>
+          </div>
+
+          <div style={{ marginBottom: '30px' }}>
+            <h3 style={{ fontSize: '1.5rem', color: '#888', marginBottom: '10px' }}>📧 COLD EMAIL</h3>
+            <p style={{ fontWeight: 'bold', color: '#fff' }}>Subject: Stop doing marketing the hard way</p>
+            <p style={{ color: '#c4c4d4', lineHeight: '1.6', marginTop: '10px' }}>
+              Most founders spend months building and minutes "marketing."<br />
+              AD BEAST fixes the imbalance.<br />
+              One description → full campaign across Reddit, X, LinkedIn, email & TikTok. Smart scouting included.<br />
+              Free to try. $19/mo for unlimited.<br />
+              https://add-beast.vercel.app/<br />
+              10% → GiveDirectly.org
+            </p>
+          </div>
+        </section>
+      )}
 
       <section style={{ maxWidth: '800px', margin: '0 auto 40px', textAlign: 'center' }}>
         <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
