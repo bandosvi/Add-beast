@@ -6,6 +6,8 @@ export default function Home() {
   const [showPricing, setShowPricing] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [showScout, setShowScout] = useState(false);
+  const [scoutResults, setScoutResults] = useState<any[]>([]);
+  const [scoutLoading, setScoutLoading] = useState(true);
   const [campaignAds, setCampaignAds] = useState<any[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentTier, setCurrentTier] = useState('free');
@@ -22,10 +24,34 @@ export default function Home() {
   const openPricing = () => setShowPricing(true);
   const closePricing = () => setShowPricing(false);
 
-  const openAdmin = () => setShowAdmin(true);
-  const closeAdmin = () => setShowAdmin(false);
+  const openAdmin = () => {
+    console.log('Opening admin modal');
+    setShowAdmin(true);
+  };
+  const closeAdmin = () => {
+    console.log('Closing admin modal');
+    setShowAdmin(false);
+  };
 
-  const openScout = () => setShowScout(true);
+  const openScout = () => {
+    setShowScout(true);
+    setScoutLoading(true);
+    setScoutResults([]);
+
+    // Mock scout functionality - simulate analyzing subreddits
+    setTimeout(() => {
+      const mockResults = [
+        { name: 'r/entrepreneur', score: 85, risk: 'low', description: 'Perfect for business-focused content' },
+        { name: 'r/smallbusiness', score: 78, risk: 'low', description: 'Good audience fit for B2B services' },
+        { name: 'r/marketing', score: 72, risk: 'medium', description: 'Active community, moderate self-promo rules' },
+        { name: 'r/startups', score: 68, risk: 'medium', description: 'Growing audience, some restrictions' },
+        { name: 'r/digitalmarketing', score: 65, risk: 'medium', description: 'Niche but engaged community' },
+        { name: 'r/solopreneurs', score: 60, risk: 'high', description: 'Smaller audience, strict posting rules' },
+      ];
+      setScoutResults(mockResults);
+      setScoutLoading(false);
+    }, 3000); // 3 second delay to simulate analysis
+  };
   const closeScout = () => setShowScout(false);
 
   const handleUnleash = async () => {
@@ -254,6 +280,29 @@ export default function Home() {
         .scout-btn:disabled{opacity:.4;cursor:not-allowed}
         .scout-count{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#ffffff;margin-top:5px}
         .scout-count b{color:#b8ff00}
+
+        .scout-summary{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:#ffffff;margin-bottom:16px;line-height:1.5}
+        .scout-select-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+        .scout-select-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#ffffff}
+        .scout-sel-btns{display:flex;gap:6px}
+        .ss-btn{background:#242430;border:1px solid #1c1c24;border-radius:2px;color:#ffffff;font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;cursor:pointer;transition:all .13s}
+        .ss-btn:hover{border-color:#ff4000;color:#ff4000}
+
+        .sub-cards{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+        .sub-card{background:#0f0f13;border:1px solid #1c1c24;border-radius:4px;padding:12px}
+        .sub-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+        .sub-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;color:#ffffff}
+        .sub-score{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#b8ff00}
+        .sub-risk{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.08em;padding:2px 6px;border-radius:2px}
+        .risk-low{background:rgba(184,255,0,.1);color:#b8ff00;border:1px solid rgba(184,255,0,.2)}
+        .risk-medium{background:rgba(255,119,0,.1);color:#ff7700;border:1px solid rgba(255,119,0,.2)}
+        .risk-high{background:rgba(255,64,0,.1);color:#ff4000;border:1px solid rgba(255,64,0,.2)}
+        .sub-desc{font-size:.75rem;color:#44444f;margin-bottom:8px;line-height:1.4}
+        .sub-select-btn{background:#ff4000;border:none;border-radius:2px;color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .13s}
+        .sub-select-btn:hover{background:#ff5511}
+
+        .scout-fire-btn{width:100%;background:#ff4000;border:none;border-radius:3px;color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1rem;letter-spacing:.16em;text-transform:uppercase;padding:16px;cursor:pointer;transition:all .15s;margin-top:8px}
+        .scout-fire-btn:hover{background:#ff5511}
 
         .plat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:7px;margin-bottom:4px}
         .pt{padding:10px 12px;border:1px solid #1c1c24;border-radius:3px;background:#0f0f13;color:#ffffff;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.05em;cursor:pointer;transition:all .13s;display:flex;align-items:center;gap:7px;user-select:none;position:relative}
@@ -617,27 +666,44 @@ export default function Home() {
             <button className="mc" onClick={closeScout}>✕</button>
           </div>
           <div className="mb">
-            <div className="scout-loading">
-              <div className="big-spin"></div>
-              <p>
-                <span className="phase">Analyzing product category…</span><br />
-                Scanning subreddit cultures, rules, and self-promo policies<br />
-                Scoring each sub for audience fit and posting risk
-              </p>
-            </div>
-            <div className="scout-results">
-              <div className="scout-summary"></div>
-              <div className="scout-select-row">
-                <span className="scout-select-label">SELECT TARGETS</span>
-                <div className="scout-sel-btns">
-                  <button className="ss-btn">SELECT ALL</button>
-                  <button className="ss-btn">CLEAR</button>
-                  <button className="ss-btn">✓ SAFE ONLY</button>
-                </div>
+            {scoutLoading ? (
+              <div className="scout-loading">
+                <div className="big-spin"></div>
+                <p>
+                  <span className="phase">Analyzing product category…</span><br />
+                  Scanning subreddit cultures, rules, and self-promo policies<br />
+                  Scoring each sub for audience fit and posting risk
+                </p>
               </div>
-              <div className="sub-cards"></div>
-              <button className="scout-fire-btn">🔥 FIRE AT SELECTED SUBREDDITS</button>
-            </div>
+            ) : (
+              <div className="scout-results">
+                <div className="scout-summary">
+                  Found {scoutResults.length} subreddits matching your product criteria. Select the best targets for your campaign.
+                </div>
+                <div className="scout-select-row">
+                  <span className="scout-select-label">SELECT TARGETS</span>
+                  <div className="scout-sel-btns">
+                    <button className="ss-btn">SELECT ALL</button>
+                    <button className="ss-btn">CLEAR</button>
+                    <button className="ss-btn">✓ SAFE ONLY</button>
+                  </div>
+                </div>
+                <div className="sub-cards">
+                  {scoutResults.map((sub, index) => (
+                    <div key={index} className="sub-card">
+                      <div className="sub-header">
+                        <span className="sub-name">{sub.name}</span>
+                        <span className="sub-score">{sub.score}% match</span>
+                        <span className={`sub-risk risk-${sub.risk}`}>{sub.risk.toUpperCase()}</span>
+                      </div>
+                      <div className="sub-desc">{sub.description}</div>
+                      <button className="sub-select-btn">SELECT</button>
+                    </div>
+                  ))}
+                </div>
+                <button className="scout-fire-btn">🔥 FIRE AT SELECTED SUBREDDITS</button>
+              </div>
+            )}
           </div>
         </div>
       </div>
