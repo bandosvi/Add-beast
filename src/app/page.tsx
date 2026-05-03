@@ -49,12 +49,27 @@ export default function Home() {
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         .monster { animation: monsterPulse 2s infinite, float 3s ease-in-out infinite; }
         .hero-bg { background: radial-gradient(ellipse at center, rgba(255,64,0,0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
+        @media (max-width: 768px) {
+          .hero-buttons { flex-direction: column !important; align-items: center !important; gap: 15px !important; }
+          .nav-buttons { flex-direction: column !important; gap: 10px !important; }
+          .feature-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+          .pricing-grid { grid-template-columns: 1fr !important; gap: 20px !important; max-width: 100% !important; }
+          .hero-title { font-size: 3rem !important; }
+          .hero-subtitle { font-size: 1rem !important; }
+          .section-padding { padding: 40px 15px !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-title { font-size: 2.5rem !important; }
+          .hero-subtitle { font-size: 0.9rem !important; }
+          .nav { padding: 15px !important; }
+          .monster { font-size: 1.5rem !important; }
+        }
       ` }} />
       <nav style={{ padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div className="monster" style={{ fontSize: '2rem', cursor: 'pointer' }}>
-          🐉
+          🦑
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <div className="nav-buttons" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           {user ? (
             <>
               <span>Welcome, {user.name}</span>
@@ -64,7 +79,7 @@ export default function Home() {
             </>
           ) : (
             <>
-              <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowLogin(true)} onMouseOver={(e) => (e.target as HTMLElement).style.borderColor = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.borderColor = '#333'}>
+              <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowLogin(true)} onMouseOver={(e) => (e.target as HTMLElement).style.borderColor = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.borderColor = '#333'}>
                 Login
               </button>
               <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowSignup(true)} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
@@ -80,13 +95,13 @@ export default function Home() {
         <p style={{ fontFamily: 'var(--font-dancing-script)', fontSize: '2rem', color: '#ff4000', marginBottom: '20px', animation: 'fadeInUp 1s ease-in 0.5s both' }}>
           Leon-Link presents
         </p>
-        <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: '900', marginBottom: '30px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'fadeInUp 1s ease-in 0.7s both' }}>
+        <h1 className="hero-title" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: '900', marginBottom: '30px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'fadeInUp 1s ease-in 0.7s both' }}>
           AD BEAST
         </h1>
-        <p style={{ fontSize: '1.3rem', color: '#ccc', maxWidth: '700px', margin: '0 auto 40px', lineHeight: '1.6', animation: 'fadeInUp 1s ease-in 0.9s both' }}>
+        <p className="hero-subtitle" style={{ fontSize: '1.3rem', color: '#ccc', maxWidth: '700px', margin: '0 auto 40px', lineHeight: '1.6', animation: 'fadeInUp 1s ease-in 0.9s both' }}>
           Autonomous Ad Engine — Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.
         </p>
-        <div style={{ animation: 'fadeInUp 1s ease-in 1.1s both' }}>
+        <div className="hero-buttons" style={{ animation: 'fadeInUp 1s ease-in 1.1s both' }}>
           <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '16px 32px', borderRadius: '8px', fontSize: '1.1rem', fontWeight: 'bold', marginRight: '15px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
             Start Creating Ads
           </button>
@@ -97,10 +112,10 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section style={{ padding: '80px 20px', background: 'linear-gradient(135deg, #111 0%, #222 100%)', borderTop: '2px solid #ff4000', borderBottom: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.4s both' }}>
+      <section className="section-padding" style={{ padding: '80px 20px', background: 'linear-gradient(135deg, #111 0%, #222 100%)', borderTop: '2px solid #ff4000', borderBottom: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.4s both' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Powerful Features</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
+          <div className="feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
             <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 0.6s both' }} onClick={() => setExpandedFeature(expandedFeature === 'scout' ? null : 'scout')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔍</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'scout' ? '#ff4000' : '#fff' }}>Smart Subreddit Scouting</h3>
@@ -145,10 +160,10 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section style={{ padding: '80px 20px', background: '#000', borderTop: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.2s both' }}>
+      <section className="section-padding" style={{ padding: '80px 20px', background: '#000', borderTop: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.2s both' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Choose Your Plan</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', maxWidth: '900px', margin: '0 auto' }}>
+          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', maxWidth: '900px', margin: '0 auto' }}>
             <div style={{ border: '2px solid #333', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', backdropFilter: 'blur(10px)', animation: 'fadeInUp 1s ease-in 0.4s both' }}>
               <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Free</h3>
               <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '30px', color: '#fff' }}>$0</p>
