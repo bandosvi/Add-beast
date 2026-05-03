@@ -26,7 +26,7 @@ export default function Landing() {
             <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => window.location.href = '/'}>
               Try AD BEAST
             </button>
-            <small style={{ color: '#ffffff', display: 'block', marginTop: '5px' }}>Everything Free • Unlimited Campaigns • Powered by Claude</small>
+            <small style={{ color: '#ffffff', display: 'block', marginTop: '5px' }}>Everything Free • Unlimited Campaigns • Powered by Gemini</small>
           </div>
           <div>
             <button style={{ background: 'none', border: '2px solid #ff4000', color: '#ff4000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowCampaign(true)}>
@@ -103,7 +103,7 @@ export default function Landing() {
                 <li>• All platforms unlocked</li>
                 <li>• Advanced Scout Mode</li>
                 <li>• Auto-posting & one-click</li>
-                <li>• Powered by Claude</li>
+                <li>• Powered by Gemini</li>
               </ul>
               <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
                 Start Using AD BEAST

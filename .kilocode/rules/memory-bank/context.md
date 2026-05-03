@@ -22,7 +22,7 @@ Full AD BEAST implementation is functional. All typecheck and lint checks pass.
 - [x] Legal pages (Privacy, Terms, Support)
 - [x] Landing page at /landing with hero, features, pricing, social proof, footer
 - [x] Font color fixes for white text on dark backgrounds
-- [x] Claude AI API route for ad generation (/api/unleash-beast)
+- [x] Gemini AI API route for ad generation (/api/unleash-beast)
 - [x] Made everything free: removed pricing tiers, unlocked all platforms, updated UI to reflect unlimited free access
 - [x] Made hero description bold and white
 - [x] Created /api/claude proxy endpoint and replaced Anthropic SDK with fetch calls
@@ -56,7 +56,7 @@ Create in `src/components/` following the established patterns.
 
 ### To add API routes:
 
-For Claude integration, Reddit posting, etc.
+For Gemini integration, Reddit posting, etc.
 
 ## Available Recipes
 
@@ -77,7 +77,7 @@ For Claude integration, Reddit posting, etc.
 | Initial | Template created with base setup |
 | 2026-05-03 | Started AD BEAST implementation - landing page, legal pages |
 | 2026-05-03 | Completed main AD BEAST UI with modals, platform selection, output section |
-| 2026-05-03 | Fixed font colors (white on dark backgrounds), added Claude AI integration |
+| 2026-05-03 | Fixed font colors (white on dark backgrounds), added Gemini AI integration |
 | 2026-05-03 | Made everything free: removed pricing tiers, unlocked all platforms, updated UI to reflect unlimited free access |
 | 2026-05-03 | Made hero description bold and white |
 | 2026-05-03 | Created /api/claude proxy endpoint and replaced Anthropic SDK with fetch calls |

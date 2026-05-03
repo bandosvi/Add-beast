@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       frameworks,
     } = await request.json();
 
-    // For demo, generate ads for selected platforms using Claude
+    // For demo, generate ads for selected platforms using Gemini
     const ads = [];
 
     const selectedPlatforms = platforms.filter((p: any) => p.selected);
@@ -52,7 +52,7 @@ Make it optimized for ${platform.name} posting. Keep it concise and engaging.`;
       });
 
       if (!r.ok) {
-        throw new Error(`Claude API error: ${r.status}`);
+        throw new Error(`Gemini API error: ${r.status}`);
       }
 
       const message = await r.json();

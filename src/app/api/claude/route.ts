@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     const data = await r.json();
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error calling Claude API:', error);
-    return NextResponse.json({ error: 'Failed to call Claude API' }, { status: 500 });
+    console.error('Error calling Gemini API:', error);
+    return NextResponse.json({ error: 'Failed to call Gemini API' }, { status: 500 });
   }
 }

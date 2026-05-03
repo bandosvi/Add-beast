@@ -484,7 +484,7 @@ export default function Home() {
                   <li className="y">🤖 Reddit API auto-post</li>
                   <li className="y">Rule analysis per subreddit</li>
                   <li className="y">Priority AI generation</li>
-                  <li className="y">Powered by Claude</li>
+                  <li className="y">Powered by Gemini</li>
                 </ul>
                 <button className="pcbtn btn-free" style={{marginTop: '14px'}}>START USING NOW</button>
               </div>
