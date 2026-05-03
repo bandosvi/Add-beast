@@ -73,8 +73,8 @@ export default function Home() {
         }
       ` }} />
       <nav className="nav" style={{ padding: '20px 40px', display: 'flex', justifyContent: 'center', alignItems: 'center', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div style={{ fontSize: '3rem', fontWeight: 'bold', fontFamily: 'var(--font-dancing-script)', color: '#fff', textShadow: '0 0 20px rgba(255,64,0,0.5)' }}>
-          AD BEAST
+        <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>
+          🐺
         </div>
       </nav>
 
