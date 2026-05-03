@@ -38,10 +38,10 @@ Core ad generation functionality implemented. Remaining enhancements:
 
 1. Add Scout Reddit API for subreddit analysis
 2. Implement posting intents (copy to clipboard, one-click URLs)
-3. Add admin dashboard login and credential management
-4. Add campaign download/report feature
-5. Implement usage limits and upgrade prompts
-6. Add error handling and loading states
+3. Add campaign download/report feature
+4. Implement usage limits and upgrade prompts
+5. Add error handling and loading states
+6. Admin functionality replaced with support/donation panel
 
 ## Quick Start Guide
 

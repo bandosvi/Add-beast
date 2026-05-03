@@ -316,7 +316,7 @@ export default function Home() {
         <div className="hdr-right">
           <div className="live">CLAUDE ONLINE</div>
           <button className="hbtn" onClick={openPricing}>💚 Donate</button>
-          <button className="hbtn" onClick={openAdmin}>ADMIN</button>
+           <button className="hbtn" onClick={openAdmin}>SUPPORT</button>
         </div>
       </header>
 
@@ -497,8 +497,8 @@ export default function Home() {
       <div className={`overlay ${showAdmin ? 'on' : ''}`}>
         <div className="modal" style={{maxWidth: '460px'}}>
           <div className="mh">
-            <div className="mtitle">DONATE TO SUPPORT</div>
-            <div className="msub">Help us keep AD BEAST free forever. 10% of donations go to GiveDirectly.org.</div>
+            <div className="mtitle">SUPPORT AD BEAST</div>
+            <div className="msub">Help keep AD BEAST free forever. Your donations support our charity partnership.</div>
             <button className="mc" onClick={closeAdmin}>✕</button>
           </div>
           <div className="mb">
