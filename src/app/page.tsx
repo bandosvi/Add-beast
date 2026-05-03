@@ -128,26 +128,20 @@ export default function Home() {
       <section style={{ padding: '60px 20px', background: '#000', animation: 'fadeIn 1s ease-in 0.3s both' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '40px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Who is this for?</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
-            <div style={{ padding: '30px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.2)' }}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#fff' }}>Freelancers & Solo Entrepreneurs</h3>
-              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
-                You're great at your craft but marketing eats up your time. AD BEAST handles the ad creation so you can focus on what you love.
-              </p>
-            </div>
-            <div style={{ padding: '30px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.2)' }}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#fff' }}>Social Media Advertisers</h3>
-              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
-                Tired of writing the same ad in 8 different ways? Get perfectly optimized copy for every platform with one click.
-              </p>
-            </div>
-            <div style={{ padding: '30px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.2)' }}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#fff' }}>Reddit Power Users</h3>
-              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
-                Stop wasting hours finding subreddits and getting banned. Our AI scouts safe communities and generates subreddit-specific ads that convert.
-              </p>
-            </div>
+          <div style={{ marginBottom: '40px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.2rem', color: '#fff', lineHeight: '2', textAlign: 'left', maxWidth: '800px', margin: '0 auto' }}>
+              <li>🔥 <strong>Freelancers</strong> (we know you don't have time for this marketing BS)</li>
+              <li>🔧 <strong>Mechanics</strong> (backyard mechanics invited! No fancy garage required)</li>
+              <li>💼 <strong>Entrepreneurs</strong> (from local mom-and-pop shops to Grandma Sally slanging homemade cookie dough empires)</li>
+              <li>🏆 <strong>Coaches or anyone selling classes online</strong> (OnlyFans models, we see you lurking!)</li>
+            </ul>
           </div>
+          <p style={{ fontSize: '1.1rem', color: '#ccc', maxWidth: '900px', margin: '0 auto 20px', lineHeight: '1.7' }}>
+            And anyone else tired of Reddit's ban hammer swinging their way. AD BEAST takes the pain out of finding the right subreddits AND significantly lowers your chances of getting banned by generating community-appropriate ads that actually fit the vibe.
+          </p>
+          <p style={{ fontSize: '1rem', color: '#888', fontStyle: 'italic' }}>
+            Basically, if you're hustling online and hate marketing, this is your secret weapon.
+          </p>
         </div>
       </section>
 
