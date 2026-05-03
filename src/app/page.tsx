@@ -60,8 +60,9 @@ export default function Home() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
             <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.6s both', cursor: 'pointer' }} onClick={() => setExpandedFeature(expandedFeature === 'scout' ? null : 'scout')}>
               <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🔍</div>
-              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Smart Subreddit Scouting</h3>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px', textDecoration: expandedFeature === 'scout' ? 'underline' : 'none', color: expandedFeature === 'scout' ? '#ff4000' : '#fff' }}>Smart Subreddit Scouting</h3>
               <p style={{ color: '#ccc', fontSize: '0.95rem' }}>Analyzes subreddits for promo rules, fit score, and best posting times.</p>
+              <p style={{ color: '#ff4000', fontSize: '0.8rem', marginTop: '5px' }}>Click to expand</p>
               {expandedFeature === 'scout' && (
                 <div style={{ marginTop: '15px', padding: '15px', background: '#222', borderRadius: '4px' }}>
                   <p style={{ color: '#fff', fontSize: '0.9rem' }}>
@@ -72,8 +73,9 @@ export default function Home() {
             </div>
             <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.8s both', cursor: 'pointer' }} onClick={() => setExpandedFeature(expandedFeature === 'optimize' ? null : 'optimize')}>
               <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🎯</div>
-              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Platform Optimization</h3>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px', textDecoration: expandedFeature === 'optimize' ? 'underline' : 'none', color: expandedFeature === 'optimize' ? '#ff4000' : '#fff' }}>Platform Optimization</h3>
               <p style={{ color: '#ccc', fontSize: '0.95rem' }}>Tailored copy using PAS, AIDA, HSO, and BAB frameworks for each platform.</p>
+              <p style={{ color: '#ff4000', fontSize: '0.8rem', marginTop: '5px' }}>Click to expand</p>
               {expandedFeature === 'optimize' && (
                 <div style={{ marginTop: '15px', padding: '15px', background: '#222', borderRadius: '4px' }}>
                   <p style={{ color: '#fff', fontSize: '0.9rem' }}>
@@ -84,8 +86,9 @@ export default function Home() {
             </div>
             <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 1s both', cursor: 'pointer' }} onClick={() => setExpandedFeature(expandedFeature === 'auto' ? null : 'auto')}>
               <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🤖</div>
-              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Auto-Posting</h3>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px', textDecoration: expandedFeature === 'auto' ? 'underline' : 'none', color: expandedFeature === 'auto' ? '#ff4000' : '#fff' }}>Auto-Posting</h3>
               <p style={{ color: '#ccc', fontSize: '0.95rem' }}>One-click or fully autonomous posting to Reddit, Twitter, LinkedIn, and more.</p>
+              <p style={{ color: '#ff4000', fontSize: '0.8rem', marginTop: '5px' }}>Click to expand</p>
               {expandedFeature === 'auto' && (
                 <div style={{ marginTop: '15px', padding: '15px', background: '#222', borderRadius: '4px' }}>
                   <p style={{ color: '#fff', fontSize: '0.9rem' }}>
