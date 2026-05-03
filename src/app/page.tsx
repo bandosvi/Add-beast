@@ -22,14 +22,8 @@ export default function Home() {
   const openPricing = () => setShowPricing(true);
   const closePricing = () => setShowPricing(false);
 
-  const openAdmin = () => {
-    console.log('Opening admin modal');
-    setShowAdmin(true);
-  };
-  const closeAdmin = () => {
-    console.log('Closing admin modal');
-    setShowAdmin(false);
-  };
+  const openAdmin = () => setShowAdmin(true);
+  const closeAdmin = () => setShowAdmin(false);
 
   const openScout = () => setShowScout(true);
   const closeScout = () => setShowScout(false);
