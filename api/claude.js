@@ -21,9 +21,23 @@ export default async function handler(req, res) {
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({
-      error: 'GEMINI_API_KEY not set. Go to Vercel → Settings → Environment Variables and add it. Get a free key at aistudio.google.com'
-    });
+    // FREE FOREVER: Return mock response for testing without API key
+    const mockResponse = {
+      id: 'mock-' + Date.now(),
+      type: 'message',
+      role: 'assistant',
+      content: [{
+        type: 'text',
+        text: '🐺 AD BEAST is ready! This is a demo response. To enable real AI generation:\n\n1. Get a FREE Gemini API key at: https://aistudio.google.com\n2. Add GEMINI_API_KEY to your Vercel environment variables\n3. Redeploy\n\nNo credit card required! ✨'
+      }],
+      model: 'gemini-1.5-flash',
+      stop_reason: 'end_turn',
+      usage: {
+        input_tokens: 10,
+        output_tokens: 50
+      }
+    };
+    return res.status(200).json(mockResponse);
   }
 
   try {
@@ -44,7 +58,7 @@ export default async function handler(req, res) {
         maxOutputTokens: max_tokens || 1000,
         temperature: 0.85
       }
-    });
+    };
 
     // ── Call Gemini ──────────────────────────────────────────────────────────
     const model = 'gemini-1.5-flash'; // Free, fast, capable
@@ -56,7 +70,16 @@ export default async function handler(req, res) {
       body: JSON.stringify(geminiBody)
     });
 
-    const geminiData = await geminiRes.json();
+    let geminiData;
+    try {
+      geminiData = await geminiRes.json();
+    } catch (parseError) {
+      console.error('Failed to parse Gemini response:', parseError);
+      return res.status(500).json({
+        error: 'Invalid response from Gemini API. Check your API key.',
+        details: 'Response was not valid JSON'
+      });
+    }
 
     if (!geminiRes.ok) {
       console.error('Gemini error:', geminiData);
