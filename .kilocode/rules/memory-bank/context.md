@@ -49,7 +49,7 @@ Core ad generation functionality implemented. Remaining enhancements:
 
 - AI-powered ad generation for 8+ platforms
 - Reddit Scout mode for subreddit targeting
-- Tiered pricing (Free/Pro/Beast/Admin)
+- Tiered pricing (Free/Pro/Beast/Admin) - currently in testing mode
 - One-click and auto-posting capabilities
 - Charity donation integration (10% to GiveDirectly)
 
@@ -85,4 +85,5 @@ For Gemini integration, Reddit posting, etc.
 | 2026-05-03 | Made hero description bold and white |
 | 2026-05-03 | Created /api/claude proxy endpoint and replaced Anthropic SDK with fetch calls |
 | 2026-05-03 | Added Vercel static deployment files: index.html, api/claude.js, vercel.json |
-| 2026-05-03 | Replaced Anthropic API with Google Gemini proxy for free unlimited usage |
+ | 2026-05-03 | Replaced Anthropic API with Google Gemini proxy for free unlimited usage |
+ | 2026-05-03 | Restored tiered pricing structure - AD BEAST is for testing purposes only, not free forever |

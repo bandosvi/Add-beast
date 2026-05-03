@@ -8,6 +8,7 @@ export default function Home() {
   const [showScout, setShowScout] = useState(false);
   const [campaignAds, setCampaignAds] = useState<any[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [currentTier, setCurrentTier] = useState('free');
 
   const productNameRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
@@ -39,14 +40,14 @@ export default function Home() {
     const subreddits = subredditsRef.current?.value || '';
 
     const platforms = [
-      { name: 'Reddit', mode: 'copy', selected: true },
-      { name: 'Twitter/X', mode: 'click', selected: true },
-      { name: 'X Thread', mode: 'click', selected: true },
-      { name: 'Facebook', mode: 'click', selected: false },
-      { name: 'Instagram', mode: 'copy', selected: false },
-      { name: 'LinkedIn', mode: 'click', selected: false },
-      { name: 'TikTok Script', mode: 'copy', selected: false },
-      { name: 'Cold Email', mode: 'copy', selected: true },
+      { name: 'Reddit', mode: 'copy', selected: currentTier === 'free' || currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' },
+      { name: 'Twitter/X', mode: 'click', selected: currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' },
+      { name: 'X Thread', mode: 'click', selected: currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' },
+      { name: 'Facebook', mode: 'click', selected: currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' },
+      { name: 'Instagram', mode: 'copy', selected: currentTier === 'beast' || currentTier === 'admin' },
+      { name: 'LinkedIn', mode: 'click', selected: currentTier === 'beast' || currentTier === 'admin' },
+      { name: 'TikTok Script', mode: 'copy', selected: currentTier === 'admin' },
+      { name: 'Cold Email', mode: 'copy', selected: currentTier === 'admin' },
     ].filter(p => p.selected);
 
     const frameworks = ['PAS = Problem→Agitate→Solve', 'AIDA = Attention→Interest→Desire→Action', 'HSO = Hook→Story→Offer', 'BAB = Before→After→Bridge'];
@@ -125,10 +126,11 @@ export default function Home() {
         .logo b{color:#ff4000}
         .hdr-mid{display:flex;align-items:center;gap:8px}
         .tier-pill{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid;cursor:pointer;transition:all .15s}
-        .tp-free{border-color:#242430;color:#ffffff}.tp-free:hover{border-color:#ff4000;color:#ffffff}
-        .tp-pro{border-color:rgba(245,197,24,.4);color:#f5c518;background:rgba(245,197,24,.06)}
-        .tp-beast{border-color:rgba(255,64,0,.45);color:#ff4000;background:rgba(255,64,0,.09)}
-        .tp-admin{border-color:rgba(184,255,0,.35);color:#b8ff00;background:rgba(184,255,0,.05)}
+        .tier-pill.active{opacity:1;pointer-events:none}
+        .tp-free{border-color:#242430;color:#ffffff}.tp-free:hover,.tp-free.active{border-color:#ff4000;color:#ffffff;background:#ff4000}
+        .tp-pro{border-color:rgba(245,197,24,.4);color:#f5c518;background:rgba(245,197,24,.06);opacity:.6}.tp-pro:hover,.tp-pro.active{opacity:1;border-color:#f5c518;background:rgba(245,197,24,.15)}
+        .tp-beast{border-color:rgba(255,64,0,.45);color:#ff4000;background:rgba(255,64,0,.09);opacity:.6}.tp-beast:hover,.tp-beast.active{opacity:1;border-color:#ff4000;background:rgba(255,64,0,.2)}
+        .tp-admin{border-color:rgba(184,255,0,.35);color:#b8ff00;background:rgba(184,255,0,.05);opacity:.6}.tp-admin:hover,.tp-admin.active{opacity:1;border-color:#b8ff00;background:rgba(184,255,0,.15)}
         .hdr-right{display:flex;align-items:center;gap:8px}
         .hbtn{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:2px;border:1px solid #242430;background:none;color:#ffffff;cursor:pointer;transition:all .13s}
         .hbtn:hover{border-color:#ff4000;color:#ff4000}
@@ -311,7 +313,10 @@ export default function Home() {
           🐺
         </div>
         <div className="hdr-mid">
-          <div className="tier-pill tp-free">EVERYTHING FREE</div>
+          <div className={`tier-pill tp-free ${currentTier === 'free' ? 'active' : ''}`} onClick={() => setCurrentTier('free')}>FREE</div>
+          <div className={`tier-pill tp-pro ${currentTier === 'pro' ? 'active' : ''}`} onClick={() => setCurrentTier('pro')}>PRO</div>
+          <div className={`tier-pill tp-beast ${currentTier === 'beast' ? 'active' : ''}`} onClick={() => setCurrentTier('beast')}>BEAST</div>
+          <div className={`tier-pill tp-admin ${currentTier === 'admin' ? 'active' : ''}`} onClick={() => setCurrentTier('admin')}>ADMIN</div>
         </div>
         <div className="hdr-right">
           <div className="live">CLAUDE ONLINE</div>
@@ -323,19 +328,19 @@ export default function Home() {
         <div className="hero">
           <div className="eyebrow">AI ADVERTISING ENGINE — AUTONOMOUS</div>
           <h1>UNLEASH <span className="blaze">THE BEAST</span></h1>
-          <p style={{ color: '#ffffff', fontWeight: 'bold' }}>Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.</p>
+          <p style={{ color: '#ffffff', fontWeight: 'bold' }}>Generate platform-optimized ads using proven frameworks. Choose your tier for more platforms and features.</p>
         </div>
 
       <div className="charity">
         <div className="c-strip">💚 10% of revenue goes to <b>GiveDirectly.org</b> — direct cash to people in extreme poverty. Rated #1 by GiveWell.</div>
       </div>
 
-      <div className="usage-wrap" id="usage-wrap">
+      <div className="usage-wrap on" id="usage-wrap">
         <div className="usage-inner">
           <span className="ul">Monthly Campaigns</span>
-          <div className="ut"><div className="uf full"></div></div>
-          <span className="uc">UNLIMITED</span>
-          <button className="uu">DONATE</button>
+          <div className="ut"><div className={`uf ${currentTier === 'free' ? '' : 'full'}`}></div></div>
+          <span className="uc">{currentTier === 'free' ? '3/3' : currentTier === 'pro' ? '25/25' : 'UNLIMITED'}</span>
+          <button className="uu" onClick={openPricing}>UPGRADE</button>
         </div>
       </div>
 
@@ -367,45 +372,45 @@ export default function Home() {
 
         <div className="sec">SELECT FIRE ZONES</div>
         <div className="plat-grid">
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'free' ? 'on' : currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' ? 'on' : ''}`}>
             🔴 Reddit
             <span className="pt-mode pm-copy">📋 COPY</span>
-            <span className="ck">✔</span>
+            {(currentTier === 'free' || currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin') && <span className="ck">✔</span>}
           </button>
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' ? 'on' : 'locked'}`}>
             𝕏 Twitter/X
             <span className="pt-mode pm-click">⚡ 1-CLICK</span>
-            <span className="ck">✔</span>
+            {(currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin') && <span className="ck">✔</span>}
           </button>
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' ? 'on' : 'locked'}`}>
             🧵 X Thread
             <span className="pt-mode pm-click">⚡ 1-CLICK</span>
-            <span className="ck">✔</span>
+            {(currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin') && <span className="ck">✔</span>}
           </button>
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin' ? 'on' : 'locked'}`}>
             📘 Facebook
             <span className="pt-mode pm-click">⚡ 1-CLICK</span>
-            <span className="ck">✔</span>
+            {(currentTier === 'pro' || currentTier === 'beast' || currentTier === 'admin') && <span className="ck">✔</span>}
           </button>
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'beast' || currentTier === 'admin' ? 'on' : 'locked'}`}>
             📸 Instagram
             <span className="pt-mode pm-copy">📋 COPY</span>
-            <span className="ck">✔</span>
+            {(currentTier === 'beast' || currentTier === 'admin') && <span className="ck">✔</span>}
           </button>
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'beast' || currentTier === 'admin' ? 'on' : 'locked'}`}>
             💼 LinkedIn
             <span className="pt-mode pm-click">⚡ 1-CLICK</span>
-            <span className="ck">✔</span>
+            {(currentTier === 'beast' || currentTier === 'admin') && <span className="ck">✔</span>}
           </button>
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'admin' ? 'on' : 'locked'}`}>
             🎵 TikTok Script
             <span className="pt-mode pm-copy">📋 COPY</span>
-            <span className="ck">✔</span>
+            {currentTier === 'admin' && <span className="ck">✔</span>}
           </button>
-          <button className="pt on">
+          <button className={`pt ${currentTier === 'admin' ? 'on' : 'locked'}`}>
             📧 Cold Email
             <span className="pt-mode pm-copy">📋 COPY</span>
-            <span className="ck">✔</span>
+            {currentTier === 'admin' && <span className="ck">✔</span>}
           </button>
         </div>
 
@@ -464,32 +469,70 @@ export default function Home() {
       <div className={`overlay ${showPricing ? 'on' : ''}`}>
         <div className="modal" style={{maxWidth: '540px'}}>
           <div className="mh">
-            <div className="mtitle">EVERYTHING IS FREE</div>
-            <div className="msub">AD BEAST is completely free and unlimited. Consider donating to support our charity partnership.</div>
+            <div className="mtitle">CHOOSE YOUR TIER</div>
+            <div className="msub">Select the plan that fits your advertising needs.</div>
             <button className="mc" onClick={closePricing}>✕</button>
           </div>
           <div className="mb">
             <div className="price-grid">
-              <div className="pc star" style={{gridColumn: '1/-1'}}>
-                <div className="pc-badge">EVERYTHING FREE</div>
-                <div className="pc-name">AD BEAST</div>
+              <div className="pc">
+                <div className="pc-name">FREE</div>
                 <div className="pc-price">$0</div>
                 <div className="pc-per">forever</div>
-                <ul style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px'}}>
+                <ul>
+                  <li className="y">1 platform (Reddit)</li>
+                  <li className="y">3 campaigns/month</li>
+                  <li className="y">📋 Copy to clipboard</li>
+                  <li>Scout Mode — 3 subs</li>
+                  <li>Basic AI generation</li>
+                </ul>
+                <button className="pcbtn btn-free" onClick={() => handlePurchase('free')}>CURRENT TIER</button>
+              </div>
+              <div className="pc star">
+                <div className="pc-badge">MOST POPULAR</div>
+                <div className="pc-name">PRO</div>
+                <div className="pc-price">$19</div>
+                <div className="pc-per">/month</div>
+                <ul>
+                  <li className="y">All 8 platforms</li>
+                  <li className="y">25 campaigns/month</li>
+                  <li className="y">⚡ One-click posting</li>
+                  <li className="y">Scout Mode — unlimited subs</li>
+                  <li className="y">Priority AI generation</li>
+                  <li className="y">Per-sub tailored posts</li>
+                </ul>
+                <button className="pcbtn btn-pro" onClick={() => handlePurchase('pro')}>UPGRADE TO PRO</button>
+              </div>
+              <div className="pc">
+                <div className="pc-name">BEAST</div>
+                <div className="pc-price">$49</div>
+                <div className="pc-per">/month</div>
+                <ul>
                   <li className="y">All 8 platforms</li>
                   <li className="y">Unlimited campaigns</li>
                   <li className="y">⚡ One-click posting</li>
                   <li className="y">Scout Mode — unlimited subs</li>
-                  <li className="y">Per-sub tailored posts</li>
                   <li className="y">🤖 Reddit API auto-post</li>
-                  <li className="y">Rule analysis per subreddit</li>
                   <li className="y">Priority AI generation</li>
-                  <li className="y">Powered by Gemini</li>
+                  <li className="y">Rule analysis per subreddit</li>
                 </ul>
-                <button className="pcbtn btn-free" style={{marginTop: '14px'}}>START USING NOW</button>
+                <button className="pcbtn btn-beast" onClick={() => handlePurchase('beast')}>UPGRADE TO BEAST</button>
+              </div>
+              <div className="pc">
+                <div className="pc-name">ADMIN</div>
+                <div className="pc-price">$99</div>
+                <div className="pc-per">/month</div>
+                <ul>
+                  <li className="y">Everything in Beast</li>
+                  <li className="y">🤖 All platforms auto-post</li>
+                  <li className="y">White-label solution</li>
+                  <li className="y">Priority support</li>
+                  <li className="y">Custom integrations</li>
+                </ul>
+                <button className="pcbtn btn-admin" onClick={() => handlePurchase('admin')}>UPGRADE TO ADMIN</button>
               </div>
             </div>
-            <div className="price-note"><b>100% Free Forever</b> · <b>Support our charity: 10% of donations → GiveDirectly.org</b><br />Want to donate? <a href="#" onClick={() => { closePricing(); openAdmin(); }}>Enter here →</a></div>
+            <div className="price-note">All plans include our charity partnership: <b>10% of revenue → GiveDirectly.org</b></div>
           </div>
         </div>
       </div>
@@ -497,38 +540,33 @@ export default function Home() {
       <div className={`overlay ${showAdmin ? 'on' : ''}`}>
         <div className="modal" style={{maxWidth: '460px'}}>
           <div className="mh">
-            <div className="mtitle">SUPPORT AD BEAST</div>
-            <div className="msub">Help keep AD BEAST free forever. Your donations support our charity partnership.</div>
+            <div className="mtitle">ACCOUNT SETTINGS</div>
+            <div className="msub">Manage your tier and API integrations.</div>
             <button className="mc" onClick={closeAdmin}>✕</button>
           </div>
           <div className="mb">
-            <div id="admin-login-form">
-              <div className="af"><label>Donation Amount</label><input className="ainput" type="number" placeholder="$10" /></div>
-              <button className="abtn">💚 MAKE DONATION</button>
-              <div className="aerr">Thank you for supporting AD BEAST!</div>
-            </div>
             <div className="admin-dash">
               <div className="astats">
                 <div className="ast"><div className="ast-n">0</div><div className="ast-l">Campaigns Fired</div></div>
-                <div className="ast"><div className="ast-n">∞</div><div className="ast-l">Your Limit</div></div>
-                <div className="ast"><div className="ast-n">FREE</div><div className="ast-l">Tier Status</div></div>
+                <div className="ast"><div className="ast-n">{currentTier === 'free' ? '3' : currentTier === 'pro' ? '25' : '∞'}</div><div className="ast-l">Your Limit</div></div>
+                <div className="ast"><div className="ast-n">{currentTier.toUpperCase()}</div><div className="ast-l">Tier Status</div></div>
               </div>
-              <div className="asec">REDDIT API — Auto-Post</div>
-              <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.63rem', color: '#44444f', lineHeight: '1.7'}}>
-                Create a &quot;script&quot; app at <span style={{color: '#ff4000'}}>reddit.com/prefs/apps</span> then paste credentials below. Stored locally in your browser only.
+              <div className="asec">API INTEGRATIONS</div>
+              <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.63rem', color: '#44444f', lineHeight: '1.7', marginBottom: '14px'}}>
+                Configure API keys for auto-posting features. Stored locally in your browser only.
               </div>
-              <div className="api-label"><span className="cdot"></span>Reddit Client ID</div>
-              <div className="api-row"><input placeholder="Client ID" /><button className="api-save">SAVE</button></div>
-              <div className="api-row" style={{margin: '4px 0'}}><input placeholder="Client Secret" type="password" /></div>
-              <div className="api-row" style={{marginBottom: '4px'}}><input placeholder="Reddit Username" /></div>
-              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Reddit Password" type="password" /></div>
-              <div className="api-label"><span className="cdot"></span>Twitter/X Bearer Token</div>
-              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Bearer Token (developer.twitter.com)" type="password" /><button className="api-save">SAVE</button></div>
+              <div className="api-label"><span className="cdot"></span>Reddit Client ID (Beast+ tier)</div>
+              <div className="api-row"><input placeholder="Client ID" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /><button className="api-save" disabled={currentTier !== 'beast' && currentTier !== 'admin'}>SAVE</button></div>
+              <div className="api-row" style={{margin: '4px 0'}}><input placeholder="Client Secret" type="password" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /></div>
+              <div className="api-row" style={{marginBottom: '4px'}}><input placeholder="Reddit Username" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /></div>
+              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Reddit Password" type="password" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /></div>
+              <div className="api-label"><span className="cdot"></span>Twitter/X Bearer Token (Pro+ tier)</div>
+              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Bearer Token (developer.twitter.com)" type="password" disabled={currentTier === 'free'} /><button className="api-save" disabled={currentTier === 'free'}>SAVE</button></div>
               <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.62rem', color: '#44444f', background: '#0f0f13', border: '1px solid #1c1c24', borderRadius: '3px', padding: '10px', lineHeight: '1.7'}}>
-                🤖 <span style={{color: '#b8ff00'}}>Reddit auto-post</span> requires Script App credentials above.<br />
-                ⚡ All other platforms use one-click intent URLs — no API key needed.
+                🤖 <span style={{color: '#b8ff00'}}>Reddit auto-post</span> requires Beast tier or higher.<br />
+                ⚡ <span style={{color: '#ff7700'}}>Twitter/X one-click posting</span> requires Pro tier or higher.
               </div>
-              <button className="alogout">CLOSE</button>
+              <button className="alogout" onClick={closeAdmin}>CLOSE</button>
             </div>
           </div>
         </div>
