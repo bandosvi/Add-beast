@@ -1,9 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
-
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,17 +36,26 @@ Target Subreddits: ${subreddits || 'General'}
 
 Make it optimized for ${platform.name} posting. Keep it concise and engaging.`;
 
-      const message = await anthropic.messages.create({
-        model: 'claude-3-haiku-20240307', // Use cheaper model for demo
-        max_tokens: 1000,
-        messages: [
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
+      const r = await fetch('/api/claude', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-3-haiku-20240307', // Use cheaper model for demo
+          max_tokens: 1000,
+          messages: [
+            {
+              role: 'user',
+              content: prompt,
+            },
+          ],
+        }),
       });
 
+      if (!r.ok) {
+        throw new Error(`Claude API error: ${r.status}`);
+      }
+
+      const message = await r.json();
       const adText = message.content[0].type === 'text' ? message.content[0].text : '';
 
       ads.push({
