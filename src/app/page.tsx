@@ -104,8 +104,8 @@ export default function Home() {
         </p>
         <div className="hero-buttons" style={{ animation: 'fadeInUp 1s ease-in 1.1s both' }}>
           <div style={{ marginBottom: '10px' }}>
-            <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              Try AD BEAST App
+            <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => alert('App access coming soon!')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
+              Try AD BEAST
             </button>
             <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>Access the full ad creation tool</small>
           </div>
@@ -120,6 +120,33 @@ export default function Home() {
               Generate Demo Ads
             </button>
             <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>See sample ads for your product</small>
+          </div>
+        </div>
+      </section>
+
+      {/* Who is this for? */}
+      <section style={{ padding: '60px 20px', background: '#000', animation: 'fadeIn 1s ease-in 0.3s both' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '40px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Who is this for?</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
+            <div style={{ padding: '30px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.2)' }}>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#fff' }}>Freelancers & Solo Entrepreneurs</h3>
+              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
+                You're great at your craft but marketing eats up your time. AD BEAST handles the ad creation so you can focus on what you love.
+              </p>
+            </div>
+            <div style={{ padding: '30px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.2)' }}>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#fff' }}>Social Media Advertisers</h3>
+              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
+                Tired of writing the same ad in 8 different ways? Get perfectly optimized copy for every platform with one click.
+              </p>
+            </div>
+            <div style={{ padding: '30px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.2)' }}>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#fff' }}>Reddit Power Users</h3>
+              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
+                Stop wasting hours finding subreddits and getting banned. Our AI scouts safe communities and generates subreddit-specific ads that convert.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -176,7 +203,7 @@ export default function Home() {
       <section className="section-padding" style={{ padding: '80px 20px', background: '#000', borderTop: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.2s both' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Choose Your Plan</h2>
-          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', maxWidth: '900px', margin: '0 auto' }}>
+          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ border: '2px solid #333', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', backdropFilter: 'blur(10px)', animation: 'fadeInUp 1s ease-in 0.4s both' }}>
               <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Free</h3>
               <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '30px', color: '#fff' }}>$0</p>
@@ -192,8 +219,9 @@ export default function Home() {
             </div>
             <div style={{ border: '2px solid #ff4000', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(255,64,0,0.1) 0%, rgba(255,64,0,0.05) 100%)', position: 'relative', animation: 'fadeInUp 1s ease-in 0.6s both' }}>
               <div style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', background: '#ff4000', color: '#000', padding: '5px 15px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 'bold' }}>MOST POPULAR</div>
-              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Pro</h3>
-              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '30px', color: '#fff' }}>$19<span style={{ fontSize: '1.5rem', color: '#ccc' }}>/mo</span></p>
+              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Pro Monthly</h3>
+              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>$19<span style={{ fontSize: '1.5rem', color: '#ccc' }}>/mo</span></p>
+              <p style={{ fontSize: '1rem', color: '#888', marginBottom: '20px' }}>or $180/year (save $48)</p>
               <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '1rem', lineHeight: '2' }}>
                 <li>✓ Unlimited campaigns</li>
                 <li>✓ All 8 platforms</li>
@@ -203,6 +231,19 @@ export default function Home() {
               </ul>
               <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
                 Upgrade to Pro
+              </button>
+            </div>
+            <div style={{ border: '2px solid #4a9eff', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(74,158,255,0.1) 0%, rgba(74,158,255,0.05) 100%)', animation: 'fadeInUp 1s ease-in 0.8s both' }}>
+              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Pro Yearly</h3>
+              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>$180<span style={{ fontSize: '1.5rem', color: '#ccc' }}>/year</span></p>
+              <p style={{ fontSize: '1rem', color: '#4a9eff', marginBottom: '20px', fontWeight: 'bold' }}>Save $48 vs monthly!</p>
+              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '1rem', lineHeight: '2' }}>
+                <li>✓ Everything in Pro Monthly</li>
+                <li>✓ 2 months free annually</li>
+                <li>✓ Priority support</li>
+              </ul>
+              <button style={{ background: 'linear-gradient(45deg, #4a9eff, #6bb6ff)', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(74,158,255,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
+                Get Yearly Pro
               </button>
             </div>
           </div>
@@ -336,7 +377,7 @@ export default function Home() {
               </ol>
             </div>
             <div style={{ marginBottom: '30px' }}>
-              <a href="#" style={{ color: '#ff4000', textDecoration: 'none', fontWeight: 'bold' }}>📄 View Full Report (PDF Download)</a>
+              <a href="#" style={{ color: '#ff4000', textDecoration: 'none', fontWeight: 'bold' }}>📄 View Full Report</a>
             </div>
             <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '12px 24px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => setShowCampaign(false)}>
               Close Report
