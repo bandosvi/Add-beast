@@ -5,93 +5,108 @@ import { useState } from "react";
 export default function Home() {
   const [showCampaign, setShowCampaign] = useState(false);
 
+  const animations = `
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `;
+
   return (
     <div style={{ fontFamily: 'Inter, sans-serif', background: '#000', color: '#fff', minHeight: '100vh' }}>
+      <style dangerouslySetInnerHTML={{ __html: animations }} />
       {/* Navigation */}
-      <nav style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <nav style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', animation: 'fadeIn 1s ease-in' }}>
         <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-          AD <span style={{ color: '#ff4000' }}>BEAST</span>
+          🦁 AD <span style={{ color: '#ff4000' }}>BEAST</span>
         </div>
         <div>
-          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', marginRight: '10px' }}>
+          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.borderColor = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.borderColor = '#333'}>
             Login
           </button>
-          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px' }}>
+          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
             Get Started
           </button>
         </div>
       </nav>
 
       {/* Hero */}
-      <section style={{ textAlign: 'center', padding: '100px 20px' }}>
-        <h1 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '20px' }}>
-          Autonomous Ad Engine
+      <section style={{ textAlign: 'center', padding: '60px 20px', animation: 'fadeIn 1s ease-in 0.2s both' }}>
+        <p style={{ fontFamily: 'var(--font-dancing-script)', fontSize: '1.5rem', color: '#ccc', marginBottom: '10px' }}>
+          Leon-Link presents
+        </p>
+        <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '20px' }}>
+          AD <span style={{ color: '#ff4000' }}>BEAST</span> - Autonomous Ad Engine
         </h1>
-        <p style={{ fontSize: '1.2rem', color: '#ccc', maxWidth: '600px', margin: '0 auto 40px' }}>
+        <p style={{ fontSize: '1.1rem', color: '#ccc', maxWidth: '600px', margin: '0 auto 30px' }}>
           Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.
         </p>
         <div>
-          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '4px', fontSize: '1rem', marginRight: '10px' }}>
+          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
             Start Creating Ads
           </button>
-          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '15px 30px', borderRadius: '4px', fontSize: '1rem' }} onClick={() => setShowCampaign(true)}>
+          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '12px 24px', borderRadius: '4px', fontSize: '1rem', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowCampaign(true)} onMouseOver={(e) => (e.target as HTMLElement).style.borderColor = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.borderColor = '#333'}>
             View Demo Campaign
           </button>
         </div>
       </section>
 
       {/* Features */}
-      <section style={{ padding: '80px 20px', background: '#111' }}>
+      <section style={{ padding: '60px 20px', background: '#111', animation: 'fadeIn 1s ease-in 0.4s both' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '40px' }}>Features</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔍</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Smart Subreddit Scouting</h3>
-              <p style={{ color: '#ccc' }}>Analyzes subreddits for promo rules, fit score, and best posting times.</p>
+          <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '30px' }}>Features</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
+            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.6s both' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🔍</div>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Smart Subreddit Scouting</h3>
+              <p style={{ color: '#ccc', fontSize: '0.95rem' }}>Analyzes subreddits for promo rules, fit score, and best posting times.</p>
             </div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🎯</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Platform Optimization</h3>
-              <p style={{ color: '#ccc' }}>Tailored copy using PAS, AIDA, HSO, and BAB frameworks for each platform.</p>
+            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.8s both' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🎯</div>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Platform Optimization</h3>
+              <p style={{ color: '#ccc', fontSize: '0.95rem' }}>Tailored copy using PAS, AIDA, HSO, and BAB frameworks for each platform.</p>
             </div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🤖</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Auto-Posting</h3>
-              <p style={{ color: '#ccc' }}>One-click or fully autonomous posting to Reddit, Twitter, LinkedIn, and more.</p>
+            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 1s both' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🤖</div>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Auto-Posting</h3>
+              <p style={{ color: '#ccc', fontSize: '0.95rem' }}>One-click or fully autonomous posting to Reddit, Twitter, LinkedIn, and more.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Pricing */}
-      <section style={{ padding: '80px 20px' }}>
+      <section style={{ padding: '60px 20px', animation: 'fadeIn 1s ease-in 0.2s both' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Pricing</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px', maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ border: '1px solid #333', borderRadius: '8px', padding: '40px 20px' }}>
-              <h3 style={{ fontSize: '2rem', marginBottom: '10px' }}>Free</h3>
-              <p style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '20px' }}>$0</p>
-              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc' }}>
+          <h2 style={{ fontSize: '2rem', marginBottom: '30px' }}>Pricing</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', maxWidth: '700px', margin: '0 auto' }}>
+            <div style={{ border: '1px solid #333', borderRadius: '8px', padding: '30px 20px', animation: 'fadeInUp 1s ease-in 0.4s both' }}>
+              <h3 style={{ fontSize: '1.8rem', marginBottom: '10px' }}>Free</h3>
+              <p style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '20px' }}>$0</p>
+              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '0.9rem' }}>
                 <li>✓ 2 campaigns/month</li>
                 <li>✓ Basic platforms</li>
                 <li>✓ Copy to clipboard</li>
                 <li>✓ Reddit Scout (3 subs)</li>
               </ul>
-              <button style={{ background: '#333', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '4px', marginTop: '20px', width: '100%' }}>
+              <button style={{ background: '#333', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '4px', marginTop: '20px', width: '100%', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#555'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#333'}>
                 Get Started
               </button>
             </div>
-            <div style={{ border: '1px solid #ff4000', borderRadius: '8px', padding: '40px 20px', background: '#ff400005' }}>
-              <h3 style={{ fontSize: '2rem', marginBottom: '10px' }}>Pro</h3>
-              <p style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '20px' }}>$19<span style={{ fontSize: '1rem' }}>/mo</span></p>
-              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc' }}>
+            <div style={{ border: '1px solid #ff4000', borderRadius: '8px', padding: '30px 20px', background: '#ff400005', animation: 'fadeInUp 1s ease-in 0.6s both' }}>
+              <h3 style={{ fontSize: '1.8rem', marginBottom: '10px' }}>Pro</h3>
+              <p style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '20px' }}>$19<span style={{ fontSize: '1rem' }}>/mo</span></p>
+              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '0.9rem' }}>
                 <li>✓ Unlimited campaigns</li>
                 <li>✓ All 8 platforms</li>
                 <li>✓ One-click posting</li>
                 <li>✓ Advanced Scout Mode</li>
               </ul>
-              <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '10px 20px', borderRadius: '4px', marginTop: '20px', width: '100%' }}>
+              <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '10px 20px', borderRadius: '4px', marginTop: '20px', width: '100%', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
                 Upgrade to Pro
               </button>
             </div>
