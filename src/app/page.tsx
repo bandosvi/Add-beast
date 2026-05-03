@@ -26,9 +26,9 @@ export default function Home() {
 
   return (
       <div style={{ fontFamily: 'Barlow, sans-serif', background: '#07070a', color: '#c4c4d4', minHeight: '100vh' }}>
-      <header style={{ textAlign: 'center', marginBottom: '40px', padding: '20px' }}>
-        <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>
-          AD <span style={{ color: '#ff4000' }}>BEAST</span> — Autonomous Ad Engine
+      <header style={{ textAlign: 'center', marginBottom: '40px', padding: '20px 20px 0', width: '100%', boxSizing: 'border-box', background: '#07070a' }}>
+        <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>
+          AD <span style={{ color: '#ff4000', fontWeight: 'bold' }}>BEAST</span> - Autonomous Ad Engine
         </h1>
         <p style={{ fontSize: '1.2rem', color: '#c4c4d4', maxWidth: '600px', margin: '0 auto' }}>
           Stop wasting hours writing ads. Start getting eyes on your product.
