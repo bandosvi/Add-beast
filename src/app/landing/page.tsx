@@ -6,7 +6,7 @@ export default function Landing() {
   const [showCampaign, setShowCampaign] = useState(false);
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', background: '#000', color: '#fff', minHeight: '100vh', lineHeight: '1.6' }}>
+    <div style={{ fontFamily: 'Inter, sans-serif', background: '#fff', color: '#000 !important', minHeight: '100vh', lineHeight: '1.6' }}>
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeIn {
           from { opacity: 0; }
