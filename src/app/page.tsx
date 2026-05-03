@@ -73,15 +73,10 @@ export default function Home() {
         }
       ` }} />
       <nav className="nav" style={{ padding: '20px 40px', display: 'flex', justifyContent: 'center', alignItems: 'center', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
           <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🦑</div>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🦁</div>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🐉</div>
           <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))', transform: 'scale(1.2)' }}>🐺</div>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🐍</div>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🐻</div>
           <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🐯</div>
-          <div className="monster" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 20px rgba(255,64,0,0.8))' }}>🦅</div>
         </div>
       </nav>
 
@@ -98,7 +93,7 @@ export default function Home() {
         </p>
         <div className="hero-buttons" style={{ animation: 'fadeInUp 1s ease-in 1.1s both' }}>
           <div style={{ marginBottom: '10px' }}>
-            <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => window.location.href = '/app'} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
+            <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => alert('App coming soon! Try the demo below.')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
               Try AD BEAST
             </button>
             <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>Access the full ad creation tool</small>
@@ -124,10 +119,10 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', marginBottom: '40px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Who is this for?</h2>
           <div style={{ marginBottom: '40px' }}>
             <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.2rem', color: '#fff', lineHeight: '2', textAlign: 'left', maxWidth: '800px', margin: '0 auto' }}>
-              <li>🔥 <strong>Freelancers</strong> (we know you don't have time for this marketing BS)</li>
-              <li>🔧 <strong>Mechanics</strong> (backyard mechanics invited! No fancy garage required)</li>
-              <li>💼 <strong>Entrepreneurs</strong> (from local mom-and-pop shops to Grandma Sally slanging homemade cookie dough empires)</li>
-              <li>🏆 <strong>Coaches or anyone selling classes online</strong> (OnlyFans models, we see you lurking!)</li>
+              <li><strong>Freelancers</strong> (we know you don't have time for this marketing BS)</li>
+              <li><strong>Mechanics</strong> (backyard mechanics invited! No fancy garage required)</li>
+              <li><strong>Entrepreneurs</strong> (from local mom-and-pop shops to Grandma Sally slanging homemade cookie dough empires)</li>
+              <li><strong>Coaches or anyone selling classes online</strong> (OnlyFans models, we see you lurking!)</li>
             </ul>
           </div>
           <p style={{ fontSize: '1.1rem', color: '#ccc', maxWidth: '900px', margin: '0 auto 20px', lineHeight: '1.7' }}>
@@ -366,7 +361,44 @@ export default function Home() {
               </ol>
             </div>
             <div style={{ marginBottom: '30px' }}>
-              <a href="#" style={{ color: '#ff4000', textDecoration: 'none', fontWeight: 'bold' }}>📄 View Full Report</a>
+              <a href={`data:text/plain;charset=utf-8,${encodeURIComponent(`AD BEAST Campaign Report
+
+Reddit Post:
+Title: I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST
+
+Real talk from a fellow builder: I could ship products but marketing was painful. Different tone for every platform, subreddit rules I kept violating, and zero consistency.
+
+So I built AD BEAST — an autonomous ad engine. Paste your product → Scout finds the best subreddits (with promo rules checked) → Generates tailored copy across Reddit, X threads, LinkedIn, cold emails, TikTok scripts — all at once. One-click to post.
+
+Free tier gives you real campaigns to test. Pro is $19/mo.
+Still early. Brutal feedback welcome — what's missing?
+
+Link: https://add-beast.vercel.app/
+
+Twitter Thread:
+1/ Most indie makers build in public. Very few market in public consistently. I fixed that problem in ~30 seconds. Thread 🧵
+2/ Writing ads used to kill my momentum. Different formats, tones, and rules for every platform. I'd do one or two and call it a day.
+3/ AD BEAST changes the game: One product description → Smart scouting of subreddits → Perfectly tailored copy for every major platform simultaneously.
+4/ One-click posting. Or go autonomous. Free tier available. Pro $19/mo. 10% of revenue goes to GiveDirectly (extreme poverty relief). Try it → https://add-beast.vercel.app/
+
+LinkedIn Post:
+Six months ago I was manually rewriting the same offer for Reddit, Twitter, LinkedIn, and email every single week. Burnout was real. Traction was minimal.
+Today I run full campaigns in under a minute.
+AD BEAST lets you input your product once and outputs high-quality, platform-specific marketing assets across every channel — with intelligent subreddit targeting that respects community rules.
+Built for founders who want to spend more time building, less time marketing.
+10% of revenue donated to GiveDirectly.org.
+What's your biggest marketing bottleneck right now?
+
+Cold Email:
+Subject: Stop doing marketing the hard way
+Most founders spend months building and minutes "marketing."
+AD BEAST fixes the imbalance.
+One description → full campaign across Reddit, X, LinkedIn, email & TikTok. Smart scouting included.
+Free to try. $19/mo for unlimited.
+https://add-beast.vercel.app/
+10% → GiveDirectly.org
+
+Generated by AD BEAST AI Engine`)}`} download="ad-beast-campaign-report.txt" style={{ color: '#ff4000', textDecoration: 'none', fontWeight: 'bold' }}>📄 Download Full Report</a>
             </div>
             <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '12px 24px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => setShowCampaign(false)}>
               Close Report
