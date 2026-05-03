@@ -218,7 +218,7 @@ export default function Home() {
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '600px', maxHeight: '80vh', overflowY: 'auto' }}>
             <h2 style={{ marginBottom: '20px' }}>Demo Campaign: Promote AD BEAST</h2>
-            <p style={{ color: '#ccc', marginBottom: '20px' }}>Here's a sample campaign generated for promoting AD BEAST itself.</p>
+            <p style={{ color: '#ccc', marginBottom: '20px' }}>Here&apos;s a sample campaign generated for promoting AD BEAST itself.</p>
             <div style={{ background: '#000', padding: '20px', borderRadius: '4px', marginBottom: '20px' }}>
               <h3>Reddit Post</h3>
               <p><strong>Title:</strong> I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
