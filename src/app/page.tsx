@@ -5,6 +5,8 @@ import { useState } from "react";
 export default function Home() {
   const [showCampaign, setShowCampaign] = useState(false);
   const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   const animations = `
     @keyframes fadeIn {
@@ -22,12 +24,15 @@ export default function Home() {
       <style dangerouslySetInnerHTML={{ __html: animations }} />
       {/* Navigation */}
       <nav style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', animation: 'fadeIn 1s ease-in' }}>
-        <div style={{ fontSize: '2rem' }}>
-          👹
+        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+          🔥 AD <span style={{ color: '#ff4000' }}>BEAST</span> 🔥
         </div>
         <div>
-          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
-            Try AD BEAST
+          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowLogin(true)} onMouseOver={(e) => (e.target as HTMLElement).style.borderColor = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.borderColor = '#333'}>
+            Login
+          </button>
+          <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowSignup(true)} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
+            Sign Up
           </button>
         </div>
       </nav>
@@ -54,7 +59,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section style={{ padding: '60px 20px', background: '#111', animation: 'fadeIn 1s ease-in 0.4s both' }}>
+      <section style={{ padding: '60px 20px', background: '#111', border: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.4s both' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '30px' }}>Features</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
@@ -102,7 +107,7 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section style={{ padding: '60px 20px', animation: 'fadeIn 1s ease-in 0.2s both' }}>
+      <section style={{ padding: '60px 20px', border: '2px solid #ff4000', animation: 'fadeIn 1s ease-in 0.2s both' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '30px' }}>Pricing</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', maxWidth: '700px', margin: '0 auto' }}>
@@ -140,6 +145,73 @@ export default function Home() {
       <footer style={{ padding: '40px 20px', textAlign: 'center', background: '#111', color: '#ccc' }}>
         <p>Built with ❤️ for indie hackers. 10% of revenue goes to GiveDirectly.org.</p>
       </footer>
+
+      {/* Login Modal */}
+      {showLogin && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '400px', width: '90%' }}>
+            <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Login</h2>
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target as HTMLFormElement);
+              const email = formData.get('email') as string;
+              const password = formData.get('password') as string;
+              const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+              });
+              const data = await res.json();
+              if (res.ok) {
+                alert('Login successful');
+                setShowLogin(false);
+                // Redirect or update state
+              } else {
+                alert(data.error);
+              }
+            }}>
+              <input name="email" type="email" placeholder="Email" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
+              <input name="password" type="password" placeholder="Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '20px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
+              <button type="submit" style={{ width: '100%', padding: '10px', background: '#ff4000', border: 'none', borderRadius: '4px', color: '#000', cursor: 'pointer' }}>Login</button>
+            </form>
+            <button style={{ background: 'none', border: 'none', color: '#fff', marginTop: '10px', cursor: 'pointer' }} onClick={() => setShowLogin(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {/* Signup Modal */}
+      {showSignup && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '400px', width: '90%' }}>
+            <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Sign Up</h2>
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target as HTMLFormElement);
+              const name = formData.get('name') as string;
+              const email = formData.get('email') as string;
+              const password = formData.get('password') as string;
+              const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password }),
+              });
+              const data = await res.json();
+              if (res.ok) {
+                alert('Signup successful, please login');
+                setShowSignup(false);
+              } else {
+                alert(data.error);
+              }
+            }}>
+              <input name="name" type="text" placeholder="Name" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
+              <input name="email" type="email" placeholder="Email" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '10px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
+              <input name="password" type="password" placeholder="Password" style={{ display: 'block', width: '100%', padding: '10px', marginBottom: '20px', background: '#222', border: '1px solid #333', borderRadius: '4px', color: '#fff' }} required />
+              <button type="submit" style={{ width: '100%', padding: '10px', background: '#ff4000', border: 'none', borderRadius: '4px', color: '#000', cursor: 'pointer' }}>Sign Up</button>
+            </form>
+            <button style={{ background: 'none', border: 'none', color: '#fff', marginTop: '10px', cursor: 'pointer' }} onClick={() => setShowSignup(false)}>Close</button>
+          </div>
+        </div>
+      )}
 
       {/* Demo Campaign Modal */}
       {showCampaign && (
