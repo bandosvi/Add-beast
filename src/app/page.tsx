@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [showCampaign, setShowCampaign] = useState(false);
+  const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
 
   const animations = `
     @keyframes fadeIn {
@@ -21,15 +22,12 @@ export default function Home() {
       <style dangerouslySetInnerHTML={{ __html: animations }} />
       {/* Navigation */}
       <nav style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', animation: 'fadeIn 1s ease-in' }}>
-        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-          🦁 AD <span style={{ color: '#ff4000' }}>BEAST</span>
+        <div style={{ fontSize: '2rem' }}>
+          👹
         </div>
         <div>
-          <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.borderColor = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.borderColor = '#333'}>
-            Login
-          </button>
           <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
-            Get Started
+            Try AD BEAST
           </button>
         </div>
       </nav>
@@ -60,20 +58,41 @@ export default function Home() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '30px' }}>Features</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
-            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.6s both' }}>
+            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.6s both', cursor: 'pointer' }} onClick={() => setExpandedFeature(expandedFeature === 'scout' ? null : 'scout')}>
               <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🔍</div>
               <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Smart Subreddit Scouting</h3>
               <p style={{ color: '#ccc', fontSize: '0.95rem' }}>Analyzes subreddits for promo rules, fit score, and best posting times.</p>
+              {expandedFeature === 'scout' && (
+                <div style={{ marginTop: '15px', padding: '15px', background: '#222', borderRadius: '4px' }}>
+                  <p style={{ color: '#fff', fontSize: '0.9rem' }}>
+                    Benefits: Increases posting success by 300%, avoids bans, targets ideal audiences, saves hours of research.
+                  </p>
+                </div>
+              )}
             </div>
-            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.8s both' }}>
+            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 0.8s both', cursor: 'pointer' }} onClick={() => setExpandedFeature(expandedFeature === 'optimize' ? null : 'optimize')}>
               <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🎯</div>
               <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Platform Optimization</h3>
               <p style={{ color: '#ccc', fontSize: '0.95rem' }}>Tailored copy using PAS, AIDA, HSO, and BAB frameworks for each platform.</p>
+              {expandedFeature === 'optimize' && (
+                <div style={{ marginTop: '15px', padding: '15px', background: '#222', borderRadius: '4px' }}>
+                  <p style={{ color: '#fff', fontSize: '0.9rem' }}>
+                    Benefits: 5x higher engagement, platform-specific tone, proven copywriting frameworks, automated optimization.
+                  </p>
+                </div>
+              )}
             </div>
-            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 1s both' }}>
+            <div style={{ textAlign: 'center', animation: 'fadeInUp 1s ease-in 1s both', cursor: 'pointer' }} onClick={() => setExpandedFeature(expandedFeature === 'auto' ? null : 'auto')}>
               <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🤖</div>
               <h3 style={{ fontSize: '1.3rem', marginBottom: '10px' }}>Auto-Posting</h3>
               <p style={{ color: '#ccc', fontSize: '0.95rem' }}>One-click or fully autonomous posting to Reddit, Twitter, LinkedIn, and more.</p>
+              {expandedFeature === 'auto' && (
+                <div style={{ marginTop: '15px', padding: '15px', background: '#222', borderRadius: '4px' }}>
+                  <p style={{ color: '#fff', fontSize: '0.9rem' }}>
+                    Benefits: Saves 10+ hours/week, 24/7 posting, API integrations, zero manual work.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -129,6 +148,9 @@ export default function Home() {
               <h3>Reddit Post</h3>
               <p><strong>Title:</strong> I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
               <p>Real talk from a fellow builder... [content]</p>
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <a href="#" style={{ color: '#ff4000', textDecoration: 'none' }}>📄 View Full Report</a>
             </div>
             <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '10px 20px', borderRadius: '4px' }} onClick={() => setShowCampaign(false)}>
               Close
