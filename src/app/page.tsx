@@ -16,6 +16,24 @@ export default function Home() {
   const openScout = () => setShowScout(true);
   const closeScout = () => setShowScout(false);
 
+  const handlePurchase = async (tier: string) => {
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Error: ' + data.error);
+      }
+    } catch (error) {
+      alert('Purchase failed');
+    }
+  };
+
   return (
     <>
       <header>
@@ -185,7 +203,7 @@ export default function Home() {
                   <li className="y">Per-sub tailored posts</li>
                   <li>🤖 API auto-posting</li>
                 </ul>
-                <button className="pcbtn btn-pro">GET PRO — $19/mo</button>
+                <button className="pcbtn btn-pro" onClick={() => handlePurchase('pro')}>GET PRO — $19/mo</button>
               </div>
               <div className="pc" style={{gridColumn: '1/-1'}}>
                 <div className="pc-name" style={{fontSize: '1.1rem'}}>🔥 Beast Mode</div>
@@ -199,7 +217,7 @@ export default function Home() {
                   <li className="y">Rule analysis per subreddit</li>
                   <li className="y">Priority AI generation</li>
                 </ul>
-                <button className="pcbtn btn-beast" style={{marginTop: '14px'}}>BEAST MODE — $49/mo</button>
+                <button className="pcbtn btn-beast" style={{marginTop: '14px'}} onClick={() => handlePurchase('beast')}>BEAST MODE — $49/mo</button>
               </div>
             </div>
             <div className="price-note">Cancel anytime · <b>10% of revenue → GiveDirectly.org</b><br />Admin or promo code? <a href="#" onClick={() => { closePricing(); openAdmin(); }}>Enter here →</a></div>
