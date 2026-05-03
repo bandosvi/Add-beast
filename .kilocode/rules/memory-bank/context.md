@@ -1,10 +1,10 @@
-# Active Context: Next.js Starter Template
+# Active Context: AD BEAST — Autonomous Ad Engine
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Project Status**: 🚧 In Development
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+Transforming the Next.js starter into AD BEAST, an AI-powered autonomous advertising engine that generates platform-optimized ads using proven frameworks, scouts Reddit subreddits, and posts automatically.
 
 ## Recently Completed
 
@@ -14,59 +14,48 @@ The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. I
 - [x] ESLint configuration
 - [x] Memory bank documentation
 - [x] Recipe system for common features
+- [x] Added "Hello World" to page for testing
+- [x] Created implementation plan for AD BEAST features
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
+| `src/app/page.tsx` | AD BEAST main page | 🚧 Implementing |
 | `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
+| `src/app/globals.css` | Global styles | 🚧 Adding AD BEAST styles |
+| `src/components/` | React components for AD BEAST | 🚧 Creating |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
 
 ## Current Focus
 
-The template is ready. Next steps depend on user requirements:
+Implementing AD BEAST features:
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+1. Hero section and layout
+2. Header with tier system
+3. Modals (pricing, admin, scout)
+4. Setup form and platform selection
+5. Claude AI integration for ad generation
+6. Reddit auto-posting and Scout mode
+7. Output display with generated ads
 
 ## Quick Start Guide
 
-### To add a new page:
+### Project Goals
 
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
+- AI-powered ad generation for 8+ platforms
+- Reddit Scout mode for subreddit targeting
+- Tiered pricing (Free/Pro/Beast/Admin)
+- One-click and auto-posting capabilities
+- Charity donation integration (10% to GiveDirectly)
 
 ### To add components:
 
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
-
-### To add a database:
-
-Follow `.kilocode/recipes/add-database.md`
+Create in `src/components/` following the established patterns.
 
 ### To add API routes:
 
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
+For Claude integration, Reddit posting, etc.
 
 ## Available Recipes
 
@@ -76,8 +65,8 @@ export async function GET() {
 
 ## Pending Improvements
 
+- [ ] Complete AD BEAST implementation
 - [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
 - [ ] Add testing setup recipe
 
 ## Session History
@@ -85,3 +74,4 @@ export async function GET() {
 | Date | Changes |
 |------|---------|
 | Initial | Template created with base setup |
+| 2026-05-03 | Started AD BEAST implementation |
