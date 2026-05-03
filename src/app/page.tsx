@@ -55,7 +55,7 @@ export default function Home() {
 
       <section style={{ maxWidth: '800px', margin: '0 auto clamp(20px, 5vw, 40px)', textAlign: 'center' }}>
         <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: 'bold', color: '#fff', marginBottom: '20px' }}>
-          UNLEASH THE BEAST
+          UNLEASH THE BEAST!
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '30px' }}>
           <div style={{ background: '#0f0f13', padding: '20px', borderRadius: '8px', border: '1px solid #1c1c24' }}>
