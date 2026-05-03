@@ -24,14 +24,8 @@ export default function Home() {
   const openPricing = () => setShowPricing(true);
   const closePricing = () => setShowPricing(false);
 
-  const openAdmin = () => {
-    console.log('Opening admin modal');
-    setShowAdmin(true);
-  };
-  const closeAdmin = () => {
-    console.log('Closing admin modal');
-    setShowAdmin(false);
-  };
+  const openAdmin = () => setShowAdmin(true);
+  const closeAdmin = () => setShowAdmin(false);
 
   const openScout = () => {
     setShowScout(true);
@@ -641,16 +635,22 @@ export default function Home() {
               <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.63rem', color: '#44444f', lineHeight: '1.7', marginBottom: '14px'}}>
                 Configure API keys for auto-posting features. Stored locally in your browser only.
               </div>
-              <div className="api-label"><span className="cdot"></span>Reddit Client ID (Beast+ tier)</div>
-              <div className="api-row"><input placeholder="Client ID" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /><button className="api-save" disabled={currentTier !== 'beast' && currentTier !== 'admin'}>SAVE</button></div>
-              <div className="api-row" style={{margin: '4px 0'}}><input placeholder="Client Secret" type="password" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /></div>
-              <div className="api-row" style={{marginBottom: '4px'}}><input placeholder="Reddit Username" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /></div>
-              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Reddit Password" type="password" disabled={currentTier !== 'beast' && currentTier !== 'admin'} /></div>
-              <div className="api-label"><span className="cdot"></span>Twitter/X Bearer Token (Pro+ tier)</div>
-              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Bearer Token (developer.twitter.com)" type="password" disabled={currentTier === 'free'} /><button className="api-save" disabled={currentTier === 'free'}>SAVE</button></div>
+              <div className="api-label"><span className="cdot"></span>Reddit Client ID (for testing)</div>
+              <div className="api-row"><input placeholder="Client ID" /><button className="api-save">SAVE</button></div>
+              <div className="api-row" style={{margin: '4px 0'}}><input placeholder="Client Secret" type="password" /></div>
+              <div className="api-row" style={{marginBottom: '4px'}}><input placeholder="Reddit Username" /></div>
+              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Reddit Password" type="password" /></div>
+              <div className="api-label"><span className="cdot"></span>Twitter/X Bearer Token (for testing)</div>
+              <div className="api-row" style={{marginBottom: '14px'}}><input placeholder="Bearer Token (developer.twitter.com)" type="password" /><button className="api-save">SAVE</button></div>
+              {currentTier === 'free' && (
+                <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.65rem', color: '#ff4000', background: 'rgba(255,64,0,.05)', border: '1px solid rgba(255,64,0,.2)', borderRadius: '3px', padding: '10px', marginBottom: '14px'}}>
+                  🚫 <b>API integrations require Pro tier or higher.</b> Upgrade to access Reddit auto-posting and Twitter one-click posting features.
+                </div>
+              )}
               <div style={{fontFamily: 'IBM Plex Mono', fontSize: '.62rem', color: '#44444f', background: '#0f0f13', border: '1px solid #1c1c24', borderRadius: '3px', padding: '10px', lineHeight: '1.7'}}>
                 🤖 <span style={{color: '#b8ff00'}}>Reddit auto-post</span> requires Beast tier or higher.<br />
-                ⚡ <span style={{color: '#ff7700'}}>Twitter/X one-click posting</span> requires Pro tier or higher.
+                ⚡ <span style={{color: '#ff7700'}}>Twitter/X one-click posting</span> requires Pro tier or higher.<br />
+                🔒 All API keys are stored locally in your browser only.
               </div>
               <button className="alogout" onClick={closeAdmin}>CLOSE</button>
             </div>
