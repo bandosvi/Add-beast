@@ -320,11 +320,11 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="hero">
-        <div className="eyebrow">AI ADVERTISING ENGINE — AUTONOMOUS</div>
-        <h1>UNLEASH <span className="blaze">THE BEAST</span></h1>
-        <p>Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.</p>
-      </div>
+        <div className="hero">
+          <div className="eyebrow">AI ADVERTISING ENGINE — AUTONOMOUS</div>
+          <h1>UNLEASH <span className="blaze">THE BEAST</span></h1>
+          <p style={{ color: '#ffffff', fontWeight: 'bold' }}>Generate platform-optimized ads using proven frameworks. Scout the best subreddits intelligently. Post automatically or one-click.</p>
+        </div>
 
       <div className="charity">
         <div className="c-strip">💚 10% of revenue goes to <b>GiveDirectly.org</b> — direct cash to people in extreme poverty. Rated #1 by GiveWell.</div>
