@@ -62,7 +62,7 @@ export default function Landing() {
           <p style={{ fontSize: '1.1rem', color: '#ccc', maxWidth: '900px', margin: '0 auto 20px', lineHeight: '1.7' }}>
             Stop wasting Sundays writing 17 versions of the same ad.
           </p>
-          <p style={{ fontSize: '1.1rem', color: '#ccc', maxWidth: '900px', margin: '0 auto 30px', lineHeight: '1.7' }}>
+          <p style={{ fontSize: '1.1rem', color: '#fff', maxWidth: '900px', margin: '0 auto 30px', lineHeight: '1.7' }}>
             <strong>AD BEAST</strong> handles the pain:
           </p>
           <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.2rem', color: '#fff', lineHeight: '2', textAlign: 'left', maxWidth: '800px', margin: '0 auto 30px' }}>
@@ -99,10 +99,10 @@ export default function Landing() {
               Create Your First Campaign
             </button>
           </div>
-          <p style={{ fontSize: '1rem', color: '#ccc' }}>
+          <p style={{ fontSize: '1rem', color: '#fff' }}>
             <strong>Current Free Campaigns:</strong> 0 / 2
           </p>
-          <p style={{ fontSize: '1rem', color: '#ccc', marginTop: '20px' }}>
+          <p style={{ fontSize: '1rem', color: '#fff', marginTop: '20px' }}>
             <strong>Supported Platforms:</strong> 🔴 Reddit • 𝕏 Twitter/X • 🧵 Threads • 📘 Facebook • 📸 Instagram • 💼 LinkedIn • 🎵 TikTok • 📧 Cold Email
           </p>
         </div>
@@ -158,7 +158,7 @@ export default function Landing() {
           <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '18px 36px', borderRadius: '8px', fontSize: '1.2rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => window.location.href = '/'} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
             UNLEASH THE BEAST 🔥
           </button>
-          <p style={{ fontSize: '0.9rem', color: '#888', marginTop: '20px' }}>
+          <p style={{ fontSize: '0.9rem', color: '#ccc', marginTop: '20px' }}>
             <em>From homemade cookies to premium content — we help the right audience discover you.</em>
           </p>
         </div>
@@ -167,9 +167,9 @@ export default function Landing() {
       <footer style={{ padding: '40px 20px', textAlign: 'center', background: 'linear-gradient(135deg, #111 0%, #000 100%)', color: '#ccc', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-            <a href="/privacy" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Privacy</a>
-            <a href="/terms" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Terms</a>
-            <a href="/support" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Support</a>
+            <a href="/privacy" style={{ color: '#fff', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#fff'}>Privacy</a>
+            <a href="/terms" style={{ color: '#fff', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#fff'}>Terms</a>
+            <a href="/support" style={{ color: '#fff', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#fff'}>Support</a>
           </div>
         </div>
       </footer>
@@ -179,11 +179,11 @@ export default function Landing() {
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ background: '#111', padding: '40px', borderRadius: '8px', maxWidth: '700px', maxHeight: '80vh', overflowY: 'auto', boxShadow: '0 0 50px rgba(255,64,0,0.3)' }}>
             <h2 style={{ marginBottom: '20px', color: '#ff4000' }}>🔥 Campaign Report Generated</h2>
-            <p style={{ color: '#ccc', marginBottom: '30px' }}>The Beast has analyzed your product and generated optimized ads for multiple platforms.</p>
+            <p style={{ color: '#fff', marginBottom: '30px' }}>The Beast has analyzed your product and generated optimized ads for multiple platforms.</p>
             <div style={{ background: '#000', padding: '20px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #ff4000' }}>
               <h3 style={{ color: '#ff4000', marginBottom: '15px' }}>📍 Reddit — r/indiehackers</h3>
               <p style={{ fontWeight: 'bold', color: '#fff', marginBottom: '10px' }}>Title: I got tired of 3-hour ad writing sessions that went nowhere, so I built AD BEAST</p>
-              <p style={{ color: '#ccc', lineHeight: '1.6' }}>
+              <p style={{ color: '#fff', lineHeight: '1.6' }}>
                 Real talk from a fellow builder: I could ship products but marketing was painful. Different tone for every platform, subreddit rules I kept violating, and zero consistency.<br />
                 So I built AD BEAST — an autonomous ad engine. Paste your product → Scout finds the best subreddits (with promo rules checked) → Generates tailored copy across Reddit, X threads, LinkedIn, cold emails, TikTok scripts — all at once. One-click to post.<br />
                 Free tier gives you real campaigns to test. Pro is $19/mo.<br />
@@ -193,7 +193,7 @@ export default function Landing() {
             </div>
             <div style={{ background: '#000', padding: '20px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #4a9eff' }}>
               <h3 style={{ color: '#4a9eff', marginBottom: '15px' }}>🧵 Twitter Thread</h3>
-              <ol style={{ color: '#ccc', lineHeight: '1.6' }}>
+              <ol style={{ color: '#fff', lineHeight: '1.6' }}>
                 <li>1/ Most indie makers build in public. Very few market in public consistently. I fixed that problem in ~30 seconds. Thread 🧵</li>
                 <li>2/ Writing ads used to kill my momentum. Different formats, tones, and rules for every platform. I&apos;d do one or two and call it a day.</li>
                 <li>3/ AD BEAST changes the game: One product description → Smart scouting of subreddits → Perfectly tailored copy for every major platform simultaneously.</li>

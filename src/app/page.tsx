@@ -106,7 +106,7 @@ export default function Home() {
       <style dangerouslySetInnerHTML={{ __html: `
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
-        body{font-family:'Barlow',sans-serif;background:#07070a;color:#c4c4d4;min-height:100vh;overflow-x:hidden}
+        body{font-family:'Barlow',sans-serif;background:#07070a;color:#ffffff;min-height:100vh;overflow-x:hidden}
         body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,64,0,.011) 3px,rgba(255,64,0,.011) 4px);pointer-events:none;z-index:9999}
 
         @keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
