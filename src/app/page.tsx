@@ -37,10 +37,16 @@ export default function Home() {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes iconBounce {
+          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+          40% { transform: translateY(-10px); }
+          60% { transform: translateY(-5px); }
+        }
+        .feature-icon { animation: iconBounce 2s infinite; }
   `;
 
   return (
@@ -66,28 +72,9 @@ export default function Home() {
           .monster { font-size: 2rem !important; }
         }
       ` }} />
-      <nav className="nav" style={{ padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div className="monster" style={{ fontSize: '3rem', cursor: 'pointer' }}>
-          🦑
-        </div>
-        <div className="nav-buttons" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-          {user ? (
-            <>
-              <span>Welcome, {user.name}</span>
-              <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <button style={{ background: 'none', border: '1px solid #333', color: '#fff', padding: '8px 16px', borderRadius: '4px', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowLogin(true)} onMouseOver={(e) => (e.target as HTMLElement).style.borderColor = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.borderColor = '#333'}>
-                Login
-              </button>
-              <button style={{ background: '#ff4000', border: 'none', color: '#000', padding: '8px 16px', borderRadius: '4px', transition: 'all 0.3s', cursor: 'pointer' }} onClick={() => setShowSignup(true)} onMouseOver={(e) => (e.target as HTMLElement).style.background = '#cc3300'} onMouseOut={(e) => (e.target as HTMLElement).style.background = '#ff4000'}>
-                Sign Up
-              </button>
-            </>
-          )}
+      <nav className="nav" style={{ padding: '20px 40px', display: 'flex', justifyContent: 'center', alignItems: 'center', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+        <div style={{ fontSize: '3rem', fontWeight: 'bold', fontFamily: 'var(--font-dancing-script)', color: '#fff', textShadow: '0 0 20px rgba(255,64,0,0.5)' }}>
+          AD BEAST
         </div>
       </nav>
 
@@ -104,7 +91,7 @@ export default function Home() {
         </p>
         <div className="hero-buttons" style={{ animation: 'fadeInUp 1s ease-in 1.1s both' }}>
           <div style={{ marginBottom: '10px' }}>
-            <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => alert('App access coming soon!')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
+            <button style={{ background: 'linear-gradient(45deg, #ff4000, #ff7733)', border: 'none', color: '#000', padding: '14px 28px', borderRadius: '8px', fontSize: '1rem', fontWeight: 'bold', marginRight: '10px', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,64,0,0.3)' }} onClick={() => window.location.href = '/app'} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
               Try AD BEAST
             </button>
             <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>Access the full ad creation tool</small>
@@ -151,7 +138,7 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '50px', background: 'linear-gradient(45deg, #fff, #ff4000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Powerful Features</h2>
           <div className="feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
             <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 0.6s both' }} onClick={() => setExpandedFeature(expandedFeature === 'scout' ? null : 'scout')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🪖</div>
+              <div className="feature-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🪖</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'scout' ? '#ff4000' : '#fff' }}>Smart Subreddit Scouting</h3>
               <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Like a ninja finding the best hideouts, we scout Reddit for promo-friendly subs. Avoids bans like a pro — no more getting shadowbanned for bad vibes!</p>
               <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
@@ -164,7 +151,7 @@ export default function Home() {
               )}
             </div>
             <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 0.8s both' }} onClick={() => setExpandedFeature(expandedFeature === 'optimize' ? null : 'optimize')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🎯</div>
+              <div className="feature-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🎯</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'optimize' ? '#ff4000' : '#fff' }}>Platform Optimization</h3>
               <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Turns your ad into a chameleon — blends perfectly on Twitter threads, LinkedIn posts, or Reddit. Speaks the local lingo like a native!</p>
               <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
@@ -177,7 +164,7 @@ export default function Home() {
               )}
             </div>
             <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.05)', padding: '40px 20px', borderRadius: '12px', border: '1px solid rgba(255,64,0,0.3)', transition: 'all 0.3s', cursor: 'pointer', animation: 'fadeInUp 1s ease-in 1s both' }} onClick={() => setExpandedFeature(expandedFeature === 'auto' ? null : 'auto')} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-5px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🤖</div>
+              <div className="feature-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🤖</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: expandedFeature === 'auto' ? '#ff4000' : '#fff' }}>Auto-Posting</h3>
               <p style={{ color: '#ccc', fontSize: '1rem', lineHeight: '1.6' }}>Hit send once, and watch your ads deploy like a swarm of bees to every platform. Sleep soundly while the beast does the heavy lifting!</p>
               <p style={{ color: '#ff4000', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>Click to expand</p>
@@ -228,16 +215,17 @@ export default function Home() {
               </button>
             </div>
             <div style={{ border: '2px solid #4a9eff', borderRadius: '16px', padding: '50px 30px', background: 'linear-gradient(135deg, rgba(74,158,255,0.1) 0%, rgba(74,158,255,0.05) 100%)', animation: 'fadeInUp 1s ease-in 0.8s both' }}>
-              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Pro Yearly</h3>
-              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>$180<span style={{ fontSize: '1.5rem', color: '#ccc' }}>/year</span></p>
-              <p style={{ fontSize: '1rem', color: '#4a9eff', marginBottom: '20px', fontWeight: 'bold' }}>Save $48 vs monthly!</p>
+              <h3 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#fff' }}>Elite Plan</h3>
+              <p style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>$165<span style={{ fontSize: '1.5rem', color: '#ccc' }}>/year</span></p>
+              <p style={{ fontSize: '1rem', color: '#4a9eff', marginBottom: '20px', fontWeight: 'bold' }}>Best value - save big!</p>
               <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', color: '#ccc', fontSize: '1rem', lineHeight: '2' }}>
                 <li>✓ Everything in Pro Monthly</li>
                 <li>✓ 2 months free annually</li>
                 <li>✓ Priority support</li>
+                <li>✓ VIP features</li>
               </ul>
               <button style={{ background: 'linear-gradient(45deg, #4a9eff, #6bb6ff)', border: 'none', color: '#000', padding: '15px 30px', borderRadius: '8px', marginTop: '30px', width: '100%', fontSize: '1.1rem', fontWeight: 'bold', transition: 'all 0.3s', cursor: 'pointer', boxShadow: '0 4px 15px rgba(74,158,255,0.3)' }} onMouseOver={(e) => (e.target as HTMLElement).style.transform = 'translateY(-2px)'} onMouseOut={(e) => (e.target as HTMLElement).style.transform = 'translateY(0)'}>
-                Get Yearly Pro
+                Get Elite Plan
               </button>
             </div>
           </div>
@@ -250,9 +238,9 @@ export default function Home() {
           <p style={{ fontSize: '1.2rem', marginBottom: '20px' }}>Built with ❤️ for indie hackers, solopreneurs & side hustlers.</p>
           <p style={{ color: '#ff4000', fontSize: '1rem' }}>10% of revenue goes to GiveDirectly.org — direct cash to people in extreme poverty.</p>
           <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-            <a href="#" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Privacy</a>
-            <a href="#" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Terms</a>
-            <a href="#" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Support</a>
+            <a href="/privacy" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Privacy</a>
+            <a href="/terms" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Terms</a>
+            <a href="/support" style={{ color: '#ccc', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => (e.target as HTMLElement).style.color = '#ff4000'} onMouseOut={(e) => (e.target as HTMLElement).style.color = '#ccc'}>Support</a>
           </div>
         </div>
       </footer>
