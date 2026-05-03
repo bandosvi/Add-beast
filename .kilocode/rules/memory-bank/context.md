@@ -26,6 +26,7 @@ Full AD BEAST implementation is functional. All typecheck and lint checks pass.
 - [x] Made everything free: removed pricing tiers, unlocked all platforms, updated UI to reflect unlimited free access
 - [x] Made hero description bold and white
 - [x] Created /api/claude proxy endpoint and replaced Anthropic SDK with fetch calls
+- [x] Added Vercel static deployment files: index.html, api/claude.js, vercel.json
 
 ## Current Focus
 
@@ -79,3 +80,4 @@ For Claude integration, Reddit posting, etc.
 | 2026-05-03 | Made everything free: removed pricing tiers, unlocked all platforms, updated UI to reflect unlimited free access |
 | 2026-05-03 | Made hero description bold and white |
 | 2026-05-03 | Created /api/claude proxy endpoint and replaced Anthropic SDK with fetch calls |
+| 2026-05-03 | Added Vercel static deployment files: index.html, api/claude.js, vercel.json |
